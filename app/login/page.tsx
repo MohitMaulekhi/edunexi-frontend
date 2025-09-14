@@ -3,14 +3,14 @@
 import type React from "react"
 
 import { useState, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { GraduationCap, Users, Eye, EyeOff } from "lucide-react"
+import { GraduationCap, Eye, EyeOff, Loader2 } from "lucide-react"
+import { useAuth } from "@/contexts/AuthContext"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -19,19 +19,14 @@ export default function LoginPage() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const role = searchParams.get("role") || "student"
+  const { login, user, getDefaultRoute } = useAuth()
 
-  // Pre-fill demo credentials based on role
+  // Redirect if already logged in
   useEffect(() => {
-    if (role === "student") {
-      setEmail("john.doe@student.edu")
-      setPassword("student123")
-    } else {
-      setEmail("admin@university.edu")
-      setPassword("admin123")
+    if (user) {
+      router.push(getDefaultRoute())
     }
-  }, [role])
+  }, [user, router, getDefaultRoute])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -39,20 +34,13 @@ export default function LoginPage() {
     setError("")
 
     try {
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        // Redirect based on user role
-        const redirectUrl = data.user.role === "student" ? "/student" : "/university"
-        router.push(redirectUrl)
+      const result = await login(email, password)
+      
+      if (result.success) {
+        // Redirect to role-based route after successful login
+        router.push(getDefaultRoute())
       } else {
-        setError(data.error || "Login failed")
+        setError(result.error || "Login failed")
       }
     } catch {
       setError("An error occurred. Please try again.")
@@ -61,21 +49,15 @@ export default function LoginPage() {
     }
   }
 
-  const isStudent = role === "student"
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center mb-4">
-            {isStudent ? (
-              <GraduationCap className="h-8 w-8 text-primary mr-2" />
-            ) : (
-              <Users className="h-8 w-8 text-primary mr-2" />
-            )}
-            <CardTitle className="text-2xl">{isStudent ? "Student" : "University"} Login</CardTitle>
+            <GraduationCap className="h-8 w-8 text-primary mr-2" />
+            <CardTitle className="text-2xl">Login</CardTitle>
           </div>
-          <CardDescription>Sign in to access your {isStudent ? "student" : "admin"} dashboard</CardDescription>
+          <CardDescription>Sign in to access your dashboard</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -124,20 +106,10 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-6 text-center space-y-2">
-            <p className="text-sm text-muted-foreground">Switch to {isStudent ? "University" : "Student"} portal?</p>
-            <Link
-              href={`/login?role=${isStudent ? "university" : "student"}`}
-              className="text-sm text-primary hover:underline"
-            >
-              {isStudent ? "University Login" : "Student Login"}
-            </Link>
-          </div>
-
           <div className="mt-4 text-center">
-            <Link href="/" className="text-sm text-muted-foreground hover:underline">
-              ← Back to Home
-            </Link>
+            <p className="text-sm text-muted-foreground">
+              Welcome to the Student Achievement Platform
+            </p>
           </div>
         </CardContent>
       </Card>

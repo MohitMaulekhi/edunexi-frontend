@@ -1,228 +1,341 @@
-import { getSession } from "@/lib/session"
-import { redirect } from "next/navigation"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+"use client"
+
+import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/contexts/AuthContext"
+import ProtectedRoute from "@/components/ProtectedRoute"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { LogoutButton } from "@/components/logout-button"
-import { Users, Search, Download, Eye, Edit, Mail, Phone } from "lucide-react"
-import { studentRecords } from "@/lib/admin-data"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "@/components/ui/table"
+import { 
+  DropdownMenu, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuTrigger 
+} from "@/components/ui/dropdown-menu"
+import { 
+  Users, 
+  Plus, 
+  Search, 
+  MoreVertical, 
+  Edit, 
+  Trash2, 
+  Eye,
+  Filter,
+  ArrowLeft,
+  Loader2
+} from "lucide-react"
 import Link from "next/link"
+import type { StudentSummary, StudentProfile, User } from '@/types'
 
-export default async function StudentsPage() {
-  const session = await getSession()
+interface StudentWithUser extends StudentProfile {
+  user: Pick<User, 'id' | 'username' | 'email'> & {
+    firstName: string
+    lastName: string
+  }
+}
 
-  if (!session || session.user.role !== "university") {
-    redirect("/login?role=university")
+function StudentsPageContent() {
+  const { user, token } = useAuth()
+  const router = useRouter()
+  
+  // Redirect if not university admin
+  if (!user || user.role?.name !== "University Admin") {
+    router.push("/login")
+    return null
   }
 
-  const activeStudents = studentRecords.filter((s) => s.status === "active")
-  const totalAchievements = studentRecords.reduce((sum, s) => sum + s.totalAchievements, 0)
-  const avgCGPA = studentRecords.reduce((sum, s) => sum + s.cgpa, 0) / studentRecords.length
+  const [students, setStudents] = useState<StudentWithUser[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+  const [searchQuery, setSearchQuery] = useState("")
+  const [selectedDepartment, setSelectedDepartment] = useState("")
+
+  // Fetch students
+  useEffect(() => {
+    fetchStudents()
+  }, [token])
+
+  const fetchStudents = async () => {
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'}/api/user-management/students`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setStudents(data)
+      } else {
+        setError('Failed to fetch students')
+      }
+    } catch (error) {
+      console.error('Error fetching students:', error)
+      setError('Network error. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Filter students based on search and department
+  const filteredStudents = students.filter(student => {
+    const matchesSearch = 
+      student.user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      student.user.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      student.user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      student.studentId.toLowerCase().includes(searchQuery.toLowerCase())
+    
+    const matchesDepartment = !selectedDepartment || student.department === selectedDepartment
+
+    return matchesSearch && matchesDepartment
+  })
+
+  // Get unique departments for filter
+  const departments = Array.from(new Set(students.map(s => s.department))).filter(Boolean)
+
+  const handleDeleteStudent = async (studentId: number) => {
+    if (!confirm('Are you sure you want to delete this student? This action cannot be undone.')) {
+      return
+    }
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'}/api/user-management/students/${studentId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+        },
+      })
+
+      if (response.ok) {
+        setStudents(students.filter(s => s.id !== studentId))
+      } else {
+        alert('Failed to delete student')
+      }
+    } catch (error) {
+      console.error('Error deleting student:', error)
+      alert('Network error. Please try again.')
+    }
+  }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-background p-4">
+      <div className="container mx-auto">
+        {/* Header */}
+        <div className="mb-6">
+          <Link href="/university" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Dashboard
+          </Link>
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <Link href="/university" className="text-muted-foreground hover:text-foreground">
-                ← Back to Dashboard
-              </Link>
+            <div className="flex items-center space-x-3">
+              <Users className="h-8 w-8 text-primary" />
               <div>
-                <h1 className="text-2xl font-bold flex items-center">
-                  <Users className="h-6 w-6 mr-2" />
-                  Student Management
-                </h1>
-                <p className="text-muted-foreground">Manage student records and performance</p>
+                <h1 className="text-2xl font-bold">Student Management</h1>
+                <p className="text-muted-foreground">Manage students at {user?.university?.name}</p>
               </div>
             </div>
-            <div className="flex items-center space-x-4">
-              <Badge variant="secondary">{session.user.universityName}</Badge>
-              <LogoutButton />
-            </div>
+            <Link href="/university/students/create">
+              <Button>
+                <Plus className="h-4 w-4 mr-2" />
+                Add Student
+              </Button>
+            </Link>
           </div>
-        </div>
-      </header>
-
-      <div className="container mx-auto px-4 py-8">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{studentRecords.length}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Active Students</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">{activeStudents.length}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Total Achievements</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-primary">{totalAchievements}</div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm font-medium">Average CGPA</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-primary">{avgCGPA.toFixed(1)}</div>
-            </CardContent>
-          </Card>
         </div>
 
-        {/* Filters and Actions */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          <div className="flex-1 flex gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-              <Input placeholder="Search students..." className="pl-10" />
+        {/* Filters and Search */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="flex items-center">
+              <Filter className="h-5 w-5 mr-2" />
+              Filters
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                  <Input
+                    placeholder="Search by name, email, or student ID..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+              <div className="md:w-48">
+                <select
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background"
+                  value={selectedDepartment}
+                  onChange={(e) => setSelectedDepartment(e.target.value)}
+                >
+                  <option value="">All Departments</option>
+                  {departments.map(dept => (
+                    <option key={dept} value={dept}>{dept}</option>
+                  ))}
+                </select>
+              </div>
             </div>
-            <Select>
-              <SelectTrigger className="w-48">
-                <SelectValue placeholder="Filter by department" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Departments</SelectItem>
-                <SelectItem value="cs">Computer Science</SelectItem>
-                <SelectItem value="eng">Engineering</SelectItem>
-                <SelectItem value="business">Business</SelectItem>
-                <SelectItem value="arts">Arts & Sciences</SelectItem>
-              </SelectContent>
-            </Select>
-            <Select>
-              <SelectTrigger className="w-32">
-                <SelectValue placeholder="Year" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Years</SelectItem>
-                <SelectItem value="1">Year 1</SelectItem>
-                <SelectItem value="2">Year 2</SelectItem>
-                <SelectItem value="3">Year 3</SelectItem>
-                <SelectItem value="4">Year 4</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="flex gap-2">
-            <Button>
-              <Download className="h-4 w-4 mr-2" />
-              Export Data
-            </Button>
-            <Button variant="outline">
-              <Mail className="h-4 w-4 mr-2" />
-              Bulk Email
-            </Button>
-          </div>
-        </div>
+          </CardContent>
+        </Card>
 
         {/* Students Table */}
         <Card>
           <CardHeader>
-            <CardTitle>Student Records</CardTitle>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>Students ({filteredStudents.length})</CardTitle>
+                <CardDescription>
+                  {searchQuery || selectedDepartment 
+                    ? `Showing filtered results` 
+                    : `All students in your university`}
+                </CardDescription>
+              </div>
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {studentRecords.map((student) => (
-                <div
-                  key={student.id}
-                  className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50"
-                >
-                  <div className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
-                      <Users className="h-6 w-6 text-primary" />
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-3 mb-1">
-                        <h3 className="font-semibold">{student.name}</h3>
-                        <Badge variant="outline">{student.studentId}</Badge>
-                        <Badge
-                          variant={student.status === "active" ? "default" : "secondary"}
-                          className={student.status === "active" ? "bg-green-500" : ""}
-                        >
-                          {student.status}
-                        </Badge>
-                      </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                        <span>{student.department}</span>
-                        <span>Year {student.year}</span>
-                        <span>{student.email}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-6">
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-primary">{student.cgpa}</div>
-                      <div className="text-xs text-muted-foreground">CGPA</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-primary">{student.totalAchievements}</div>
-                      <div className="text-xs text-muted-foreground">Achievements</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-primary">{student.totalPoints}</div>
-                      <div className="text-xs text-muted-foreground">Points</div>
-                    </div>
-                    <div className="text-center">
-                      <div className="text-lg font-bold text-primary">{student.attendancePercentage}%</div>
-                      <div className="text-xs text-muted-foreground">Attendance</div>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button variant="outline" size="sm">
-                        <Eye className="h-4 w-4 mr-1" />
-                        View
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <Edit className="h-4 w-4 mr-1" />
-                        Edit
-                      </Button>
-                      <Button variant="outline" size="sm">
-                        <Mail className="h-4 w-4 mr-1" />
-                        Contact
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Bulk Actions */}
-        <Card className="mt-6">
-          <CardHeader>
-            <CardTitle>Bulk Actions</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex gap-4">
-              <Button variant="outline">
-                <Mail className="h-4 w-4 mr-2" />
-                Send Notification to All
-              </Button>
-              <Button variant="outline">
-                <Download className="h-4 w-4 mr-2" />
-                Export Selected
-              </Button>
-              <Button variant="outline">
-                <Phone className="h-4 w-4 mr-2" />
-                Generate Contact List
-              </Button>
-            </div>
+            {loading ? (
+              <div className="flex items-center justify-center py-8">
+                <Loader2 className="h-6 w-6 animate-spin mr-2" />
+                Loading students...
+              </div>
+            ) : error ? (
+              <Alert variant="destructive">
+                <AlertDescription>{error}</AlertDescription>
+              </Alert>
+            ) : filteredStudents.length === 0 ? (
+              <div className="text-center py-8">
+                <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-lg font-semibold mb-2">No students found</h3>
+                <p className="text-muted-foreground mb-4">
+                  {searchQuery || selectedDepartment 
+                    ? "Try adjusting your filters" 
+                    : "Get started by adding your first student"}
+                </p>
+                <Link href="/university/students/create">
+                  <Button>
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add First Student
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="overflow-x-auto">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Student Info</TableHead>
+                      <TableHead>Student ID</TableHead>
+                      <TableHead>Department</TableHead>
+                      <TableHead>Year/Semester</TableHead>
+                      <TableHead>CGPA</TableHead>
+                      <TableHead>Contact</TableHead>
+                      <TableHead className="text-right">Actions</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {filteredStudents.map((student) => (
+                      <TableRow key={student.id}>
+                        <TableCell>
+                          <div>
+                            <div className="font-medium">
+                              {student.user.firstName} {student.user.lastName}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {student.user.email}
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <Badge variant="outline">{student.studentId}</Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div>
+                            <div className="font-medium">{student.department}</div>
+                            {student.major && (
+                              <div className="text-sm text-muted-foreground">{student.major}</div>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div>
+                            <div>{student.year}</div>
+                            {student.semester && (
+                              <div className="text-sm text-muted-foreground">
+                                Semester {student.semester}
+                              </div>
+                            )}
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          {student.CGPA ? (
+                            <Badge variant={student.CGPA >= 3.5 ? "default" : student.CGPA >= 3.0 ? "secondary" : "destructive"}>
+                              {student.CGPA.toFixed(2)}
+                            </Badge>
+                          ) : (
+                            <span className="text-muted-foreground">-</span>
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {student.phoneNumber || (
+                            <span className="text-muted-foreground">No phone</span>
+                          )}
+                        </TableCell>
+                        <TableCell className="text-right">
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button variant="ghost" size="sm">
+                                <MoreVertical className="h-4 w-4" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem>
+                                <Eye className="h-4 w-4 mr-2" />
+                                View Profile
+                              </DropdownMenuItem>
+                              <DropdownMenuItem>
+                                <Edit className="h-4 w-4 mr-2" />
+                                Edit Student
+                              </DropdownMenuItem>
+                              <DropdownMenuItem
+                                className="text-red-600"
+                                onClick={() => handleDeleteStudent(student.id)}
+                              >
+                                <Trash2 className="h-4 w-4 mr-2" />
+                                Delete Student
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
     </div>
+  )
+}
+
+export default function StudentsPage() {
+  return (
+    <ProtectedRoute allowedRoles={["university_admin"]}>
+      <StudentsPageContent />
+    </ProtectedRoute>
   )
 }

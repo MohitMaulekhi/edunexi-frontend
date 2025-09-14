@@ -1,9 +1,33 @@
+"use client"
+
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/contexts/AuthContext'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { GraduationCap, Users, Award, BarChart3 } from "lucide-react"
+import { GraduationCap, Users, Award, BarChart3, Loader2 } from "lucide-react"
 
 export default function HomePage() {
+  const { user, loading, getDefaultRoute } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!loading && user) {
+      // Redirect based on user role using the new utility function
+      router.push(getDefaultRoute())
+    }
+  }, [user, loading, router, getDefaultRoute])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    )
+  }
+
+  // Show landing page only if not logged in
   return (
     <div className="min-h-screen bg-gradient-to-br from-background to-muted">
       <div className="container mx-auto px-4 py-16">

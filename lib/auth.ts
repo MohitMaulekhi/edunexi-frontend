@@ -1,60 +1,56 @@
-// Static data for authentication
-export interface User {
-  id: string
-  email: string
-  password: string
-  role: "student" | "university"
-  name: string
-  studentId?: string
-  department?: string
-  universityName?: string
+// Authentication utilities using axios
+import axios from 'axios'
+import type { User, LoginResponse } from '@/types'
+
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+
+// Authentication functions using axios
+export async function loginUser(credentials: { email: string; password: string }): Promise<LoginResponse> {
+  try {
+    const response = await axios.post(`${API_URL}/api/auth/local`, {
+      identifier: credentials.email,
+      password: credentials.password,
+    })
+
+    return {
+      success: true,
+      user: response.data.user,
+      token: response.data.jwt,
+    }
+  } catch (error: any) {
+    return {
+      success: false,
+      error: error.response?.data?.message || 'Login failed',
+    }
+  }
 }
 
-// Mock user database
-export const users: User[] = [
-  // Students
-  {
-    id: "1",
-    email: "john.doe@student.edu",
-    password: "student123",
-    role: "student",
-    name: "John Doe",
-    studentId: "STU001",
-    department: "Computer Science",
-  },
-  {
-    id: "2",
-    email: "jane.smith@student.edu",
-    password: "student123",
-    role: "student",
-    name: "Jane Smith",
-    studentId: "STU002",
-    department: "Engineering",
-  },
-  // University Admins
-  {
-    id: "3",
-    email: "admin@university.edu",
-    password: "admin123",
-    role: "university",
-    name: "Dr. Sarah Wilson",
-    universityName: "Tech University",
-  },
-  {
-    id: "4",
-    email: "registrar@university.edu",
-    password: "admin123",
-    role: "university",
-    name: "Michael Johnson",
-    universityName: "Tech University",
-  },
-]
 
-export function authenticateUser(email: string, password: string): User | null {
-  const user = users.find((u) => u.email === email && u.password === password)
-  return user || null
+export async function getUserProfile(token: string): Promise<User | null> {
+  try {
+    const response = await axios.get(`${API_URL}/api/users/me?populate[role]=*&populate[university]=*&populate[student]=*`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    return response.data
+  } catch (error) {
+    console.error('Failed to get user profile:', error)
+    return null
+  }
 }
 
-export function getUserById(id: string): User | null {
-  return users.find((u) => u.id === id) || null
+export async function updateUserProfile(token: string, userData: Partial<User>): Promise<User | null> {
+  try {
+    const response = await axios.put(`${API_URL}/api/users/me`, userData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    return response.data
+  } catch (error) {
+    return null
+  }
 }

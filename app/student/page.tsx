@@ -1,24 +1,114 @@
-import { getSession } from "@/lib/session"
-import { redirect } from "next/navigation"
+"use client"
+
+import { useAuth } from "@/contexts/AuthContext"
+import ProtectedRoute from "@/components/ProtectedRoute"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
-import { LogoutButton } from "@/components/logout-button"
-import { Award, BookOpen, Calendar, Bell, Users, TrendingUp, FileText, Star, CheckCircle } from "lucide-react"
-import { studentStats, studentAchievements, cgpaRecords, upcomingEvents, notifications } from "@/lib/student-data"
+import { Award, BookOpen, Calendar, Bell, Users, TrendingUp, FileText, Star, CheckCircle, LogOut } from "lucide-react"
 import Link from "next/link"
 
-export default async function StudentDashboard() {
-  const session = await getSession()
+function StudentDashboardContent() {
+  const { user, logout } = useAuth()
 
-  if (!session || session.user.role !== "student") {
-    redirect("/login?role=student")
-  }
+  if (!user) return null
 
-  const recentAchievements = studentAchievements.slice(0, 3)
-  const recentEvents = upcomingEvents.slice(0, 3)
+  // Mock data for dashboard (replace with actual Strapi data later)
+  const recentAchievements = [
+    {
+      id: "1",
+      title: "Dean's List",
+      description: "Achieved academic excellence",
+      category: "academic" as const,
+      date: "2024-09-01",
+      status: "approved" as const,
+      points: 100,
+    },
+    {
+      id: "2", 
+      title: "Hackathon Winner",
+      description: "Won first place in university hackathon",
+      category: "competition" as const,
+      date: "2024-08-15",
+      status: "approved" as const,
+      points: 150,
+    },
+    {
+      id: "3",
+      title: "Research Publication",
+      description: "Published paper in conference proceedings",
+      category: "academic" as const,
+      date: "2024-07-20",
+      status: "pending" as const,
+      points: 200,
+    }
+  ]
+
+  const recentEvents = [
+    {
+      id: "1",
+      title: "Career Fair",
+      description: "Annual career fair with top companies",
+      date: "2024-09-20",
+      location: "Main Hall",
+      type: "career" as const,
+      registered: false,
+    },
+    {
+      id: "2",
+      title: "Tech Talk",
+      description: "Latest trends in AI and ML",
+      date: "2024-09-25", 
+      location: "Auditorium",
+      type: "academic" as const,
+      registered: true,
+    }
+  ]
+
+  const cgpaRecords = [
+    {
+      semester: "Spring 2024",
+      cgpa: 3.8,
+      credits: 18,
+      subjects: []
+    },
+    {
+      semester: "Fall 2023", 
+      cgpa: 3.7,
+      credits: 18,
+      subjects: []
+    }
+  ]
+
+  const notifications = [
+    {
+      id: "1",
+      title: "Achievement Approved",
+      message: "Your Dean's List achievement has been approved",
+      read: false,
+      date: "2024-09-10"
+    },
+    {
+      id: "2",
+      title: "New Event",
+      message: "Career Fair next week",
+      read: false, 
+      date: "2024-09-09"
+    }
+  ]
+
   const unreadNotifications = notifications.filter((n) => !n.read).length
+
+  const studentStats = {
+    totalAchievements: recentAchievements.length,
+    approvedAchievements: recentAchievements.filter(a => a.status === 'approved').length,
+    pendingAchievements: recentAchievements.filter(a => a.status === 'pending').length,
+    totalPoints: recentAchievements.reduce((sum, a) => sum + a.points, 0),
+    currentCGPA: user.student?.CGPA || 3.75,
+    overallCGPA: user.student?.CGPA || 3.75,
+    attendancePercentage: 85
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -30,13 +120,16 @@ export default async function StudentDashboard() {
               <Award className="h-8 w-8 text-primary" />
               <div>
                 <h1 className="text-2xl font-bold">Student Dashboard</h1>
-                <p className="text-muted-foreground">Welcome back, {session.user.name}</p>
+                <p className="text-muted-foreground">Welcome back, {user.username}</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Badge variant="secondary">{session.user.studentId}</Badge>
-              <Badge variant="outline">{session.user.department}</Badge>
-              <LogoutButton />
+              <Badge variant="secondary">{user.student?.studentId}</Badge>
+              <Badge variant="outline">{user.student?.department}</Badge>
+              <Button variant="outline" onClick={logout}>
+                <LogOut className="h-4 w-4 mr-2" />
+                Logout
+              </Button>
             </div>
           </div>
         </div>
@@ -268,5 +361,13 @@ export default async function StudentDashboard() {
         </div>
       </div>
     </div>
+  )
+}
+
+export default function StudentDashboard() {
+  return (
+    <ProtectedRoute allowedRoles={["student"]}>
+      <StudentDashboardContent />
+    </ProtectedRoute>
   )
 }
