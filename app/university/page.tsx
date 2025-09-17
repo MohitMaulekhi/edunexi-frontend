@@ -37,7 +37,7 @@ function UniversityDashboardContent() {
     },
     {
       id: "2",
-      studentName: "Jane Smith",
+      studentName: "Lakshay ",
       achievement: "Hackathon Winner",
       category: "Competition",
       submittedDate: "2024-09-08",

@@ -1,121 +1,195 @@
 "use client"
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { useAuth } from '@/contexts/AuthContext'
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { useAuth } from "@/contexts/AuthContext"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { GraduationCap, Users, Award, BarChart3, Loader2 } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+import LightRays from "@/components/LightRays";
+
+
+// Words for dynamic hero heading
+const headingWords = ["Edunexi", "शिक्षा संगम"]
+
+// Color palette
+const primaryButton = "bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500"
+const primaryButtonHover = "hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600"
+const heroTextColor = "text-blue-400" // Elegant blue shade for Edunexi
+const cardBg = "bg-gray-900"
+const cardShadow = "shadow-xl"
+const cardText = "text-gray-50"
+const cardDesc = "text-gray-300"
 
 export default function HomePage() {
   const { user, loading, getDefaultRoute } = useAuth()
   const router = useRouter()
+  const [currentWordIndex, setCurrentWordIndex] = useState(0)
 
   useEffect(() => {
-    if (!loading && user) {
-      // Redirect based on user role using the new utility function
-      router.push(getDefaultRoute())
-    }
+    if (!loading && user) router.push(getDefaultRoute())
   }, [user, loading, router, getDefaultRoute])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentWordIndex((prev) => (prev + 1) % headingWords.length)
+    }, 2500)
+    return () => clearInterval(interval)
+  }, [])
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="h-8 w-8 animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-gray-900">
+        <Loader2 className="h-12 w-12 animate-spin text-indigo-500" />
       </div>
     )
   }
 
-  // Show landing page only if not logged in
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted">
-      <div className="container mx-auto px-4 py-16">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center mb-6">
-            <GraduationCap className="h-12 w-12 text-primary mr-3" />
-            <h1 className="text-4xl font-bold text-foreground">Smart Student Hub</h1>
-          </div>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
-            A centralized platform for tracking student achievements, managing academic records, and generating verified
-            digital portfolios.
-          </p>
-        </div>
+    <div className="min-h-screen font-sans bg-gradient-to-b from-gray-900 to-gray-800 overflow-hidden">
+      {/* Hero Section */}
+      <section className="relative flex flex-col items-center justify-center text-center py-24 px-6 md:px-16">
+        {/* Background animation container (absolute) - animations append canvases here */}
+        <div id="hero-bg" className="absolute inset-0 -z-10 pointer-events-none" />
+        <motion.h1
+          className={`text-6xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg ${heroTextColor} font-poppins`}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={headingWords[currentWordIndex]}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6 }}
+            >
+              {headingWords[currentWordIndex]}
+            </motion.span>
+          </AnimatePresence>
+        </motion.h1>
 
-        {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <Card className="text-center">
-            <CardHeader>
-              <Award className="h-8 w-8 text-primary mx-auto mb-2" />
-              <CardTitle>Achievement Tracking</CardTitle>
-              <CardDescription>
-                Document and validate participation in conferences, certifications, and activities
+        <motion.p
+          className="mt-6 text-xl md:text-2xl text-gray-300 max-w-3xl font-medium"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
+          Centralized platform for tracking student achievements, managing academic records, and generating verified portfolios.
+        </motion.p>
+
+        {/* Portal Section */}
+        <motion.div
+          className="mt-16 md:mt-20 grid md:grid-cols-2 gap-10 w-full max-w-5xl"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {/* Student Portal */}
+          <motion.div
+            className={`${cardBg} rounded-3xl p-8 ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
+            whileHover={{ scale: 1.04 }}
+          >
+            <CardHeader className="text-center">
+              <GraduationCap className="h-14 w-14 text-indigo-500 mx-auto mb-4" />
+              <CardTitle className="text-2xl md:text-3xl font-bold mb-2 text-gray-50 font-poppins">
+                Student Portal
+              </CardTitle>
+              <CardDescription className="text-gray-300 text-lg font-poppins">
+                Access dashboard, track achievements, manage profile
               </CardDescription>
             </CardHeader>
-          </Card>
+            <CardContent className="text-center mt-6">
+              <Link href="/login?role=student">
+                <Button className={`w-full ${primaryButton} ${primaryButtonHover} text-gray-50 font-semibold py-4 rounded-xl shadow-lg transition-transform transform hover:scale-105`}>
+                  Student Login
+                </Button>
+              </Link>
+              <p className="text-sm text-gray-400 mt-3 font-poppins">
+                Demo: john.doe@student.edu / student123
+              </p>
+            </CardContent>
+          </motion.div>
 
-          <Card className="text-center">
-            <CardHeader>
-              <BarChart3 className="h-8 w-8 text-primary mx-auto mb-2" />
-              <CardTitle>Performance Analytics</CardTitle>
-              <CardDescription>
-                Real-time updates on academic performance, attendance, and credit-based activities
+          {/* University Portal */}
+          <motion.div
+            className={`${cardBg} rounded-3xl p-8 ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
+            whileHover={{ scale: 1.04 }}
+          >
+            <CardHeader className="text-center">
+              <Users className="h-14 w-14 text-indigo-500 mx-auto mb-4" />
+              <CardTitle className="text-2xl md:text-3xl font-bold mb-2 text-gray-50 font-poppins">
+                University Portal
+              </CardTitle>
+              <CardDescription className="text-gray-300 text-lg font-poppins">
+                Manage records, approve achievements, generate reports
               </CardDescription>
             </CardHeader>
-          </Card>
+            <CardContent className="text-center mt-6">
+              <Link href="/login?role=university">
+                <Button variant="outline" className={`w-full border-indigo-500 text-indigo-500 hover:bg-indigo-500 hover:text-gray-50 font-semibold py-4 rounded-xl transition-transform transform hover:scale-105`}>
+                  University Login
+                </Button>
+              </Link>
+              <p className="text-sm text-gray-400 mt-3 font-poppins">
+                Demo: admin@university.edu / admin123
+              </p>
+            </CardContent>
+          </motion.div>
+        </motion.div>
+        {/* Mount background effects into the hero background container */}
+        {/* NOTE: these components append canvases into #hero-bg */}
+        <LightRays containerId="hero-bg" />
+      </section>
 
-          <Card className="text-center">
-            <CardHeader>
-              <Users className="h-8 w-8 text-primary mx-auto mb-2" />
-              <CardTitle>Faculty Approval</CardTitle>
-              <CardDescription>Faculty and admin approval system to maintain credibility of records</CardDescription>
-            </CardHeader>
-          </Card>
+      {/* Features Section */}
+      <section className="py-24 px-6 md:px-16 bg-gray-800">
+        <div className="max-w-6xl mx-auto text-center mb-16">
+          <motion.h2
+            className="text-4xl md:text-5xl font-extrabold text-gray-50 mb-4 font-poppins"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Features
+          </motion.h2>
+          <motion.p
+            className="text-gray-300 max-w-3xl mx-auto text-lg md:text-xl font-poppins"
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            Tools to manage, track, and validate student accomplishments seamlessly.
+          </motion.p>
         </div>
 
-        {/* Login Options */}
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-2xl font-semibold text-center mb-8">Choose Your Portal</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader className="text-center">
-                <GraduationCap className="h-12 w-12 text-primary mx-auto mb-4" />
-                <CardTitle className="text-xl">Student Portal</CardTitle>
-                <CardDescription>
-                  Access your dashboard, track achievements, and manage your academic profile
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <Link href="/login?role=student">
-                  <Button className="w-full" size="lg">
-                    Student Login
-                  </Button>
-                </Link>
-                <p className="text-sm text-muted-foreground mt-4">Demo: john.doe@student.edu / student123</p>
-              </CardContent>
-            </Card>
-
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardHeader className="text-center">
-                <Users className="h-12 w-12 text-primary mx-auto mb-4" />
-                <CardTitle className="text-xl">University Portal</CardTitle>
-                <CardDescription>
-                  Manage student records, approve achievements, and generate institutional reports
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="text-center">
-                <Link href="/login?role=university">
-                  <Button className="w-full bg-transparent" variant="outline" size="lg">
-                    University Login
-                  </Button>
-                </Link>
-                <p className="text-sm text-muted-foreground mt-4">Demo: admin@university.edu / admin123</p>
-              </CardContent>
-            </Card>
-          </div>
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {[
+            { icon: Award, title: "Achievement Tracking", desc: "Document and validate participation in conferences, certifications, and activities" },
+            { icon: BarChart3, title: "Performance Analytics", desc: "Real-time updates on academic performance, attendance, and credit-based activities" },
+            { icon: Users, title: "Faculty Approval", desc: "Faculty and admin approval system to maintain credibility of records" }
+          ].map((feature, i) => (
+            <motion.div
+              key={i}
+              className={`${cardBg} rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-shadow duration-300`}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2, duration: 0.6 }}
+            >
+              <feature.icon className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
+              <h3 className="text-2xl md:text-3xl font-semibold mb-2 text-gray-50 font-poppins">{feature.title}</h3>
+              <p className="text-gray-300 text-lg font-poppins">{feature.desc}</p>
+            </motion.div>
+          ))}
         </div>
-      </div>
+      </section>
     </div>
   )
 }

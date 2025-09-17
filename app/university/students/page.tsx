@@ -55,37 +55,79 @@ function StudentsPageContent() {
     return null
   }
 
-  const [students, setStudents] = useState<StudentWithUser[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState("")
+
+  // Dummy student data for demo
+  const [students] = useState<StudentWithUser[]>([
+    {
+      id: 1,
+      documentId: 'doc-1',
+      studentId: '2025CS101',
+      department: 'Computer Science',
+      major: 'Artificial Intelligence',
+      year: 'Junior',
+      semester: 5,
+      CGPA: 3.82,
+      phoneNumber: '9876543210',
+      createdAt: '2025-01-01T10:00:00Z',
+      updatedAt: '2025-09-01T10:00:00Z',
+      user: {
+        id: 1,
+        username: 'aarav.sharma',
+        email: 'aarav.sharma@student.edu',
+        firstName: 'Aarav',
+        lastName: 'Sharma',
+      },
+    },
+    {
+      id: 2,
+      documentId: 'doc-2',
+      studentId: '2025EC202',
+      department: 'Electronics',
+      major: 'Embedded Systems',
+      year: 'Sophomore',
+      semester: 3,
+      CGPA: 3.45,
+      phoneNumber: '9123456780',
+      createdAt: '2024-08-15T10:00:00Z',
+      updatedAt: '2025-09-01T10:00:00Z',
+      user: {
+        id: 2,
+        username: 'meera.patel',
+        email: 'meera.patel@student.edu',
+        firstName: 'Meera',
+        lastName: 'Patel',
+      },
+    },
+    {
+      id: 3,
+      documentId: 'doc-3',
+      studentId: '2025ME303',
+      department: 'Mechanical',
+      major: 'Robotics',
+      year: 'Senior',
+      semester: 7,
+      CGPA: 2.98,
+      phoneNumber: '',
+      createdAt: '2023-07-10T10:00:00Z',
+      updatedAt: '2025-09-01T10:00:00Z',
+      user: {
+        id: 3,
+        username: 'rohan.verma',
+        email: 'rohan.verma@student.edu',
+        firstName: 'Rohan',
+        lastName: 'Verma',
+      },
+    },
+  ])
+  const [loading] = useState(false)
+  const [error] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedDepartment, setSelectedDepartment] = useState("")
 
-  // Fetch students
-  useEffect(() => {
-    fetchStudents()
-  }, [token])
-
-  const fetchStudents = async () => {
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'}/api/user-management/students`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      })
-
-      if (response.ok) {
-        const data = await response.json()
-        setStudents(data)
-      } else {
-        setError('Failed to fetch students')
-      }
-    } catch (error) {
-      console.error('Error fetching students:', error)
-      setError('Network error. Please try again.')
-    } finally {
-      setLoading(false)
-    }
+  // Remove API delete for demo
+  // Remove duplicate handleDeleteStudent and setStudents
+  const handleDeleteStudent = (studentId: number) => {
+    alert('This is a demo. Student would be deleted in a real app.')
   }
 
   // Filter students based on search and department
@@ -104,29 +146,7 @@ function StudentsPageContent() {
   // Get unique departments for filter
   const departments = Array.from(new Set(students.map(s => s.department))).filter(Boolean)
 
-  const handleDeleteStudent = async (studentId: number) => {
-    if (!confirm('Are you sure you want to delete this student? This action cannot be undone.')) {
-      return
-    }
 
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'}/api/user-management/students/${studentId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-        },
-      })
-
-      if (response.ok) {
-        setStudents(students.filter(s => s.id !== studentId))
-      } else {
-        alert('Failed to delete student')
-      }
-    } catch (error) {
-      console.error('Error deleting student:', error)
-      alert('Network error. Please try again.')
-    }
-  }
 
   return (
     <div className="min-h-screen bg-background p-4">
