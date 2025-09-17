@@ -1,6 +1,8 @@
 'use client'
 
 import * as React from 'react'
+import { useTheme } from 'next-themes'
+import { Sun, Moon } from 'lucide-react'
 import * as TogglePrimitive from '@radix-ui/react-toggle'
 import { cva, type VariantProps } from 'class-variance-authority'
 
@@ -45,3 +47,28 @@ function Toggle({
 }
 
 export { Toggle, toggleVariants }
+
+// Default ThemeToggle component — keeps theme toggling centralized and
+// matches the layout import: `import ThemeToggle from '@/components/ui/toggle'`.
+export default function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Don't render on server or before hydration to avoid mismatches
+  if (!mounted) return null;
+
+  return (
+    <button
+      type="button"
+      aria-label="Toggle theme"
+      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      className="inline-flex items-center justify-center p-2 rounded-md bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+    >
+      {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+    </button>
+  );
+}
