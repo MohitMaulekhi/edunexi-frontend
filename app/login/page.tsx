@@ -1,7 +1,5 @@
 "use client"
 
-import type React from "react"
-
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
@@ -13,6 +11,8 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Checkbox } from "@/components/ui/checkbox"
 import { GraduationCap, Eye, EyeOff, Loader2, X } from "lucide-react"
 import { useAuth } from "@/contexts/AuthContext"
+import { motion } from "framer-motion"
+import Image from "next/image"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -24,27 +24,18 @@ export default function LoginPage() {
   const router = useRouter()
   const { login, user, getDefaultRoute } = useAuth()
 
-  // Redirect if already logged in
   useEffect(() => {
-    if (user) {
-      router.push(getDefaultRoute())
-    }
+    if (user) router.push(getDefaultRoute())
   }, [user, router, getDefaultRoute])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError("")
-
     try {
       const result = await login(email, password)
-
-      if (result.success) {
-        // Redirect to role-based route after successful login
-        router.push(getDefaultRoute())
-      } else {
-        setError(result.error || "Login failed")
-      }
+      if (result.success) router.push(getDefaultRoute())
+      else setError(result.error || "Login failed")
     } catch {
       setError("An error occurred. Please try again.")
     } finally {
@@ -53,116 +44,137 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 p-6">
-      <div className="w-full max-w-2xl">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-          {/* Left: marketing / welcome */}
-          <div className="hidden md:block p-8 rounded-lg bg-gradient-to-br from-indigo-600 to-indigo-500 text-white shadow-lg">
-            <div className="flex items-center gap-3">
-              <GraduationCap className="h-10 w-10" />
-              <h3 className="text-2xl font-semibold">Student Achievement Platform</h3>
-            </div>
-            <p className="mt-4 text-slate-100/90">Manage students, track achievements and events — all in one place.</p>
-            <ul className="mt-6 space-y-2 text-sm">
-              <li>• Role-based dashboards</li>
-              <li>• Achievement & portfolio tracking</li>
-              <li>• University-wide notifications</li>
-            </ul>
+    <div className="min-h-screen flex items-center justify-center bg-black font-inter">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7 }}
+        className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-10"
+      >
+        {/* Left: Branding / Marketing */}
+        <div className="hidden md:flex flex-col justify-center p-12 rounded-3xl bg-gradient-to-br from-purple-900 via-indigo-900 to-black text-white shadow-2xl">
+          <div className="flex items-center gap-4 mb-6">
+            <Image src="/logo.png" alt="Edunexi Logo" width={60} height={60} />
+            <h1 className="text-4xl font-bold tracking-tight">Edunexi</h1>
           </div>
-
-          {/* Right: login form */}
-          <Card className="w-full">
-            <CardHeader>
-              <div className="text-center">
-                <CardTitle className="text-2xl">Sign in</CardTitle>
-                <CardDescription>Use your university credentials to sign in</CardDescription>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-4" noValidate>
-                <div>
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    autoFocus
-                    autoComplete="email"
-                    required
-                    placeholder="you@university.edu"
-                  />
-                  <p className="mt-1 text-xs text-slate-500">Use your university email address</p>
-                </div>
-
-                <div>
-                  <Label htmlFor="password">Password</Label>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      autoComplete="current-password"
-                      required
-                      placeholder="Enter your password"
-                    />
-                    <button
-                      type="button"
-                      aria-label="Toggle password"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-1 top-1/2 -translate-y-1/2 p-1 rounded"
-                    >
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <label className="flex items-center gap-2">
-                    <Checkbox checked={remember} onCheckedChange={(v) => setRemember(Boolean(v))} />
-                    <span className="text-sm">Remember me</span>
-                  </label>
-                  <Link href="/forgot-password" className="text-sm text-primary underline">
-                    Forgot password?
-                  </Link>
-                </div>
-
-                {error && (
-                  <Alert variant="destructive" className="flex items-start justify-between">
-                    <div>
-                      <AlertDescription>{error}</AlertDescription>
-                    </div>
-                    <button
-                      type="button"
-                      aria-label="Dismiss error"
-                      onClick={() => setError("")}
-                      className="ml-4 inline-flex items-center justify-center p-1 rounded"
-                    >
-                      <X className="h-4 w-4" />
-                    </button>
-                  </Alert>
-                )}
-
-                <Button type="submit" className="w-full" disabled={loading || !email || !password}>
-                  {loading ? (
-                    <span className="inline-flex items-center">
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" /> Signing in...
-                    </span>
-                  ) : (
-                    "Sign In"
-                  )}
-                </Button>
-              </form>
-
-              <div className="mt-4 text-center text-sm">
-                <span className="text-muted-foreground">New here?</span>{' '}
-                <Link href="/register" className="text-primary underline">Create an account</Link>
-              </div>
-            </CardContent>
-          </Card>
+          <p className="text-xl md:text-2xl font-semibold leading-relaxed text-white/90">
+            Empowering Students, Unlocking Achievements — One Platform, Infinite Possibilities
+          </p>
+          <ul className="mt-8 space-y-3 text-sm font-medium text-white/70">
+            {[
+              "Role-based dashboards",
+              "Achievement & portfolio tracking",
+              "University-wide notifications"
+            ].map((item, i) => (
+              <li key={i} className="hover:translate-x-1 transition-transform duration-150">
+                • {item}
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+
+        {/* Right: Login Form */}
+        <Card className="w-full rounded-3xl shadow-2xl border-0 bg-gray-900">
+          <CardHeader className="text-center pt-8">
+            <CardTitle className="text-3xl font-bold text-white">Sign in</CardTitle>
+            <CardDescription className="text-gray-400 mt-1">
+              Use your university credentials to access Edunexi
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="px-8 pb-8 pt-4">
+            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+              <div>
+                <Label htmlFor="email" className="font-semibold text-gray-300">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  autoFocus
+                  autoComplete="email"
+                  required
+                  placeholder="you@university.edu"
+                  className="mt-2 px-4 py-3 rounded-xl border border-gray-700 bg-gray-800 text-white shadow-sm
+                             focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-200"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="password" className="font-semibold text-gray-300">Password</Label>
+                <div className="relative mt-2">
+                  <Input
+                    id="password"
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                    required
+                    placeholder="Enter your password"
+                    className="px-4 py-3 rounded-xl border border-gray-700 bg-gray-800 text-white shadow-sm
+                               focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-200"
+                  />
+                  <button
+                    type="button"
+                    aria-label="Toggle password"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between">
+                <label className="flex items-center gap-2 text-sm text-gray-400">
+                  <Checkbox checked={remember} onCheckedChange={(v) => setRemember(Boolean(v))} />
+                  Remember me
+                </label>
+                <Link href="/forgot-password" className="text-sm text-purple-500 hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
+
+              {error && (
+                <Alert variant="destructive" className="flex items-start justify-between mt-2">
+                  <AlertDescription>{error}</AlertDescription>
+                  <button
+                    type="button"
+                    aria-label="Dismiss error"
+                    onClick={() => setError("")}
+                    className="ml-4 text-gray-400 hover:text-white"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </Alert>
+              )}
+
+              <Button
+                type="submit"
+                className="w-full py-3 text-lg font-semibold text-white rounded-xl
+                           bg-gradient-to-r from-purple-600 to-indigo-600
+                           shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-200
+                           disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={loading || !email || !password}
+              >
+                {loading ? (
+                  <span className="inline-flex items-center justify-center">
+                    <Loader2 className="h-5 w-5 mr-2 animate-spin" /> Signing in...
+                  </span>
+                ) : (
+                  "Sign In"
+                )}
+              </Button>
+            </form>
+
+            <div className="mt-6 text-center text-sm text-gray-400">
+              New here?{' '}
+              <Link href="/register" className="text-purple-500 hover:underline font-medium">
+                Create an account
+              </Link>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
     </div>
   )
 }
