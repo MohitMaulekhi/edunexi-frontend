@@ -8,8 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { GraduationCap, Users, Award, BarChart3, Loader2 } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
-import LightRays from "@/components/LightRays";
-
+import DotGrid from "../components/DotGrid"
 
 // Words for dynamic hero heading
 const headingWords = ["Edunexi", "शिक्षा संगम"]
@@ -17,11 +16,8 @@ const headingWords = ["Edunexi", "शिक्षा संगम"]
 // Color palette
 const primaryButton = "bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500"
 const primaryButtonHover = "hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600"
-const heroTextColor = "text-blue-400" // Elegant blue shade for Edunexi
-const cardBg = "bg-gray-900"
+const cardBg = "bg-black/70 backdrop-blur-md border border-gray-700"
 const cardShadow = "shadow-xl"
-const cardText = "text-gray-50"
-const cardDesc = "text-gray-300"
 
 export default function HomePage() {
   const { user, loading, getDefaultRoute } = useAuth()
@@ -48,17 +44,25 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen font-sans bg-gradient-to-b from-gray-900 to-gray-800 overflow-hidden">
+    <div className="w-full bg-[#000000] overflow-hidden relative">
+      {/* Dot Background */}
+      <div className="absolute inset-0 h-[200vh]">
+        <DotGrid
+          dotSize={5}
+          gap={15}
+          baseColor="#000000"
+          activeColor="#60A5FA"
+          proximity={150}
+          shockRadius={250}
+          shockStrength={5}
+          resistance={750}
+          returnDuration={1.5}
+        />
+      </div>
+
       {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center text-center py-24 px-6 md:px-16">
-        {/* Background animation container (absolute) - animations append canvases here */}
-        <div id="hero-bg" className="absolute inset-0 -z-10 pointer-events-none" />
-        <motion.h1
-          className={`text-6xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg ${heroTextColor} font-poppins`}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-        >
+      <div className="h-screen flex flex-col justify-center items-center z-10 px-4">
+        <motion.h1 className="text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg font-poppins text-center leading-[1.4]">
           <AnimatePresence mode="wait">
             <motion.span
               key={headingWords[currentWordIndex]}
@@ -66,6 +70,7 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.6 }}
+              className="bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent inline-block"
             >
               {headingWords[currentWordIndex]}
             </motion.span>
@@ -73,7 +78,7 @@ export default function HomePage() {
         </motion.h1>
 
         <motion.p
-          className="mt-6 text-xl md:text-2xl text-gray-300 max-w-3xl font-medium"
+          className="mt-6 text-xl md:text-2xl text-gray-300 max-w-3xl text-center font-medium z-1"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
@@ -96,10 +101,10 @@ export default function HomePage() {
           >
             <CardHeader className="text-center">
               <GraduationCap className="h-14 w-14 text-indigo-500 mx-auto mb-4" />
-              <CardTitle className="text-2xl md:text-3xl font-bold mb-2 text-gray-50 font-poppins">
+              <CardTitle className="text-2xl md:text-3xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
                 Student Portal
               </CardTitle>
-              <CardDescription className="text-gray-300 text-lg font-poppins">
+              <CardDescription className="text-gray-300 text-lg md:text-xl font-poppins leading-relaxed">
                 Access dashboard, track achievements, manage profile
               </CardDescription>
             </CardHeader>
@@ -122,16 +127,16 @@ export default function HomePage() {
           >
             <CardHeader className="text-center">
               <Users className="h-14 w-14 text-indigo-500 mx-auto mb-4" />
-              <CardTitle className="text-2xl md:text-3xl font-bold mb-2 text-gray-50 font-poppins">
+              <CardTitle className="text-2xl md:text-3xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
                 University Portal
               </CardTitle>
-              <CardDescription className="text-gray-300 text-lg font-poppins">
+              <CardDescription className="text-gray-300 text-lg md:text-xl font-poppins leading-relaxed">
                 Manage records, approve achievements, generate reports
               </CardDescription>
             </CardHeader>
             <CardContent className="text-center mt-6">
               <Link href="/login?role=university">
-                <Button variant="outline" className={`w-full border-indigo-500 text-indigo-500 hover:bg-indigo-500 hover:text-gray-50 font-semibold py-4 rounded-xl transition-transform transform hover:scale-105`}>
+                <Button variant="outline" className="w-full border-indigo-500 text-indigo-500 hover:bg-indigo-500 hover:text-gray-50 font-semibold py-4 rounded-xl transition-transform transform hover:scale-105">
                   University Login
                 </Button>
               </Link>
@@ -141,16 +146,13 @@ export default function HomePage() {
             </CardContent>
           </motion.div>
         </motion.div>
-        {/* Mount background effects into the hero background container */}
-        {/* NOTE: these components append canvases into #hero-bg */}
-        <LightRays containerId="hero-bg" />
-      </section>
+      </div>
 
       {/* Features Section */}
-      <section className="py-24 px-6 md:px-16 bg-gray-800">
-        <div className="max-w-6xl mx-auto text-center mb-16">
+      <div className="h-screen flex flex-col justify-center items-center z-1 px-4">
+        <div className="max-w-6xl mx-auto text-center mb-16 z-1">
           <motion.h2
-            className="text-4xl md:text-5xl font-extrabold text-gray-50 mb-4 font-poppins"
+            className="text-4xl md:text-5xl font-extrabold text-gray-50 mb-4 font-poppins z-1"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -169,7 +171,7 @@ export default function HomePage() {
           </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-48">
           {[
             { icon: Award, title: "Achievement Tracking", desc: "Document and validate participation in conferences, certifications, and activities" },
             { icon: BarChart3, title: "Performance Analytics", desc: "Real-time updates on academic performance, attendance, and credit-based activities" },
@@ -189,7 +191,7 @@ export default function HomePage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   )
 }
