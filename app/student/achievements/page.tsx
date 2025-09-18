@@ -1,51 +1,128 @@
-import React from 'react'
+"use client"
 
+import React, { useEffect, useState } from 'react'
+import Link from 'next/link'
+import { Button } from "@/components/ui/button"
+import { Alert, AlertDescription } from "@/components/ui/alert"
+import { LogoutButton } from "@/components/logout-button"
+import { AchievementsList } from "@/components/AchievementsList"
+import { Award, Plus } from "lucide-react"
+import { useAuth } from "@/contexts/AuthContext"
+import { fetchMyAchievements } from "@/lib/achievement"
 
-const dummyAchievements = [
-  {
-    title: 'Best Paper Award - IEEE Conference 2024',
-    description: 'Awarded for presenting the best research paper on AI advancements.',
-    category: 'Research Publication',
-    date: '2024-08-15',
-    points: 120,
-  },
-  {
-    title: 'Gold Medal - National Math Olympiad',
-    description: 'Secured 1st place in the National Math Olympiad among 5000+ participants.',
-    category: 'Competition/Contest',
-    date: '2025-01-10',
-    points: 100,
-  },
-  {
-    title: 'Internship at Google',
-    description: 'Completed a 2-month internship as a Software Engineering Intern.',
-    category: 'Internship/Work Experience',
-    date: '2025-06-30',
-    points: 80,
-  },
-]
+interface Achievement {
+  id: number
+  documentId: string
+  ipfsHash: string
+  createdAt: string
+  updatedAt: string
+  publishedAt: string
+  ipfsUrl: string
+  studentId: string
+  score: number
+  authenticScore: number
+  category: string
+}
 
-const page = () => {
+const AchievementsPage = () => {
+  const { user } = useAuth()
+  const [achievements, setAchievements] = useState<Achievement[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    const loadAchievements = async () => {
+      if (!user?.student?.studentId) return
+
+      try {
+        setLoading(true)
+        setError("")
+        const data = await fetchMyAchievements(user.student.studentId)
+        setAchievements(Array.isArray(data) ? data : [])
+      } catch (err: any) {
+        setError(`Failed to load achievements: ${err.message || 'Please try again.'}`)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    if (user?.student?.studentId) {
+      loadAchievements()
+    } else if (user === null) {
+      setLoading(false)
+      setError("Please log in to view achievements.")
+    } else if (user && !user.student?.studentId) {
+      setLoading(false)
+      setError("No student profile found. Please contact support.")
+    }
+  }, [user])
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
+          <p>Loading your achievements...</p>
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-100 py-10">
-      <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-lg p-8">
-        <h1 className="text-3xl font-bold mb-6 text-blue-800">Student Achievements</h1>
-        <div className="grid gap-6">
-          {dummyAchievements.map((ach, idx) => (
-            <div key={idx} className="border-l-4 border-blue-500 bg-blue-50 p-6 rounded shadow-sm hover:shadow-md transition">
-              <h2 className="text-xl font-semibold text-blue-700 mb-1">{ach.title}</h2>
-              <p className="text-gray-700 mb-2">{ach.description}</p>
-              <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-                <span className="bg-blue-100 px-2 py-1 rounded">{ach.category}</span>
-                <span className="bg-green-100 px-2 py-1 rounded">Date: {ach.date}</span>
-                <span className="bg-yellow-100 px-2 py-1 rounded">Points: {ach.points}</span>
+    <div className="min-h-screen bg-background">
+      {/* Header */}
+      <header className="border-b bg-card">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div>
+                <h1 className="text-2xl font-bold flex items-center">
+                  <Award className="h-6 w-6 mr-2 text-yellow-600" />
+                  My Achievements
+                </h1>
+                <p className="text-muted-foreground">Track your accomplishments stored on blockchain</p>
               </div>
             </div>
-          ))}
+            <div className="flex items-center space-x-4">
+              <Link href="/student/achievements/new">
+                <Button className="flex items-center gap-2">
+                  <Plus className="h-4 w-4" />
+                  Add Achievement
+                </Button>
+              </Link>
+              <LogoutButton />
+            </div>
+          </div>
         </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-8">
+        {error && (
+          <Alert variant="destructive" className="mb-6">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+
+        {!loading && achievements.length === 0 ? (
+          <div className="text-center py-12">
+            <Award className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+            <h2 className="text-xl font-semibold mb-2">No achievements yet</h2>
+            <p className="text-muted-foreground mb-6">
+              Start documenting your accomplishments and build your achievement portfolio.
+            </p>
+            <Link href="/student/achievements/new">
+              <Button className="flex items-center gap-2">
+                <Plus className="h-4 w-4" />
+                Add Your First Achievement
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <AchievementsList achievements={achievements} loading={loading} />
+        )}
       </div>
     </div>
   )
 }
 
-export default page
+export default AchievementsPage

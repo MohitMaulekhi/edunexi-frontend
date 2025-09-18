@@ -12,17 +12,23 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { LogoutButton } from "@/components/logout-button"
-import { Award, Upload, Calendar, Save, X } from "lucide-react"
+import { Award, Upload, Calendar, Save, X, Hash, File } from "lucide-react"
 import Link from "next/link"
+import { useAuth } from "@/contexts/AuthContext"
+import { saveAchievement } from "@/lib/achievement"
+
+
+
 
 export default function NewAchievementPage() {
+  const { user,token } = useAuth()
   const [formData, setFormData] = useState({
     title: "",
     description: "",
     category: "",
     date: "",
-    points: "",
-    attachments: [] as File[],
+    score: "",
+    attachments: [] as AttachmentWithHash[],
   })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -36,16 +42,51 @@ export default function NewAchievementPage() {
     setSuccess("")
 
     try {
-      // In a real app, you'd upload files and submit to API
-      // For now, we'll simulate the process
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      // Create achievement metadata
+      const achievementMetadata: AchievementMetadata = {
+        title: formData.title,
+        description: formData.description,
+        category: formData.category,
+        date: formData.date,
+        score: parseInt(formData.score) || 0,
+        authentic_score: parseInt(formData.score) || 0,
+        studentId: user?.student?.studentId || user?.id?.toString() || 'unknown',
+        studentName: user?.username || 'Unknown Student',
+        studentEmail: user?.email || '',
+        submissionTimestamp: new Date().toISOString(),
+        attachments: formData.attachments.map(att => ({
+          fileName: att.file.name,
+          fileSize: att.file.size,
+          fileType: att.file.type,
+          ipfsHash: '', 
+          ipfsUrl: ''   
+        })),
+        blockchain: {
+          network: "IPFS",
+          timestamp: new Date().toISOString(),
+          submissionHash: ""
+        }
+      }
 
-      setSuccess("Achievement submitted successfully! It will be reviewed by the administration.")
-      setTimeout(() => {
-        router.push("/student/achievements")
-      }, 2000)
-    } catch {
-      setError("Failed to submit achievement. Please try again.")
+      // Extract files from attachments
+      const files = formData.attachments.map(att => att.file)
+
+      // Submit to backend (achievement.ts will handle all IPFS operations)
+      const success = await saveAchievement(token || "", achievementMetadata, files)
+      
+      if (success) {
+        setSuccess("Achievement and files uploaded successfully to IPFS! It will be reviewed by faculty.")
+        // Redirect after success
+        setTimeout(() => {
+          router.push('/student/achievements')
+        }, 2000)
+      } else {
+        setError("Failed to save achievement data.")
+      }
+
+    } catch (err: any) {
+      console.error('Achievement submission error:', err)
+      setError(err.message || "Failed to submit achievement. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -53,9 +94,10 @@ export default function NewAchievementPage() {
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
+    const newAttachments = files.map(file => ({ file }))
     setFormData((prev) => ({
       ...prev,
-      attachments: [...prev.attachments, ...files],
+      attachments: [...prev.attachments, ...newAttachments],
     }))
   }
 
@@ -80,8 +122,9 @@ export default function NewAchievementPage() {
                 <h1 className="text-2xl font-bold flex items-center">
                   <Award className="h-6 w-6 mr-2" />
                   Add New Achievement
+                  <Hash className="h-5 w-5 ml-2 text-blue-600" />
                 </h1>
-                <p className="text-muted-foreground">Document your accomplishments for review</p>
+                <p className="text-muted-foreground">Document your accomplishments with blockchain verification</p>
               </div>
             </div>
             <LogoutButton />
@@ -132,6 +175,7 @@ export default function NewAchievementPage() {
                     <SelectItem value="research">Research Publication</SelectItem>
                     <SelectItem value="leadership">Leadership Role</SelectItem>
                     <SelectItem value="community">Community Service</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -166,18 +210,18 @@ export default function NewAchievementPage() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="points">Suggested Points</Label>
+                  <Label htmlFor="score">Suggested Score</Label>
                   <Input
-                    id="points"
+                    id="score"
                     type="number"
-                    value={formData.points}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, points: e.target.value }))}
+                    value={formData.score}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, score: e.target.value }))}
                     placeholder="e.g., 100"
                     min="0"
                     max="500"
                   />
                   <p className="text-xs text-muted-foreground">
-                    Points will be assigned by faculty based on achievement significance
+                    Score will be assigned by faculty based on achievement significance
                   </p>
                 </div>
               </div>
@@ -212,10 +256,16 @@ export default function NewAchievementPage() {
                 {/* File List */}
                 {formData.attachments.length > 0 && (
                   <div className="space-y-2">
-                    <Label>Uploaded Files:</Label>
+                    <Label>Selected Files:</Label>
                     {formData.attachments.map((file, index) => (
                       <div key={index} className="flex items-center justify-between p-2 border rounded">
-                        <span className="text-sm">{file.name}</span>
+                        <div className="flex items-center space-x-2">
+                          <File className="h-4 w-4 text-muted-foreground" />
+                          <span className="text-sm">{file.file.name}</span>
+                          <span className="text-xs text-muted-foreground">
+                            ({(file.file.size / 1024).toFixed(1)} KB)
+                          </span>
+                        </div>
                         <Button type="button" variant="ghost" size="sm" onClick={() => removeFile(index)}>
                           <X className="h-4 w-4" />
                         </Button>
