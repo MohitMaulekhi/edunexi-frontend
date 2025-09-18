@@ -94,8 +94,8 @@ export default function LoginPage() {
                   autoComplete="email"
                   required
                   placeholder="you@university.edu"
-                  className="mt-2 px-4 py-3 rounded-xl border border-gray-700 bg-gray-800 text-white shadow-sm
-                             focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-200"
+                  className="mt-2"
+                  aria-invalid={!email && error ? true : undefined}
                 />
               </div>
 
@@ -110,8 +110,7 @@ export default function LoginPage() {
                     autoComplete="current-password"
                     required
                     placeholder="Enter your password"
-                    className="px-4 py-3 rounded-xl border border-gray-700 bg-gray-800 text-white shadow-sm
-                               focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-purple-600 transition-all duration-200"
+                    aria-invalid={!password && error ? true : undefined}
                   />
                   <button
                     type="button"
@@ -141,7 +140,7 @@ export default function LoginPage() {
                     type="button"
                     aria-label="Dismiss error"
                     onClick={() => setError("")}
-                    className="ml-4 text-gray-400 hover:text-white"
+                    className="ml-4 text-red-400 hover:text-red-300 transition-colors"
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -150,19 +149,13 @@ export default function LoginPage() {
 
               <Button
                 type="submit"
-                className="w-full py-3 text-lg font-semibold text-white rounded-xl
-                           bg-gradient-to-r from-purple-600 to-indigo-600
-                           shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-200
-                           disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={loading || !email || !password}
+                size="lg"
+                className="w-full"
+                disabled={!email || !password}
+                loading={loading}
+                loadingText="Signing in..."
               >
-                {loading ? (
-                  <span className="inline-flex items-center justify-center">
-                    <Loader2 className="h-5 w-5 mr-2 animate-spin" /> Signing in...
-                  </span>
-                ) : (
-                  "Sign In"
-                )}
+                Sign In
               </Button>
             </form>
 

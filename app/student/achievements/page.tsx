@@ -59,7 +59,7 @@ const AchievementsPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-[#000000] flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin h-8 w-8 border-2 border-primary border-t-transparent rounded-full mx-auto mb-4"></div>
           <p>Loading your achievements...</p>
@@ -69,23 +69,23 @@ const AchievementsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#000000] font-poppins">
       {/* Header */}
-      <header className="border-b bg-card">
-        <div className="container mx-auto px-4 py-4">
+      <header className="border-b bg-black/70 backdrop-blur-md border-gray-700">
+        <div className="container mx-auto px-6 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <div>
-                <h1 className="text-2xl font-bold flex items-center">
-                  <Award className="h-6 w-6 mr-2 text-yellow-600" />
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent flex items-center">
+                  <Award className="h-8 w-8 mr-3 text-yellow-500" />
                   My Achievements
                 </h1>
-                <p className="text-muted-foreground">Track your accomplishments stored on blockchain</p>
+                <p className="text-gray-300 text-lg">Track your accomplishments stored on blockchain</p>
               </div>
             </div>
             <div className="flex items-center space-x-4">
               <Link href="/student/achievements/new">
-                <Button className="flex items-center gap-2">
+                <Button className="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600 flex items-center gap-2">
                   <Plus className="h-4 w-4" />
                   Add Achievement
                 </Button>

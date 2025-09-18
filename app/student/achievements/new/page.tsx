@@ -109,9 +109,9 @@ export default function NewAchievementPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#000000]">
       {/* Header */}
-      <header className="border-b bg-card">
+      <header className="border-b bg-black/70 backdrop-blur-md border-gray-700">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -133,15 +133,15 @@ export default function NewAchievementPage() {
       </header>
 
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Card>
-          <CardHeader>
+        <Card className="rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+          <CardHeader className="px-0">
             <CardTitle>Achievement Details</CardTitle>
             <CardDescription>
               Provide detailed information about your achievement. All submissions will be reviewed by faculty before
               approval.
             </CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Title */}
               <div className="space-y-2">
@@ -296,16 +296,21 @@ export default function NewAchievementPage() {
               )}
 
               {success && (
-                <Alert className="border-green-200 bg-green-50">
-                  <AlertDescription className="text-green-800">{success}</AlertDescription>
+                <Alert variant="success">
+                  <AlertDescription>{success}</AlertDescription>
                 </Alert>
               )}
 
               {/* Submit Buttons */}
               <div className="flex gap-4 pt-4">
-                <Button type="submit" disabled={loading} className="flex-1">
+                <Button 
+                  type="submit" 
+                  className="flex-1"
+                  loading={loading}
+                  loadingText="Submitting..."
+                >
                   <Save className="h-4 w-4 mr-2" />
-                  {loading ? "Submitting..." : "Submit for Review"}
+                  Submit for Review
                 </Button>
                 <Link href="/student/achievements">
                   <Button type="button" variant="outline" disabled={loading}>
@@ -318,11 +323,11 @@ export default function NewAchievementPage() {
         </Card>
 
         {/* Help Section */}
-        <Card className="mt-6">
-          <CardHeader>
+        <Card className="mt-6 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+          <CardHeader className="px-0">
             <CardTitle>Need Help?</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="px-0">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
                 <h4 className="font-semibold mb-2">What qualifies as an achievement?</h4>

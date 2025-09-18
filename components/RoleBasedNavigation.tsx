@@ -166,7 +166,7 @@ export function RoleBasedNavigation() {
   }
 
   return (
-    <nav className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
+    <nav className="sticky top-0 z-50 bg-black/70 backdrop-blur-md border-b border-gray-700">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo and Brand */}
@@ -242,10 +242,13 @@ export function RoleBasedNavigation() {
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80">
+              <SheetContent side="right" className="w-80 font-poppins">
                 <SheetHeader>
-                  <SheetTitle className="flex items-center space-x-2">
-                    <GraduationCap className="h-5 w-5 text-primary" />
+                  <SheetTitle className="flex items-center space-x-3">
+                    <div className="relative">
+                      <GraduationCap className="h-6 w-6 text-blue-400" />
+                      <div className="absolute -top-1 -right-1 h-2 w-2 bg-blue-400 rounded-full animate-pulse" />
+                    </div>
                     <span>EduNexi</span>
                   </SheetTitle>
                   <SheetDescription>
@@ -253,118 +256,196 @@ export function RoleBasedNavigation() {
                   </SheetDescription>
                 </SheetHeader>
                 
-                <div className="mt-6 space-y-6">
-                  {/* User Info */}
-                  <div className="flex items-center space-x-3 p-3 bg-muted/50 rounded-lg">
-                    <Avatar className="h-10 w-10">
-                      <AvatarFallback className="bg-primary text-primary-foreground">
-                        {getUserInitials(user.username)}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{user.username}</p>
-                      <p className="text-sm text-muted-foreground truncate">{user.email}</p>
-                      <Badge variant="secondary" className="text-xs mt-1">
-                        {getRoleDisplayName(user.role.type as any)}
-                      </Badge>
+                <div className="flex-1 overflow-y-auto px-6 pb-6">
+                  <div className="space-y-8 mt-6">
+                    {/* User Info */}
+                    <div className="relative p-4 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-700/50 backdrop-blur-sm">
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-indigo-500/5 to-purple-500/5 rounded-xl" />
+                      <div className="relative flex items-center space-x-4">
+                        <Avatar className="h-12 w-12 ring-2 ring-blue-400/30">
+                          <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-semibold">
+                            {getUserInitials(user.username)}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold text-white truncate">{user.username}</p>
+                          <p className="text-sm text-gray-300 truncate">{user.email}</p>
+                          <Badge 
+                            variant="secondary" 
+                            className="text-xs mt-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-300 border-blue-400/30"
+                          >
+                            {getRoleDisplayName(user.role.type as any)}
+                          </Badge>
+                        </div>
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Quick Actions */}
-                  <div className="space-y-2">
-                    <h4 className="font-medium text-sm text-muted-foreground">Quick Actions</h4>
-                    <div className="grid grid-cols-1 gap-2">
-                      {quickActions.map((action) => {
-                        const Icon = action.icon
-                        return (
-                          <Link key={action.href} href={action.href} onClick={() => setIsMobileMenuOpen(false)}>
-                            <Button 
-                              variant="outline"
-                              className="w-full justify-start"
-                            >
-                              <Icon className="h-4 w-4 mr-2" />
-                              {action.label}
-                            </Button>
-                          </Link>
-                        )
-                      })}
+                    {/* Quick Actions */}
+                    <div className="space-y-4">
+                      <div className="flex items-center space-x-2">
+                        <div className="h-1 w-8 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full" />
+                        <h4 className="font-semibold text-sm text-gray-200 uppercase tracking-wide">Quick Actions</h4>
+                      </div>
+                      <div className="grid grid-cols-1 gap-3">
+                        {quickActions.map((action, index) => {
+                          const Icon = action.icon
+                          const colors = [
+                            'from-green-500 to-emerald-600',
+                            'from-blue-500 to-cyan-600',
+                            'from-purple-500 to-violet-600',
+                            'from-orange-500 to-red-600'
+                          ]
+                          const bgColors = [
+                            'bg-green-500/10 hover:bg-green-500/20 border-green-400/30',
+                            'bg-blue-500/10 hover:bg-blue-500/20 border-blue-400/30',
+                            'bg-purple-500/10 hover:bg-purple-500/20 border-purple-400/30',
+                            'bg-orange-500/10 hover:bg-orange-500/20 border-orange-400/30'
+                          ]
+                          return (
+                            <Link key={action.href} href={action.href} onClick={() => setIsMobileMenuOpen(false)}>
+                              <Button 
+                                variant="outline"
+                                className={`w-full justify-start h-12 ${bgColors[index % bgColors.length]} border transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]`}
+                              >
+                                <Icon className={`h-5 w-5 mr-3 bg-gradient-to-r ${colors[index % colors.length]} bg-clip-text text-transparent`} />
+                                <span className="font-medium text-gray-200">{action.label}</span>
+                              </Button>
+                            </Link>
+                          )
+                        })}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Navigation Items */}
-                  <div className="space-y-2">
-                    <h4 className="font-medium text-sm text-muted-foreground">Navigation</h4>
-                    <div className="space-y-1">
-                      {navItems.map((item) => {
-                        const Icon = item.icon
-                        const isActive = isActiveRoute(item.href)
-                        return (
-                          <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}>
-                            <div className={`
-                              flex items-center space-x-3 p-3 rounded-lg transition-colors
-                              ${isActive ? "bg-primary text-primary-foreground" : "hover:bg-muted/50"}
-                            `}>
-                              <Icon className="h-5 w-5" />
-                              <div className="flex-1">
-                                <div className="flex items-center justify-between">
-                                  <span className="font-medium">{item.label}</span>
-                                  {item.badge && (
-                                    <Badge variant={isActive ? "secondary" : "destructive"} className="text-xs">
-                                      {item.badge}
-                                    </Badge>
+                    {/* Navigation Items */}
+                    <div className="space-y-4">
+                      <div className="flex items-center space-x-2">
+                        <div className="h-1 w-8 bg-gradient-to-r from-blue-400 to-indigo-500 rounded-full" />
+                        <h4 className="font-semibold text-sm text-gray-200 uppercase tracking-wide">Navigation</h4>
+                      </div>
+                      <div className="space-y-2">
+                        {navItems.map((item, index) => {
+                          const Icon = item.icon
+                          const isActive = isActiveRoute(item.href)
+                          const iconColors = [
+                            'text-blue-400',
+                            'text-indigo-400', 
+                            'text-purple-400',
+                            'text-cyan-400',
+                            'text-emerald-400'
+                          ]
+                          const activeGradients = [
+                            'from-blue-500/20 to-indigo-500/20',
+                            'from-indigo-500/20 to-purple-500/20',
+                            'from-purple-500/20 to-pink-500/20',
+                            'from-cyan-500/20 to-blue-500/20',
+                            'from-emerald-500/20 to-green-500/20'
+                          ]
+                          return (
+                            <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}>
+                              <div className={`
+                                group flex items-center space-x-4 p-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]
+                                ${isActive 
+                                  ? `bg-gradient-to-r ${activeGradients[index % activeGradients.length]} border border-blue-400/30 shadow-lg` 
+                                  : "hover:bg-gray-800/50 border border-transparent hover:border-gray-700/50"
+                                }
+                              `}>
+                                <div className={`
+                                  p-2 rounded-lg transition-colors
+                                  ${isActive ? 'bg-blue-500/20' : 'bg-gray-800/50 group-hover:bg-gray-700/50'}
+                                `}>
+                                  <Icon className={`h-5 w-5 ${isActive ? 'text-blue-300' : iconColors[index % iconColors.length]}`} />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="flex items-center justify-between">
+                                    <span className={`font-semibold ${isActive ? "text-white" : "text-gray-200"}`}>
+                                      {item.label}
+                                    </span>
+                                    {item.badge && (
+                                      <Badge 
+                                        variant={isActive ? "secondary" : "destructive"} 
+                                        className={`text-xs ${isActive ? 'bg-blue-500/20 text-blue-300 border-blue-400/30' : ''}`}
+                                      >
+                                        {item.badge}
+                                      </Badge>
+                                    )}
+                                  </div>
+                                  {item.description && (
+                                    <p className={`text-xs mt-1 ${isActive ? "text-blue-200/80" : "text-gray-400"}`}>
+                                      {item.description}
+                                    </p>
                                   )}
                                 </div>
-                                {item.description && (
-                                  <p className={`text-xs mt-1 ${isActive ? "text-primary-foreground/80" : "text-muted-foreground"}`}>
-                                    {item.description}
-                                  </p>
-                                )}
+                                <ChevronRight className={`h-4 w-4 transition-transform group-hover:translate-x-1 ${isActive ? 'text-blue-300' : 'text-gray-500'}`} />
                               </div>
-                              <ChevronRight className="h-4 w-4" />
-                            </div>
-                          </Link>
-                        )
-                      })}
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Additional Options */}
+                    <div className="space-y-4">
+                      <div className="flex items-center space-x-2">
+                        <div className="h-1 w-8 bg-gradient-to-r from-purple-400 to-pink-500 rounded-full" />
+                        <h4 className="font-semibold text-sm text-gray-200 uppercase tracking-wide">Account</h4>
+                      </div>
+                      <div className="space-y-2">
+                        {[
+                          { 
+                            href: isStudent() ? "/student/profile" : "/university/profile", 
+                            icon: User, 
+                            label: "Profile",
+                            color: "text-purple-400",
+                            bgColor: "hover:bg-purple-500/10"
+                          },
+                          { 
+                            href: "/settings", 
+                            icon: Settings, 
+                            label: "Settings",
+                            color: "text-pink-400",
+                            bgColor: "hover:bg-pink-500/10"
+                          },
+                          { 
+                            href: "/help", 
+                            icon: HelpCircle, 
+                            label: "Help & Support",
+                            color: "text-cyan-400",
+                            bgColor: "hover:bg-cyan-500/10"
+                          }
+                        ].map((option) => {
+                          const Icon = option.icon
+                          return (
+                            <Link key={option.href} href={option.href} onClick={() => setIsMobileMenuOpen(false)}>
+                              <div className={`group flex items-center space-x-4 p-3 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${option.bgColor} border border-transparent hover:border-gray-700/50`}>
+                                <div className="p-2 rounded-lg bg-gray-800/50 group-hover:bg-gray-700/50 transition-colors">
+                                  <Icon className={`h-4 w-4 ${option.color}`} />
+                                </div>
+                                <span className="font-medium text-gray-200">{option.label}</span>
+                                <ChevronRight className="h-3 w-3 text-gray-500 transition-transform group-hover:translate-x-1 ml-auto" />
+                              </div>
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Logout */}
+                    <div className="pt-4 border-t border-gray-700/50">
+                      <Button 
+                        variant="outline" 
+                        className="w-full justify-start h-12 bg-red-500/10 hover:bg-red-500/20 border-red-400/30 text-red-300 hover:text-red-200 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                        onClick={() => {
+                          setIsMobileMenuOpen(false)
+                          handleLogout()
+                        }}
+                      >
+                        <div className="p-2 rounded-lg bg-red-500/20 mr-3">
+                          <LogOut className="h-4 w-4" />
+                        </div>
+                        <span className="font-medium">Logout</span>
+                      </Button>
                     </div>
                   </div>
-
-                  {/* Additional Options */}
-                  <div className="space-y-2">
-                    <h4 className="font-medium text-sm text-muted-foreground">Account</h4>
-                    <div className="space-y-1">
-                      <Link href={isStudent() ? "/student/profile" : "/university/profile"} onClick={() => setIsMobileMenuOpen(false)}>
-                        <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors">
-                          <User className="h-5 w-5" />
-                          <span>Profile</span>
-                        </div>
-                      </Link>
-                      <Link href="/settings" onClick={() => setIsMobileMenuOpen(false)}>
-                        <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors">
-                          <Settings className="h-5 w-5" />
-                          <span>Settings</span>
-                        </div>
-                      </Link>
-                      <Link href="/help" onClick={() => setIsMobileMenuOpen(false)}>
-                        <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors">
-                          <HelpCircle className="h-5 w-5" />
-                          <span>Help & Support</span>
-                        </div>
-                      </Link>
-                    </div>
-                  </div>
-
-                  {/* Logout */}
-                  <Button 
-                    variant="outline" 
-                    className="w-full justify-start text-destructive hover:text-destructive"
-                    onClick={() => {
-                      setIsMobileMenuOpen(false)
-                      handleLogout()
-                    }}
-                  >
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Logout
-                  </Button>
                 </div>
               </SheetContent>
             </Sheet>

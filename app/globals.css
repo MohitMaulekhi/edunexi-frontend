@@ -5,7 +5,7 @@
 :root {
   --background: 0 0% 0%;
   --foreground: 210 40% 98%;
-  --card: 0 0% 3.9%;
+  --card: 0 0% 0%;
   --card-foreground: 210 40% 98%;
   --popover: 0 0% 3.9%;
   --popover-foreground: 210 40% 98%;
@@ -61,7 +61,7 @@
 .dark {
   --background: oklch(0.1363 0.0364 259.2010);
   --foreground: oklch(0.9683 0.0069 247.8956);
-  --card: oklch(0.2077 0.0398 265.7549);
+  --card: 0 0% 0%;
   --card-foreground: oklch(0.9683 0.0069 247.8956);
   --popover: oklch(0.1363 0.0364 259.2010);
   --popover-foreground: oklch(0.9683 0.0069 247.8956);
@@ -119,7 +119,7 @@
 .dark {
   --background: 0 0% 0%;
   --foreground: 210 40% 98%;
-  --card: 0 0% 3.9%;
+  --card: 0 0% 0%;
   --card-foreground: 210 40% 98%;
   --popover: 0 0% 3.9%;
   --popover-foreground: 210 40% 98%;
@@ -318,6 +318,35 @@
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(26, 26, 46, 0.6) 100%);
   }
 
+  /* Semantic Color Gradients */
+  .gradient-text-success {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-warning {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-error {
+    background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .gradient-text-info {
+    background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   /* Text Shadow Utilities */
   .text-shadow-sm {
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
@@ -342,6 +371,71 @@
 
   .shadow-glow-strong {
     box-shadow: 0 0 40px rgba(59, 130, 246, 0.4);
+  }
+
+  .shadow-glow-green {
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+  }
+
+  .shadow-glow-orange {
+    box-shadow: 0 0 20px rgba(249, 115, 22, 0.3);
+  }
+
+  .shadow-glow-red {
+    box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+  }
+
+  /* Colored Border Utilities */
+  .border-accent-blue {
+    border-left: 4px solid #3b82f6;
+  }
+
+  .border-accent-purple {
+    border-left: 4px solid #8b5cf6;
+  }
+
+  .border-accent-green {
+    border-left: 4px solid #10b981;
+  }
+
+  .border-accent-orange {
+    border-left: 4px solid #f59e0b;
+  }
+
+  .border-accent-red {
+    border-left: 4px solid #ef4444;
+  }
+
+  /* Form Validation States */
+  .form-field-error {
+    border-color: #ef4444;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+
+  .form-field-success {
+    border-color: #10b981;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+  }
+
+  .form-field-focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  /* Enhanced Focus Indicators */
+  .focus-ring-blue {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  .focus-ring-red {
+    outline: 2px solid #ef4444;
+    outline-offset: 2px;
+  }
+
+  .focus-ring-green {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
   }
 }
 

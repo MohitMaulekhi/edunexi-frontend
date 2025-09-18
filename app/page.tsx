@@ -14,8 +14,6 @@ import DotGrid from "../components/DotGrid"
 const headingWords = ["Edunexi", "शिक्षा संगम"]
 
 // Color palette
-const primaryButton = "bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500"
-const primaryButtonHover = "hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600"
 const cardBg = "bg-black/70 backdrop-blur-md border border-gray-700"
 const cardShadow = "shadow-xl"
 
@@ -110,7 +108,7 @@ export default function HomePage() {
             </CardHeader>
             <CardContent className="text-center mt-6">
               <Link href="/login?role=student">
-                <Button className={`w-full ${primaryButton} ${primaryButtonHover} text-gray-50 font-semibold py-4 rounded-xl shadow-lg transition-transform transform hover:scale-105`}>
+                <Button size="lg" className="w-full">
                   Student Login
                 </Button>
               </Link>
@@ -136,7 +134,7 @@ export default function HomePage() {
             </CardHeader>
             <CardContent className="text-center mt-6">
               <Link href="/login?role=university">
-                <Button variant="outline" className="w-full border-indigo-500 text-indigo-500 hover:bg-indigo-500 hover:text-gray-50 font-semibold py-4 rounded-xl transition-transform transform hover:scale-105">
+                <Button variant="outline" size="lg" className="w-full">
                   University Login
                 </Button>
               </Link>
