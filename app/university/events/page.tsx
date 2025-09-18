@@ -36,7 +36,6 @@ const events = [
 ];
 
 export default function UniversityEventsPage() {
-  const [selectedEvent, setSelectedEvent] = React.useState<number | null>(null);
 
   return (
     <div className="min-h-screen bg-[#000000] font-poppins">
@@ -112,22 +111,7 @@ export default function UniversityEventsPage() {
                 </Button>
               </div>
 
-              {/* Expanded details (optional, can be removed if you want minimal) */}
-              {selectedEvent === e.id && (
-                <div className="mt-4 text-gray-200 text-sm space-y-3">
-                  <p><strong>Location:</strong> {e.location}</p>
-                  <p>{e.excerpt}</p>
-                  <button
-                    onClick={(ev) => {
-                      ev.stopPropagation();
-                      setSelectedEvent(null);
-                    }}
-                    className="mt-2 px-3 py-1 rounded bg-blue-900 text-white hover:bg-blue-800 transition"
-                  >
-                    Close
-                  </button>
-                </div>
-              )}
+
             </article>
           ))}
         </div>

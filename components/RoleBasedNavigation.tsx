@@ -37,10 +37,7 @@ import {
   Menu,
   ChevronRight,
   Plus,
-  Search,
-  Home,
-  HelpCircle,
-  BookOpen
+  HelpCircle
 } from "lucide-react"
 import { getRoleDisplayName } from "@/lib/role-utils"
 
@@ -167,19 +164,19 @@ export function RoleBasedNavigation() {
 
   return (
     <nav className="sticky top-0 z-50 bg-black/70 backdrop-blur-md border-b border-gray-700">
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 sm:h-20">
           {/* Logo and Brand */}
-          <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
+          <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-all duration-300 hover:scale-105 group py-1">
             <div className="relative">
-              <GraduationCap className="h-8 w-8 text-primary" />
-              <div className="absolute -top-1 -right-1 h-3 w-3 bg-primary rounded-full animate-pulse" />
+              <GraduationCap className="h-8 w-8 text-primary transition-all duration-300 group-hover:rotate-12" />
+              <div className="absolute -top-1 -right-1 h-3 w-3 bg-primary rounded-full animate-pulse group-hover:animate-bounce" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-bold text-lg bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
+            <div className="md:flex flex-col hidden ">
+              <span className="font-bold text-lg bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent from-blue-400 to-purple-400 transition-all duration-300">
                 EduNexi
               </span>
-              <span className="text-xs text-muted-foreground -mt-1">
+              <span className="text-xs text-muted-foreground -mt-1 group-hover:text-blue-300 transition-colors duration-300">
                 Smart Learning Platform
               </span>
             </div>
@@ -196,13 +193,13 @@ export function RoleBasedNavigation() {
                     variant={isActive ? "default" : "ghost"}
                     size="sm"
                     className={`
-                      flex items-center space-x-2 relative
+                      flex items-center space-x-2 relative group
                       ${isActive ? "shadow-md" : "hover:bg-muted/50"}
-                      transition-all duration-200
+                      transition-all duration-300 hover:scale-105 hover:-translate-y-0.5
                     `}
                   >
-                    <Icon className="h-4 w-4" />
-                    <span>{item.label}</span>
+                    <Icon className="h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
+                    <span className="group-hover:text-white transition-colors duration-200">{item.label}</span>
                     {item.badge && (
                       <Badge variant="destructive" className="h-5 text-xs ml-1">
                         {item.badge}
@@ -235,32 +232,46 @@ export function RoleBasedNavigation() {
               })}
             </div>
 
+            {/* Desktop Logout Button */}
+            <div className="hidden lg:flex items-center space-x-2">
+              <Button 
+                variant="outline" 
+                size="sm"
+                onClick={handleLogout}
+                className="flex items-center space-x-2 border-gray-600 hover:border-red-400 hover:text-red-400 transition-colors min-h-[44px]"
+              >
+                <LogOut className="h-4 w-4" />
+                <span>Logout</span>
+              </Button>
+            </div>
+
             {/* Mobile Menu */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
               <SheetTrigger asChild className="lg:hidden">
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="min-h-[48px] min-w-[48px] p-3">
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 font-poppins">
-                <SheetHeader>
-                  <SheetTitle className="flex items-center space-x-3">
+              <SheetContent side="right" className="w-80 font-poppins bg-[#000000] border-gray-700">
+                {/* Improved Mobile Header Spacing */}
+                <SheetHeader className="bg-[#000000] border-gray-700/50 px-8 py-8 flex flex-col items-start gap-3">
+                  <SheetTitle className="flex items-center space-x-4 text-xl">
                     <div className="relative">
-                      <GraduationCap className="h-6 w-6 text-blue-400" />
-                      <div className="absolute -top-1 -right-1 h-2 w-2 bg-blue-400 rounded-full animate-pulse" />
+                      <GraduationCap className="h-7 w-7 text-blue-400" />
+                      <div className="absolute -top-1 -right-1 h-3 w-3 bg-blue-400 rounded-full animate-pulse" />
                     </div>
-                    <span>EduNexi</span>
+                    <span className="font-bold tracking-wide">EduNexi</span>
                   </SheetTitle>
-                  <SheetDescription>
+                  <SheetDescription className="text-base text-gray-300 mt-1">
                     Navigate your {isStudent() ? "student" : "university"} portal
                   </SheetDescription>
                 </SheetHeader>
                 
-                <div className="flex-1 overflow-y-auto px-6 pb-6">
+                <div className="flex-1 overflow-y-auto px-6 pb-6 bg-[#000000]">
                   <div className="space-y-8 mt-6">
                     {/* User Info */}
-                    <div className="relative p-4 bg-gradient-to-br from-gray-800/50 to-gray-900/50 rounded-xl border border-gray-700/50 backdrop-blur-sm">
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-indigo-500/5 to-purple-500/5 rounded-xl" />
+                    <div className="relative p-4 bg-[#000000] border border-gray-700 rounded-xl">
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-indigo-500/10 to-purple-500/10 rounded-xl" />
                       <div className="relative flex items-center space-x-4">
                         <Avatar className="h-12 w-12 ring-2 ring-blue-400/30">
                           <AvatarFallback className="bg-gradient-to-br from-blue-500 to-indigo-600 text-white font-semibold">
@@ -272,7 +283,7 @@ export function RoleBasedNavigation() {
                           <p className="text-sm text-gray-300 truncate">{user.email}</p>
                           <Badge 
                             variant="secondary" 
-                            className="text-xs mt-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-300 border-blue-400/30"
+                            className="text-xs mt-2 bg-gradient-to-r from-blue-500/20 to-indigo-500/20 text-blue-300 border-blue-400/30 min-h-[24px] flex items-center"
                           >
                             {getRoleDisplayName(user.role.type as any)}
                           </Badge>
@@ -305,7 +316,7 @@ export function RoleBasedNavigation() {
                             <Link key={action.href} href={action.href} onClick={() => setIsMobileMenuOpen(false)}>
                               <Button 
                                 variant="outline"
-                                className={`w-full justify-start h-12 ${bgColors[index % bgColors.length]} border transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]`}
+                                className={`w-full justify-start min-h-[48px] h-12 ${bgColors[index % bgColors.length]} border transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] bg-[#000000]`}
                               >
                                 <Icon className={`h-5 w-5 mr-3 bg-gradient-to-r ${colors[index % colors.length]} bg-clip-text text-transparent`} />
                                 <span className="font-medium text-gray-200">{action.label}</span>
@@ -343,15 +354,15 @@ export function RoleBasedNavigation() {
                           return (
                             <Link key={item.href} href={item.href} onClick={() => setIsMobileMenuOpen(false)}>
                               <div className={`
-                                group flex items-center space-x-4 p-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]
+                                group flex items-center space-x-4 p-4 rounded-xl transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] min-h-[56px]
                                 ${isActive 
-                                  ? `bg-gradient-to-r ${activeGradients[index % activeGradients.length]} border border-blue-400/30 shadow-lg` 
-                                  : "hover:bg-gray-800/50 border border-transparent hover:border-gray-700/50"
+                                  ? `bg-gradient-to-r ${activeGradients[index % activeGradients.length]} border border-blue-400/30 shadow-lg bg-[#000000]` 
+                                  : "hover:bg-[#111111] border border-transparent hover:border-gray-700/50 bg-[#000000]"
                                 }
                               `}>
                                 <div className={`
-                                  p-2 rounded-lg transition-colors
-                                  ${isActive ? 'bg-blue-500/20' : 'bg-gray-800/50 group-hover:bg-gray-700/50'}
+                                  p-2 rounded-lg transition-colors min-w-[36px] min-h-[36px] flex items-center justify-center
+                                  ${isActive ? 'bg-blue-500/20' : 'bg-[#111111] group-hover:bg-gray-700/50'}
                                 `}>
                                   <Icon className={`h-5 w-5 ${isActive ? 'text-blue-300' : iconColors[index % iconColors.length]}`} />
                                 </div>
@@ -363,7 +374,7 @@ export function RoleBasedNavigation() {
                                     {item.badge && (
                                       <Badge 
                                         variant={isActive ? "secondary" : "destructive"} 
-                                        className={`text-xs ${isActive ? 'bg-blue-500/20 text-blue-300 border-blue-400/30' : ''}`}
+                                        className={`text-xs min-h-[24px] flex items-center ${isActive ? 'bg-blue-500/20 text-blue-300 border-blue-400/30' : ''}`}
                                       >
                                         {item.badge}
                                       </Badge>
@@ -416,8 +427,8 @@ export function RoleBasedNavigation() {
                           const Icon = option.icon
                           return (
                             <Link key={option.href} href={option.href} onClick={() => setIsMobileMenuOpen(false)}>
-                              <div className={`group flex items-center space-x-4 p-3 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${option.bgColor} border border-transparent hover:border-gray-700/50`}>
-                                <div className="p-2 rounded-lg bg-gray-800/50 group-hover:bg-gray-700/50 transition-colors">
+                              <div className={`group flex items-center space-x-4 p-3 rounded-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] ${option.bgColor} border border-transparent hover:border-gray-700/50 min-h-[48px] bg-[#000000]`}>
+                                <div className="p-2 rounded-lg bg-[#111111] group-hover:bg-gray-700/50 transition-colors min-w-[32px] min-h-[32px] flex items-center justify-center">
                                   <Icon className={`h-4 w-4 ${option.color}`} />
                                 </div>
                                 <span className="font-medium text-gray-200">{option.label}</span>
@@ -430,16 +441,16 @@ export function RoleBasedNavigation() {
                     </div>
 
                     {/* Logout */}
-                    <div className="pt-4 border-t border-gray-700/50">
+                    <div className="pt-4 border-t border-gray-700/50 bg-[#000000]">
                       <Button 
                         variant="outline" 
-                        className="w-full justify-start h-12 bg-red-500/10 hover:bg-red-500/20 border-red-400/30 text-red-300 hover:text-red-200 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                        className="w-full justify-start min-h-[48px] h-12 bg-red-500/10 hover:bg-red-500/20 border-red-400/30 text-red-300 hover:text-red-200 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                         onClick={() => {
                           setIsMobileMenuOpen(false)
                           handleLogout()
                         }}
                       >
-                        <div className="p-2 rounded-lg bg-red-500/20 mr-3">
+                        <div className="p-2 rounded-lg bg-red-500/20 mr-3 min-w-[32px] min-h-[32px] flex items-center justify-center">
                           <LogOut className="h-4 w-4" />
                         </div>
                         <span className="font-medium">Logout</span>
@@ -453,7 +464,7 @@ export function RoleBasedNavigation() {
             {/* Desktop User Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild className="hidden lg:flex">
-                <Button variant="ghost" className="flex items-center space-x-2 px-2">
+                <Button variant="ghost" className="flex items-center space-x-2 px-2 min-h-[48px]">
                   <Avatar className="h-8 w-8">
                     <AvatarFallback className="bg-primary text-primary-foreground text-sm">
                       {getUserInitials(user.username)}
@@ -461,7 +472,7 @@ export function RoleBasedNavigation() {
                   </Avatar>
                   <div className="text-left">
                     <div className="text-sm font-medium">{user.username}</div>
-                    <Badge variant="secondary" className="text-xs">
+                    <Badge variant="secondary" className="text-xs min-h-[20px] flex items-center">
                       {getRoleDisplayName(user.role.type as any)}
                     </Badge>
                   </div>

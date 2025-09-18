@@ -1,103 +1,158 @@
-import React from "react";
+import React from 'react'
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Mail, User, GraduationCap, Calendar, Edit, Award, BookOpen } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
-const dummyProfiles = [
-  {
-    name: "Aarav Sharma",
-    email: "aarav.sharma@student.edu",
-    roll: "2025CS101",
-    branch: "Computer Science",
-    year: "3rd Year",
-    avatar: "/placeholder-user.jpg",
-    bio: "Passionate about AI, open source, and building impactful tech solutions. Loves hackathons and cricket."
-  },
-  {
-    name: "Ishita Verma",
-    email: "ishita.verma@student.edu",
-    roll: "2025EE204",
-    branch: "Electrical Engineering",
-    year: "2nd Year",
-    avatar: "/placeholder-user.jpg",
-    bio: "Enjoys robotics, IoT projects, and exploring renewable energy systems. Avid dancer and traveler."
-  },
-  {
-    name: "Rohan Gupta",
-    email: "rohan.gupta@student.edu",
-    roll: "2024ME302",
-    branch: "Mechanical Engineering",
-    year: "4th Year",
-    avatar: "/placeholder-user.jpg",
-    bio: "Interested in automotive design and sustainable manufacturing. Plays football at the university level."
-  },
-  {
-    name: "Neha Singh",
-    email: "neha.singh@student.edu",
-    roll: "2026BT112",
-    branch: "Biotechnology",
-    year: "1st Year",
-    avatar: "/placeholder-user.jpg",
-    bio: "Curious about genetics and bioinformatics. Loves painting and participates in debating competitions."
-  },
-  {
-    name: "Karan Mehta",
-    email: "karan.mehta@student.edu",
-    roll: "2025IT210",
-    branch: "Information Technology",
-    year: "3rd Year",
-    avatar: "/placeholder-user.jpg",
-    bio: "Web developer and UI/UX enthusiast. Loves gaming and mentoring juniors."
-  },
-  // 👆 upar ke 5 original
-  // 👇 niche mai auto-generate karke 45 aur daal diye hain
-  ...Array.from({ length: 45 }, (_, i) => ({
-    name: `Student ${i + 6}`,
-    email: `student${i + 6}@student.edu`,
-    roll: `2025XX${100 + i}`,
-    branch: ["Computer Science", "IT", "EE", "ME", "BT", "CE", "EC"][
-      Math.floor(Math.random() * 7)
-    ],
-    year: ["1st Year", "2nd Year", "3rd Year", "4th Year"][
-      Math.floor(Math.random() * 4)
-    ],
-    avatar: "/placeholder-user.jpg",
-    bio: "This is a dummy bio for testing large student datasets."
-  }))
-];
+const dummyProfile = {
+  name: 'Aarav Sharma',
+  email: 'aarav.sharma@student.edu',
+  roll: '2025CS101',
+  branch: 'Computer Science',
+  year: '3rd Year',
+  semester: 'Semester 5',
+  cgpa: '3.82',
+  avatar: '/placeholder-user.jpg',
+  bio: 'Passionate about AI, open source, and building impactful tech solutions. Loves hackathons and cricket.',
+  achievements: 12,
+  projects: 8,
+  joinDate: 'August 2023'
+}
 
-const Page = () => {
+const page = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-50 to-orange-100 py-10">
-      <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-        {dummyProfiles.map((student, index) => (
-          <div
-            key={index}
-            className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center"
-          >
-            <img
-              src={student.avatar}
-              alt="Avatar"
-              className="w-24 h-24 rounded-full border-4 border-orange-300 mb-4 shadow"
-            />
-            <h1 className="text-xl font-bold mb-1 text-orange-800">
-              {student.name}
+    <div className="min-h-screen bg-[#000000] font-poppins">
+      <div className="max-w-4xl mx-auto px-6 py-8">
+        {/* Header */}
+        <div className="mb-8">
+          <Link href="/student" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Dashboard
+          </Link>
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent mb-4">
+              My Profile
             </h1>
-            <p className="text-gray-600 text-sm mb-1">{student.email}</p>
-            <p className="text-gray-500 text-sm">
-              Roll No: <span className="font-medium">{student.roll}</span>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Manage your personal information and academic details
             </p>
-            <p className="text-gray-500 text-sm">
-              Branch: <span className="font-medium">{student.branch}</span>
-            </p>
-            <p className="text-gray-500 text-sm mb-3">
-              Year: <span className="font-medium">{student.year}</span>
-            </p>
-            <div className="bg-orange-50 border-l-4 border-orange-400 p-3 rounded w-full text-center">
-              <span className="text-orange-700 text-sm">{student.bio}</span>
+          </div>
+        </div>
+
+        <div className="grid gap-8 lg:grid-cols-3">
+          {/* Profile Card */}
+          <div className="lg:col-span-1">
+            <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+              <div className="text-center">
+                <div className="relative w-32 h-32 mx-auto mb-6">
+                  <Image 
+                    src={dummyProfile.avatar} 
+                    alt="Profile Avatar" 
+                    fill
+                    className="rounded-full border-4 border-blue-500/30 object-cover"
+                  />
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-2">{dummyProfile.name}</h2>
+                <p className="text-gray-400 mb-1">{dummyProfile.email}</p>
+                <p className="text-blue-400 font-medium">{dummyProfile.roll}</p>
+                
+                <div className="mt-6 pt-6 border-t border-gray-700">
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-blue-400">{dummyProfile.achievements}</div>
+                      <div className="text-xs text-gray-400">Achievements</div>
+                    </div>
+                    <div>
+                      <div className="text-2xl font-bold text-purple-400">{dummyProfile.projects}</div>
+                      <div className="text-xs text-gray-400">Projects</div>
+                    </div>
+                  </div>
+                </div>
+
+                <Button className="w-full mt-6 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600">
+                  <Edit className="w-4 h-4 mr-2" />
+                  Edit Profile
+                </Button>
+              </div>
             </div>
           </div>
-        ))}
+
+          {/* Details Cards */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Academic Information */}
+            <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+                <GraduationCap className="h-6 w-6 mr-3 text-blue-500" />
+                Academic Information
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm text-gray-400">Department</label>
+                    <p className="text-white font-medium">{dummyProfile.branch}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-400">Current Year</label>
+                    <p className="text-white font-medium">{dummyProfile.year}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-400">CGPA</label>
+                    <p className="text-green-400 font-bold text-lg">{dummyProfile.cgpa}</p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div>
+                    <label className="text-sm text-gray-400">Current Semester</label>
+                    <p className="text-white font-medium">{dummyProfile.semester}</p>
+                  </div>
+                  <div>
+                    <label className="text-sm text-gray-400">Enrollment Date</label>
+                    <p className="text-white font-medium">{dummyProfile.joinDate}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Bio Section */}
+            <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center">
+                <User className="h-6 w-6 mr-3 text-purple-500" />
+                About Me
+              </h3>
+              <p className="text-gray-300 leading-relaxed">{dummyProfile.bio}</p>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+              <h3 className="text-xl font-bold text-white mb-6">Quick Actions</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Link href="/student/achievements">
+                  <Button variant="outline" className="w-full justify-start">
+                    <Award className="w-4 h-4 mr-2" />
+                    View Achievements
+                  </Button>
+                </Link>
+                <Link href="/student/portfolio">
+                  <Button variant="outline" className="w-full justify-start">
+                    <BookOpen className="w-4 h-4 mr-2" />
+                    View Portfolio
+                  </Button>
+                </Link>
+                <Button variant="outline" className="w-full justify-start">
+                  <Mail className="w-4 h-4 mr-2" />
+                  Contact Support
+                </Button>
+                <Button variant="outline" className="w-full justify-start">
+                  <Calendar className="w-4 h-4 mr-2" />
+                  Academic Calendar
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Page;
+export default page

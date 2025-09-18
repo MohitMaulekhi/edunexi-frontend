@@ -134,7 +134,7 @@ function CreateStudentContent() {
   return (
     <div className="min-h-screen bg-[#000000] font-poppins">
       <div className="container mx-auto px-6 py-8 max-w-4xl">
-        {/* Header */}
+        {/* Page Header - Integrated into content */}
         <div className="mb-8">
           <Link href="/university/students" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
             <ArrowLeft className="h-4 w-4 mr-2" />

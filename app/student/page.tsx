@@ -2,15 +2,32 @@
 
 import { useAuth } from "@/contexts/AuthContext"
 import ProtectedRoute from "@/components/ProtectedRoute"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import { Button } from "@/components/ui/button"
+import { LoadingButton } from "@/components/ui/loading-button"
+import { AnimatedCard } from "@/components/ui/animated-card"
+import { DashboardStatsSkeleton, DashboardCardSkeleton, DashboardQuickActionsSkeleton, DashboardNotificationsSkeleton } from "@/components/ui/dashboard-skeleton"
+import { SmoothTransition } from "@/components/ui/smooth-transition"
 import { Award, BookOpen, Calendar, Bell, Users, TrendingUp, FileText, Star, CheckCircle, LogOut } from "lucide-react"
 import Link from "next/link"
+import { useState, useEffect } from "react"
 
 function StudentDashboardContent() {
   const { user, logout } = useAuth()
+  const [isLoading, setIsLoading] = useState(true)
+  const [dataLoaded, setDataLoaded] = useState(false)
+
+  // Simulate data loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false)
+      setDataLoaded(true)
+    }, 1500) // Simulate API call delay
+
+    return () => clearTimeout(timer)
+  }, [])
 
   if (!user) return null
 
@@ -112,34 +129,34 @@ function StudentDashboardContent() {
 
   return (
     <div className="min-h-screen bg-[#000000] font-poppins">
-      {/* Header */}
-      <header className="border-b bg-black/70 backdrop-blur-md border-gray-700">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+        {/* Page Header - Integrated into content */}
+        <div className="mb-6 sm:mb-8">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
             <div className="flex items-center space-x-3 sm:space-x-4">
               <Award className="h-7 w-7 sm:h-8 sm:w-8 text-primary flex-shrink-0" />
               <div>
-                <h1 className="text-xl sm:text-2xl font-bold">Student Dashboard</h1>
+                <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent">Student Dashboard</h1>
                 <p className="text-sm text-muted-foreground">Welcome back, {user.username}</p>
               </div>
             </div>
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 w-full sm:w-auto">
-              <Badge variant="secondary" className="text-xs">{user.student?.studentId}</Badge>
-              <Badge variant="outline" className="text-xs">{user.student?.department}</Badge>
-              <Button variant="outline" onClick={logout} className="min-h-[44px] px-4">
-                <LogOut className="h-4 w-4 mr-2" />
-                <span className="hidden sm:inline">Logout</span>
-                <span className="sm:hidden">Exit</span>
-              </Button>
+              <Badge variant="secondary" className="text-xs min-h-[32px] flex items-center">{user.student?.studentId}</Badge>
+              <Badge variant="outline" className="text-xs min-h-[32px] flex items-center">{user.student?.department}</Badge>
             </div>
           </div>
         </div>
-      </header>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Stats Overview */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8 mb-6 sm:mb-8">
-          <Card className="rounded-3xl p-5 sm:p-6 md:p-7 lg:p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 min-h-[140px] sm:min-h-[150px] md:min-h-[160px] border-l-4 border-l-blue-500">
+        {isLoading ? (
+          <DashboardStatsSkeleton />
+        ) : (
+          <SmoothTransition show={dataLoaded} type="fade" duration="normal">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8 mb-6 sm:mb-8">
+          <AnimatedCard 
+            hoverEffect="lift" 
+            animationDelay={0}
+            className="rounded-3xl p-5 sm:p-6 md:p-7 lg:p-8 shadow-xl min-h-[140px] sm:min-h-[150px] md:min-h-[160px] border-l-4 border-l-blue-500"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 px-0">
               <CardTitle className="text-sm sm:text-base font-medium">Total Achievements</CardTitle>
               <Award className="h-6 w-6 sm:h-5 sm:w-5 text-blue-400 flex-shrink-0" />
@@ -150,9 +167,14 @@ function StudentDashboardContent() {
                 <span className="text-green-400">{studentStats.approvedAchievements} approved</span>, <span className="text-orange-400">{studentStats.pendingAchievements} pending</span>
               </p>
             </CardContent>
-          </Card>
+          </AnimatedCard>
 
-          <Card className="rounded-3xl p-5 sm:p-6 md:p-7 lg:p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 min-h-[140px] sm:min-h-[150px] md:min-h-[160px] border-l-4 border-l-purple-500">
+          <AnimatedCard 
+            hoverEffect="glow" 
+            glowColor="purple"
+            animationDelay={100}
+            className="rounded-3xl p-5 sm:p-6 md:p-7 lg:p-8 shadow-xl min-h-[140px] sm:min-h-[150px] md:min-h-[160px] border-l-4 border-l-purple-500"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 px-0">
               <CardTitle className="text-sm sm:text-base font-medium">Achievement Points</CardTitle>
               <Star className="h-6 w-6 sm:h-5 sm:w-5 text-purple-400 flex-shrink-0" />
@@ -161,9 +183,14 @@ function StudentDashboardContent() {
               <div className="text-2xl sm:text-3xl md:text-2xl font-bold text-purple-400">{studentStats.totalPoints}</div>
               <p className="text-xs sm:text-sm text-muted-foreground mt-2">Lifetime points earned</p>
             </CardContent>
-          </Card>
+          </AnimatedCard>
 
-          <Card className="rounded-3xl p-5 sm:p-6 md:p-7 lg:p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 min-h-[140px] sm:min-h-[150px] md:min-h-[160px] border-l-4 border-l-green-500">
+          <AnimatedCard 
+            hoverEffect="glow" 
+            glowColor="green"
+            animationDelay={200}
+            className="rounded-3xl p-5 sm:p-6 md:p-7 lg:p-8 shadow-xl min-h-[140px] sm:min-h-[150px] md:min-h-[160px] border-l-4 border-l-green-500"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 px-0">
               <CardTitle className="text-sm sm:text-base font-medium">Current CGPA</CardTitle>
               <TrendingUp className="h-6 w-6 sm:h-5 sm:w-5 text-green-400 flex-shrink-0" />
@@ -172,9 +199,14 @@ function StudentDashboardContent() {
               <div className="text-2xl sm:text-3xl md:text-2xl font-bold text-green-400">{studentStats.currentCGPA}</div>
               <p className="text-xs sm:text-sm text-muted-foreground mt-2">Overall: <span className="text-green-300">{studentStats.overallCGPA}</span></p>
             </CardContent>
-          </Card>
+          </AnimatedCard>
 
-          <Card className="rounded-3xl p-5 sm:p-6 md:p-7 lg:p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 min-h-[140px] sm:min-h-[150px] md:min-h-[160px] border-l-4 border-l-orange-500">
+          <AnimatedCard 
+            hoverEffect="glow" 
+            glowColor="orange"
+            animationDelay={300}
+            className="rounded-3xl p-5 sm:p-6 md:p-7 lg:p-8 shadow-xl min-h-[140px] sm:min-h-[150px] md:min-h-[160px] border-l-4 border-l-orange-500"
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3 px-0">
               <CardTitle className="text-sm sm:text-base font-medium">Attendance</CardTitle>
               <CheckCircle className="h-6 w-6 sm:h-5 sm:w-5 text-orange-400 flex-shrink-0" />
@@ -183,15 +215,24 @@ function StudentDashboardContent() {
               <div className="text-2xl sm:text-3xl md:text-2xl font-bold text-orange-400">{studentStats.attendancePercentage}%</div>
               <Progress value={studentStats.attendancePercentage} className="mt-3" />
             </CardContent>
-          </Card>
-        </div>
+          </AnimatedCard>
+            </div>
+          </SmoothTransition>
+        )}
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-7 lg:gap-8">
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-6 md:space-y-7">
             {/* Recent Achievements */}
-            <Card className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-2 border-t-blue-500">
+            {isLoading ? (
+              <DashboardCardSkeleton />
+            ) : (
+              <SmoothTransition show={dataLoaded} type="slide-up" delay={400}>
+                <AnimatedCard 
+                  hoverEffect="lift"
+                  className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl border-t-2 border-t-blue-500"
+                >
               <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-0 gap-4 sm:gap-0">
                 <div>
                   <CardTitle className="flex items-center text-base sm:text-lg gradient-text-primary">
@@ -201,14 +242,18 @@ function StudentDashboardContent() {
                   <CardDescription className="text-sm">Your latest accomplishments</CardDescription>
                 </div>
                 <Link href="/student/achievements">
-                  <Button variant="outline" size="sm" className="min-h-[44px] w-full sm:w-auto px-4">
+                  <LoadingButton 
+                    variant="outline" 
+                    size="sm" 
+                    className="min-h-[48px] w-full sm:w-auto px-4 hover:scale-105 transition-transform duration-200"
+                  >
                     View All
-                  </Button>
+                  </LoadingButton>
                 </Link>
               </CardHeader>
               <CardContent className="space-y-4 md:space-y-5 px-0">
                 {recentAchievements.map((achievement) => (
-                  <div key={achievement.id} className={`flex items-start space-x-4 p-4 md:p-5 border rounded-xl bg-black/30 backdrop-blur-sm hover:bg-black/40 transition-colors duration-200 ${
+                  <div key={achievement.id} className={`flex items-start space-x-4 p-4 md:p-5 border rounded-xl bg-[#000000] hover:bg-[#111111] transition-colors duration-200 ${
                     achievement.category === 'academic' ? 'border-l-4 border-l-blue-400 border-gray-700' :
                     achievement.category === 'competition' ? 'border-l-4 border-l-purple-400 border-gray-700' :
                     'border-gray-700'
@@ -254,10 +299,19 @@ function StudentDashboardContent() {
                   </div>
                 ))}
               </CardContent>
-            </Card>
+                </AnimatedCard>
+              </SmoothTransition>
+            )}
 
             {/* CGPA Breakdown */}
-            <Card className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-2 border-t-green-500">
+            {isLoading ? (
+              <DashboardCardSkeleton />
+            ) : (
+              <SmoothTransition show={dataLoaded} type="slide-up" delay={500}>
+                <AnimatedCard 
+                  hoverEffect="lift"
+                  className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl border-t-2 border-t-green-500"
+                >
               <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-0 gap-4 sm:gap-0">
                 <div>
                   <CardTitle className="flex items-center text-base sm:text-lg gradient-text-primary">
@@ -267,15 +321,19 @@ function StudentDashboardContent() {
                   <CardDescription className="text-sm">Your semester-wise CGPA breakdown</CardDescription>
                 </div>
                 <Link href="/student/academics">
-                  <Button variant="outline" size="sm" className="min-h-[44px] w-full sm:w-auto px-4">
+                  <LoadingButton 
+                    variant="outline" 
+                    size="sm" 
+                    className="min-h-[48px] w-full sm:w-auto px-4 hover:scale-105 transition-transform duration-200"
+                  >
                     View Details
-                  </Button>
+                  </LoadingButton>
                 </Link>
               </CardHeader>
               <CardContent className="px-0">
                 <div className="space-y-4 md:space-y-5">
                   {cgpaRecords.slice(0, 2).map((record, index) => (
-                    <div key={index} className="flex items-center justify-between p-4 md:p-5 border border-gray-700 rounded-xl bg-black/30 backdrop-blur-sm hover:bg-black/40 transition-colors duration-200 border-l-4 border-l-green-400">
+                    <div key={index} className="flex items-center justify-between p-4 md:p-5 border border-gray-700 rounded-xl bg-[#000000] hover:bg-[#111111] transition-colors duration-200 border-l-4 border-l-green-400">
                       <div className="min-w-0 flex-1">
                         <h4 className="font-semibold text-sm sm:text-base">{record.semester}</h4>
                         <p className="text-sm text-muted-foreground">{record.credits} credits</p>
@@ -292,13 +350,23 @@ function StudentDashboardContent() {
                   ))}
                 </div>
               </CardContent>
-            </Card>
+                </AnimatedCard>
+              </SmoothTransition>
+            )}
           </div>
 
           {/* Right Column */}
           <div className="space-y-6 md:space-y-7">
             {/* Notifications */}
-            <Card className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-2 border-t-red-500">
+            {isLoading ? (
+              <DashboardNotificationsSkeleton />
+            ) : (
+              <SmoothTransition show={dataLoaded} type="slide-up" delay={600}>
+                <AnimatedCard 
+                  hoverEffect="glow"
+                  glowColor="red"
+                  className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl border-t-2 border-t-red-500"
+                >
               <CardHeader className="flex flex-row items-center justify-between px-0 pb-4">
                 <CardTitle className="flex items-center flex-wrap gap-2 text-base sm:text-lg gradient-text-primary">
                   <Bell className="h-5 w-5 flex-shrink-0 text-red-400" />
@@ -314,7 +382,7 @@ function StudentDashboardContent() {
                 {notifications.slice(0, 3).map((notification) => (
                   <div
                     key={notification.id}
-                    className={`p-4 border border-gray-700 rounded-xl bg-black/30 backdrop-blur-sm hover:bg-black/40 transition-colors duration-200 cursor-pointer ${!notification.read ? "bg-muted/50" : ""}`}
+                    className={`p-4 border border-gray-700 rounded-xl bg-[#000000] hover:bg-[#111111] transition-colors duration-200 cursor-pointer min-h-[80px] ${!notification.read ? "border-blue-400/50" : ""}`}
                   >
                     <div className="flex items-start justify-between mb-2">
                       <h5 className="font-medium text-sm flex-1 pr-2">{notification.title}</h5>
@@ -325,24 +393,38 @@ function StudentDashboardContent() {
                   </div>
                 ))}
               </CardContent>
-            </Card>
+                </AnimatedCard>
+              </SmoothTransition>
+            )}
 
             {/* Upcoming Events */}
-            <Card className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-2 border-t-indigo-500">
+            {isLoading ? (
+              <DashboardCardSkeleton />
+            ) : (
+              <SmoothTransition show={dataLoaded} type="slide-up" delay={700}>
+                <AnimatedCard 
+                  hoverEffect="glow"
+                  glowColor="blue"
+                  className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl border-t-2 border-t-indigo-500"
+                >
               <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between px-0 gap-4 sm:gap-0 pb-4">
                 <CardTitle className="flex items-center text-base sm:text-lg gradient-text-primary">
                   <Calendar className="h-5 w-5 mr-2 flex-shrink-0 text-indigo-400" />
                   Upcoming Events
                 </CardTitle>
                 <Link href="/student/events">
-                  <Button variant="outline" size="sm" className="min-h-[44px] w-full sm:w-auto px-4">
+                  <LoadingButton 
+                    variant="outline" 
+                    size="sm" 
+                    className="min-h-[48px] w-full sm:w-auto px-4 hover:scale-105 transition-transform duration-200"
+                  >
                     View All
-                  </Button>
+                  </LoadingButton>
                 </Link>
               </CardHeader>
               <CardContent className="space-y-4 px-0">
                 {recentEvents.map((event) => (
-                  <div key={event.id} className={`p-4 border rounded-xl bg-black/30 backdrop-blur-sm hover:bg-black/40 transition-colors duration-200 cursor-pointer ${
+                  <div key={event.id} className={`p-4 border rounded-xl bg-[#000000] hover:bg-[#111111] transition-colors duration-200 cursor-pointer min-h-[80px] ${
                     event.type === 'career' ? 'border-l-4 border-l-orange-400 border-gray-700' :
                     event.type === 'academic' ? 'border-l-4 border-l-blue-400 border-gray-700' :
                     'border-gray-700'
@@ -368,34 +450,55 @@ function StudentDashboardContent() {
                   </div>
                 ))}
               </CardContent>
-            </Card>
+                </AnimatedCard>
+              </SmoothTransition>
+            )}
 
             {/* Quick Actions */}
-            <Card className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 border-t-2 border-t-purple-500">
+            {isLoading ? (
+              <DashboardQuickActionsSkeleton />
+            ) : (
+              <SmoothTransition show={dataLoaded} type="slide-up" delay={800}>
+                <AnimatedCard 
+                  hoverEffect="glow"
+                  glowColor="purple"
+                  className="rounded-3xl p-6 sm:p-7 md:p-8 shadow-xl border-t-2 border-t-purple-500"
+                >
               <CardHeader className="px-0 pb-4">
                 <CardTitle className="text-base sm:text-lg gradient-text-primary">Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4 px-0">
                 <Link href="/student/achievements/new">
-                  <Button className="w-full min-h-[48px] text-sm hover:scale-[1.02] transition-transform duration-200" variant="outline">
-                    <Award className="h-4 w-4 mr-2 flex-shrink-0" />
+                  <LoadingButton 
+                    className="w-full min-h-[48px] text-sm hover:scale-[1.02] transition-transform duration-200" 
+                    variant="outline"
+                    icon={<Award className="h-4 w-4" />}
+                  >
                     Add Achievement
-                  </Button>
+                  </LoadingButton>
                 </Link>
                 <Link href="/student/portfolio">
-                  <Button className="w-full min-h-[48px] text-sm hover:scale-[1.02] transition-transform duration-200" variant="outline">
-                    <FileText className="h-4 w-4 mr-2 flex-shrink-0" />
+                  <LoadingButton 
+                    className="w-full min-h-[48px] text-sm hover:scale-[1.02] transition-transform duration-200" 
+                    variant="outline"
+                    icon={<FileText className="h-4 w-4" />}
+                  >
                     Generate Portfolio
-                  </Button>
+                  </LoadingButton>
                 </Link>
                 <Link href="/student/societies">
-                  <Button className="w-full min-h-[48px] text-sm hover:scale-[1.02] transition-transform duration-200" variant="outline">
-                    <Users className="h-4 w-4 mr-2 flex-shrink-0" />
+                  <LoadingButton 
+                    className="w-full min-h-[48px] text-sm hover:scale-[1.02] transition-transform duration-200" 
+                    variant="outline"
+                    icon={<Users className="h-4 w-4" />}
+                  >
                     Join Society
-                  </Button>
+                  </LoadingButton>
                 </Link>
               </CardContent>
-            </Card>
+                </AnimatedCard>
+              </SmoothTransition>
+            )}
           </div>
         </div>
       </div>

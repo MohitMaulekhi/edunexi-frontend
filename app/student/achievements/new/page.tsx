@@ -12,7 +12,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { LogoutButton } from "@/components/logout-button"
-import { Award, Upload, Calendar, Save, X, Hash, File } from "lucide-react"
+import { Award, Upload, Calendar, Save, X, Hash, File, ArrowLeft } from "lucide-react"
 import Link from "next/link"
 import { useAuth } from "@/contexts/AuthContext"
 import { saveAchievement } from "@/lib/achievement"
@@ -109,39 +109,36 @@ export default function NewAchievementPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#000000]">
-      {/* Header */}
-      <header className="border-b bg-black/70 backdrop-blur-md border-gray-700">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-[#000000] font-poppins">
+      <div className="container mx-auto px-6 py-8 max-w-4xl">
+        {/* Page Header - Integrated into content */}
+        <div className="mb-8">
+          <Link href="/student/achievements" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Achievements
+          </Link>
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link href="/student/achievements" className="text-muted-foreground hover:text-foreground">
-                ← Back to Achievements
-              </Link>
               <div>
-                <h1 className="text-2xl font-bold flex items-center">
-                  <Award className="h-6 w-6 mr-2" />
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent flex items-center">
+                  <Award className="h-8 w-8 mr-3 text-yellow-500" />
                   Add New Achievement
-                  <Hash className="h-5 w-5 ml-2 text-blue-600" />
+                  <Hash className="h-6 w-6 ml-3 text-blue-500" />
                 </h1>
-                <p className="text-muted-foreground">Document your accomplishments with blockchain verification</p>
+                <p className="text-gray-300 text-lg">Document your accomplishments with blockchain verification</p>
               </div>
             </div>
-            <LogoutButton />
           </div>
         </div>
-      </header>
-
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <Card className="rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-          <CardHeader className="px-0">
-            <CardTitle>Achievement Details</CardTitle>
-            <CardDescription>
+        <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-white mb-2">Achievement Details</h2>
+            <p className="text-gray-300">
               Provide detailed information about your achievement. All submissions will be reviewed by faculty before
               approval.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="px-0">
+            </p>
+          </div>
+          <div>
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Title */}
               <div className="space-y-2">
@@ -319,15 +316,15 @@ export default function NewAchievementPage() {
                 </Link>
               </div>
             </form>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* Help Section */}
-        <Card className="mt-6 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-          <CardHeader className="px-0">
-            <CardTitle>Need Help?</CardTitle>
-          </CardHeader>
-          <CardContent className="px-0">
+        <div className="mt-8 bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold text-white">Need Help?</h2>
+          </div>
+          <div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
               <div>
                 <h4 className="font-semibold mb-2">What qualifies as an achievement?</h4>
@@ -351,8 +348,8 @@ export default function NewAchievementPage() {
                 </ul>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   )

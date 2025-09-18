@@ -1,6 +1,11 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { LoadingButton } from "@/components/ui/loading-button";
+import { InteractiveFeedback } from "@/components/ui/interactive-feedback";
+import { AnimatedCard } from "@/components/ui/animated-card";
+import { ArrowLeft } from "lucide-react";
+import Link from "next/link";
 
 const approvals = [
   {
@@ -106,26 +111,45 @@ const approvals = [
 ];
 
 export default function ApprovalsPage() {
+  const [loadingStates, setLoadingStates] = useState<{ [key: number]: 'approve' | 'reject' | null }>({});
+
+  const handleApproval = async (id: number, action: 'approve' | 'reject') => {
+    setLoadingStates(prev => ({ ...prev, [id]: action }));
+
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    setLoadingStates(prev => ({ ...prev, [id]: null }));
+    // Here you would typically update the approvals list or show success message
+  };
+
   return (
-    <div className="min-h-screen py-12 bg-gradient-to-tr from-gray-950 via-black to-gray-900 text-white font-sans">
-      <div className="max-w-5xl mx-auto px-6">
-        {/* Header */}
-        <header className="mb-8 text-center">
-          <h1 className="text-5xl font-extrabold text-white drop-shadow-lg">
-            Pending Approvals
-          </h1>
-          <p className="mt-2 text-gray-300">
-            Review and approve or reject student-submitted achievements.
-          </p>
-        </header>
+    <div className="min-h-screen bg-[#000000] font-poppins">
+      <div className="max-w-5xl mx-auto px-6 py-8">
+        {/* Page Header - Integrated into content */}
+        <div className="mb-8">
+          <Link href="/university" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Dashboard
+          </Link>
+          <div className="text-center">
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent mb-4">
+              Pending Approvals
+            </h1>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+              Review and approve or reject student-submitted achievements
+            </p>
+          </div>
+        </div>
 
         {/* Approval Cards */}
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {approvals.map((a) => (
-            <div
+          {approvals.map((a, index) => (
+            <AnimatedCard
               key={a.id}
-              className="rounded-2xl overflow-hidden bg-white/10 backdrop-blur-lg border border-white/10 p-6 
-                hover:scale-105 transform transition-all duration-300 shadow-2xl hover:shadow-blue-900/40 cursor-pointer"
+              hoverEffect="lift"
+              animationDelay={index * 100}
+              className="rounded-2xl overflow-hidden bg-black/70 backdrop-blur-md border border-gray-700 p-6 shadow-xl"
             >
               {/* Title & Student */}
               <div className="flex items-start justify-between">
@@ -150,20 +174,28 @@ export default function ApprovalsPage() {
 
               {/* Approve / Reject Buttons */}
               <div className="mt-4 flex items-center gap-3">
-                <button className="ml-auto inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold 
-                  bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg 
-                  hover:from-blue-800 hover:to-blue-700 transition-all duration-300"
+                <LoadingButton
+                  className="ml-auto inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold 
+                    bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg 
+                    hover:from-blue-800 hover:to-blue-700 transition-all duration-300"
+                  loading={loadingStates[a.id] === 'approve'}
+                  loadingText="Approving..."
+                  onClick={() => handleApproval(a.id, 'approve')}
                 >
                   Approve
-                </button>
-                <button className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold 
-                  bg-gradient-to-r from-red-900 to-red-800 text-white shadow-lg 
-                  hover:from-red-800 hover:to-red-700 transition-all duration-300"
+                </LoadingButton>
+                <LoadingButton
+                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold 
+                    bg-gradient-to-r from-red-900 to-red-800 text-white shadow-lg 
+                    hover:from-red-800 hover:to-red-700 transition-all duration-300"
+                  loading={loadingStates[a.id] === 'reject'}
+                  loadingText="Rejecting..."
+                  onClick={() => handleApproval(a.id, 'reject')}
                 >
                   Reject
-                </button>
+                </LoadingButton>
               </div>
-            </div>
+            </AnimatedCard>
           ))}
         </div>
       </div>

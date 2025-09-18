@@ -81,6 +81,8 @@ function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
+export type CardProps = React.ComponentProps<'div'>
+
 export {
   Card,
   CardHeader,
