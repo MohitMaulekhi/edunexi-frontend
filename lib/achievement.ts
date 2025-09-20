@@ -64,3 +64,14 @@ export async function saveAchievement(
     return false;
   }
 }
+
+// FIXED: Added the missing and correctly exported function
+export const fetchMyAchievements = async (studentId: string) => {
+  try {
+    const response = await axios.get(`${API_URL}/api/achievements?populate=*&sort=createdAt:desc&filters[studentId][$eq]=${studentId}`);
+    return response.data.data;
+  } catch (error) {
+    console.error('Failed to fetch achievements:', error);
+    return [];
+  }
+};
