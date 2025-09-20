@@ -39,12 +39,13 @@ export default function HomePage() {
 
         <Navbar />
 
-
         {/* Hero Section */}
-        <section className="absolute inset-0 flex flex-col items-center justify-center z-20 px-4">
-          
+        <section className="absolute inset-0 flex flex-col items-center justify-center z-20 px-2 pt-24 md:pt-0">
           {/* Animated Heading */}
-          <motion.h1 className="text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg font-poppins text-center leading-[1.4] mb-12">
+          <motion.h1
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg font-poppins text-center leading-[1.2] mb-8 md:mb-12 px-2"
+            style={{ wordBreak: 'break-word', zIndex: 2 }}
+          >
             <AnimatePresence mode="wait">
               <motion.span
                 key={headingWords[currentWordIndex]}
@@ -52,7 +53,7 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.6 }}
-                className="bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent inline-block"
+                className="bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent inline-block py-4"
               >
                 {headingWords[currentWordIndex]}
               </motion.span>
@@ -60,26 +61,26 @@ export default function HomePage() {
           </motion.h1>
           {/* Portal Cards */}
           <motion.div
-            className="grid md:grid-cols-2 gap-10 w-full max-w-4xl"
+            className="grid md:grid-cols-2 gap-6 md:gap-10 w-full max-w-4xl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
             {/* Student Portal */}
             <motion.div
-              className={`${cardBg} rounded-3xl p-6 border border-[#8B5CF6] ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
+              className={`${cardBg} rounded-3xl p-4 md:p-6 border border-[#8B5CF6] ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
               whileHover={{ scale: 1.04 }}
             >
               <CardHeader className="text-center">
-                <GraduationCap className="h-12 w-12 text-[#8B5CF6] mx-auto mb-3" />
-                <CardTitle className="text-xl md:text-2xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
+                <GraduationCap className="h-10 w-10 md:h-12 md:w-12 text-[#8B5CF6] mx-auto mb-2 md:mb-3" />
+                <CardTitle className="text-lg xs:text-xl md:text-2xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
                   Student Portal
                 </CardTitle>
-                <CardDescription className="text-base text-gray-300 font-poppins">
+                <CardDescription className="text-sm md:text-base text-gray-300 font-poppins">
                   Access dashboard & manage profile
                 </CardDescription>
               </CardHeader>
-              <CardContent className="text-center mt-4">
+              <CardContent className="text-center mt-2 md:mt-4">
                 <Link href="/login?role=student">
                   <Button size="lg" className="w-full bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/80">
                     Student Login
@@ -90,19 +91,19 @@ export default function HomePage() {
 
             {/* University Portal */}
             <motion.div
-              className={`${cardBg} rounded-3xl p-6 border border-[#8B5CF6] ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
+              className={`${cardBg} rounded-3xl p-4 md:p-6 border border-[#8B5CF6] ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
               whileHover={{ scale: 1.04 }}
             >
               <CardHeader className="text-center">
-                <Users className="h-12 w-12 text-[#8B5CF6] mx-auto mb-3" />
-                <CardTitle className="text-xl md:text-2xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
+                <Users className="h-10 w-10 md:h-12 md:w-12 text-[#8B5CF6] mx-auto mb-2 md:mb-3" />
+                <CardTitle className="text-lg xs:text-xl md:text-2xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
                   University Portal
                 </CardTitle>
-                <CardDescription className="text-base text-gray-300 font-poppins">
+                <CardDescription className="text-sm md:text-base text-gray-300 font-poppins">
                   Manage records & generate reports
                 </CardDescription>
               </CardHeader>
-              <CardContent className="text-center mt-4">
+              <CardContent className="text-center mt-2 md:mt-4">
                 <Link href="/login?role=university">
                   <Button variant="outline" size="lg" className="w-full border-[#8B5CF6] text-[#8B5CF6] hover:bg-[#8B5CF6]/10">
                     University Login
