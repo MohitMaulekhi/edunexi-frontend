@@ -7,7 +7,7 @@ function Card({ className, ...props }: React.ComponentProps<'div'>) {
     <div
       data-slot="card"
       className={cn(
-        'bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm',
+        'bg-black/70 backdrop-blur-md border-gray-700 text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-xl',
         className,
       )}
       {...props}
@@ -80,6 +80,8 @@ function CardFooter({ className, ...props }: React.ComponentProps<'div'>) {
     />
   )
 }
+
+export type CardProps = React.ComponentProps<'div'>
 
 export {
   Card,

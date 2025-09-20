@@ -97,61 +97,63 @@ export const AchievementCard = ({ achievement }: AchievementCardProps) => {
 
   const getCategoryColor = (category: string) => {
     const colors = {
-      'academic': 'bg-blue-100 text-blue-800',
-      'competition': 'bg-green-100 text-green-800',
-      'certification': 'bg-purple-100 text-purple-800',
-      'internship': 'bg-orange-100 text-orange-800',
-      'research': 'bg-pink-100 text-pink-800',
-      'leadership': 'bg-indigo-100 text-indigo-800',
-      'community': 'bg-yellow-100 text-yellow-800',
-      'extracurricular': 'bg-cyan-100 text-cyan-800',
-      'other': 'bg-gray-100 text-gray-800'
+      'academic': 'bg-blue-500/20 text-blue-400 border-blue-500/30',
+      'competition': 'bg-green-500/20 text-green-400 border-green-500/30',
+      'certification': 'bg-purple-500/20 text-purple-400 border-purple-500/30',
+      'internship': 'bg-orange-500/20 text-orange-400 border-orange-500/30',
+      'research': 'bg-pink-500/20 text-pink-400 border-pink-500/30',
+      'leadership': 'bg-indigo-500/20 text-indigo-400 border-indigo-500/30',
+      'community': 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30',
+      'extracurricular': 'bg-cyan-500/20 text-cyan-400 border-cyan-500/30',
+      'other': 'bg-gray-500/20 text-gray-400 border-gray-500/30'
     }
     return colors[category.toLowerCase() as keyof typeof colors] || colors.other
   }
 
   return (
-    <Card className="hover:shadow-lg transition-shadow">
-      <CardHeader className="pb-3">
-        <div className="flex justify-between items-start">
+    <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-4 sm:p-6 lg:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.02] hover:-translate-y-1 animate-fade-in-up">
+      <div className="pb-4 sm:pb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
           <div className="flex-1">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Award className="h-5 w-5 text-yellow-600" />
-              {loading ? (
-                <div className="flex items-center gap-2">
-                  <span>Loading achievement...</span>
-                  <div className="h-4 w-4 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-                </div>
-              ) : (
-                ipfsData?.title || 'Achievement Details'
-              )}
-            </CardTitle>
-            <CardDescription className="mt-2">
+            <h3 className="text-lg sm:text-xl font-bold text-white flex items-center gap-3 mb-3">
+              <Award className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-500 flex-shrink-0" />
+              <span className="break-words">
+                {loading ? (
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm sm:text-base">Loading achievement...</span>
+                    <div className="h-4 w-4 border-2 border-gray-600 border-t-blue-500 rounded-full animate-spin flex-shrink-0"></div>
+                  </div>
+                ) : (
+                  ipfsData?.title || 'Achievement Details'
+                )}
+              </span>
+            </h3>
+            <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
               {loading ? (
                 <div className="space-y-2">
-                  <div className="h-3 bg-gray-200 rounded animate-pulse w-full"></div>
-                  <div className="h-3 bg-gray-200 rounded animate-pulse w-2/3"></div>
+                  <div className="h-3 bg-gray-700 rounded animate-pulse w-full"></div>
+                  <div className="h-3 bg-gray-700 rounded animate-pulse w-2/3"></div>
                 </div>
               ) : (
                 ipfsData?.description || 'Achievement description not available'
               )}
-            </CardDescription>
+            </p>
           </div>
-          <div className="flex flex-col items-end gap-2">
-            <Badge className={getCategoryColor(achievement.category)}>
+          <div className="flex flex-row sm:flex-col items-center sm:items-end gap-3 sm:ml-6">
+            <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(achievement.category)} whitespace-nowrap`}>
               {achievement.category}
-            </Badge>
-            <div className="flex items-center gap-1 text-sm text-muted-foreground">
+            </span>
+            <div className="flex items-center gap-1 text-sm text-yellow-400">
               <Star className="h-4 w-4" />
-              <span>{achievement.score} pts</span>
+              <span className="font-bold">{achievement.score} pts</span>
             </div>
           </div>
         </div>
-      </CardHeader>
+      </div>
       
-      <CardContent>
-        <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
-          <div className="flex items-center gap-1">
+      <div>
+        <div className="flex items-center gap-4 text-sm text-gray-400 mb-6">
+          <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             <span>{ipfsData?.date || new Date(achievement.createdAt).toLocaleDateString()}</span>
           </div>
@@ -161,26 +163,26 @@ export const AchievementCard = ({ achievement }: AchievementCardProps) => {
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <div className="h-3 bg-gray-200 rounded animate-pulse w-1/2"></div>
-                <div className="h-4 bg-gray-200 rounded animate-pulse w-3/4"></div>
+                <div className="h-3 bg-gray-700 rounded animate-pulse w-1/2"></div>
+                <div className="h-4 bg-gray-700 rounded animate-pulse w-3/4"></div>
               </div>
               <div className="space-y-2">
-                <div className="h-3 bg-gray-200 rounded animate-pulse w-1/2"></div>
-                <div className="h-4 bg-gray-200 rounded animate-pulse w-2/3"></div>
+                <div className="h-3 bg-gray-700 rounded animate-pulse w-1/2"></div>
+                <div className="h-4 bg-gray-700 rounded animate-pulse w-2/3"></div>
               </div>
             </div>
           </div>
         ) : (
           ipfsData && (
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4 text-sm">
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="font-semibold">Student:</span>
-                  <p className="text-muted-foreground">{ipfsData.studentName}</p>
+                  <span className="font-semibold text-gray-300">Student:</span>
+                  <p className="text-gray-400 break-words">{ipfsData.studentName}</p>
                 </div>
                 <div>
-                  <span className="font-semibold">Submitted:</span>
-                  <p className="text-muted-foreground">
+                  <span className="font-semibold text-gray-300">Submitted:</span>
+                  <p className="text-gray-400">
                     {new Date(ipfsData.submissionTimestamp).toLocaleString()}
                   </p>
                 </div>
@@ -188,30 +190,30 @@ export const AchievementCard = ({ achievement }: AchievementCardProps) => {
 
               {ipfsData.attachments && ipfsData.attachments.length > 0 && (
                 <div>
-                  <div className="font-semibold text-sm mb-2">
+                  <div className="font-semibold text-sm mb-3 text-white">
                     Supporting Documents ({ipfsData.attachments.length})
                   </div>
-                  <div className="space-y-2 bg-gray-50 p-3 rounded-md">
+                  <div className="space-y-2 bg-gray-800/50 p-4 rounded-2xl border border-gray-600">
                     {ipfsData.attachments.map((file, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 bg-white rounded border">
-                        <div className="flex items-center gap-3">
-                          <FileText className="h-4 w-4 text-blue-600" />
-                          <div>
-                            <p className="text-sm font-medium">{file.fileName}</p>
-                            <p className="text-xs text-muted-foreground">
+                      <div key={index} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 p-3 bg-gray-700/50 rounded-xl border border-gray-600">
+                        <div className="flex items-center gap-3 min-w-0 flex-1">
+                          <FileText className="h-4 w-4 text-blue-400 flex-shrink-0" />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-sm font-medium text-white truncate">{file.fileName}</p>
+                            <p className="text-xs text-gray-400">
                               {file.fileType} • {(file.fileSize / 1024).toFixed(1)} KB
                             </p>
                           </div>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-shrink-0">
                           <Button
                             variant="ghost"
                             size="sm"
                             onClick={() => window.open(file.ipfsUrl, '_blank')}
-                            className="flex items-center gap-1"
+                            className="flex items-center gap-1 text-blue-400 hover:text-blue-300 min-h-[36px]"
                           >
                             <ExternalLink className="h-3 w-3" />
-                            View
+                            <span className="hidden sm:inline">View</span>
                           </Button>
                           <Button
                             variant="ghost"
@@ -222,10 +224,10 @@ export const AchievementCard = ({ achievement }: AchievementCardProps) => {
                               link.download = file.fileName
                               link.click()
                             }}
-                            className="flex items-center gap-1"
+                            className="flex items-center gap-1 text-green-400 hover:text-green-300 min-h-[36px]"
                           >
                             <Download className="h-3 w-3" />
-                            Download
+                            <span className="hidden sm:inline">Download</span>
                           </Button>
                         </div>
                       </div>
@@ -234,13 +236,13 @@ export const AchievementCard = ({ achievement }: AchievementCardProps) => {
                 </div>
               )}
 
-              <div className="flex items-center gap-2 text-xs">
-                <span className="font-semibold">IPFS Record:</span>
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 text-xs pt-4 border-t border-gray-700">
+                <span className="font-semibold text-gray-300">IPFS Record:</span>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => window.open(achievement.ipfsUrl, '_blank')}
-                  className="flex items-center gap-1 text-xs p-1 h-6"
+                  className="flex items-center gap-1 text-xs p-2 h-8 text-purple-400 hover:text-purple-300 self-start sm:self-auto"
                 >
                   <ExternalLink className="h-3 w-3" />
                   View on IPFS
@@ -249,7 +251,7 @@ export const AchievementCard = ({ achievement }: AchievementCardProps) => {
             </div>
           )
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   )
 }

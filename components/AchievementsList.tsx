@@ -28,8 +28,8 @@ export const AchievementsList = ({ achievements, loading }: AchievementsListProp
     return (
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <div className="h-6 w-48 bg-gray-200 rounded animate-pulse"></div>
-          <div className="h-4 w-32 bg-gray-200 rounded animate-pulse"></div>
+          <div className="h-6 w-48 bg-gray-700 rounded animate-pulse"></div>
+          <div className="h-4 w-32 bg-gray-700 rounded animate-pulse"></div>
         </div>
         <div className="grid gap-6">
           {/* Show 2 loading cards for better UX */}
@@ -46,15 +46,15 @@ export const AchievementsList = ({ achievements, loading }: AchievementsListProp
 
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0">
+        <h2 className="text-lg sm:text-xl font-bold text-white">
           Total Achievements: {achievements.length}
         </h2>
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-gray-400">
           Blockchain-verified accomplishments
         </div>
       </div>
-      <div className="grid gap-6">
+      <div className="grid gap-4 sm:gap-6">
         {achievements.map((achievement) => (
           <AchievementCard key={achievement.id} achievement={achievement} />
         ))}

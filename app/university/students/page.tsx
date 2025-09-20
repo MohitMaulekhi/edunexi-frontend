@@ -149,24 +149,26 @@ function StudentsPageContent() {
 
 
   return (
-    <div className="min-h-screen bg-background p-4">
-      <div className="container mx-auto">
+    <div className="min-h-screen bg-[#000000] font-poppins">
+      <div className="container mx-auto px-6 py-8">
         {/* Header */}
-        <div className="mb-6">
-          <Link href="/university" className="inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-4">
+        <div className="mb-8">
+          <Link href="/university" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard
           </Link>
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Users className="h-8 w-8 text-primary" />
+            <div className="flex items-center space-x-4">
+              <Users className="h-10 w-10 text-blue-500" />
               <div>
-                <h1 className="text-2xl font-bold">Student Management</h1>
-                <p className="text-muted-foreground">Manage students at {user?.university?.name}</p>
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent">
+                  Student Management
+                </h1>
+                <p className="text-gray-300 text-lg">Manage students at {user?.university?.name}</p>
               </div>
             </div>
             <Link href="/university/students/create">
-              <Button>
+              <Button className="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600">
                 <Plus className="h-4 w-4 mr-2" />
                 Add Student
               </Button>
@@ -175,57 +177,55 @@ function StudentsPageContent() {
         </div>
 
         {/* Filters and Search */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center">
-              <Filter className="h-5 w-5 mr-2" />
+        <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300 mb-8">
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-white flex items-center">
+              <Filter className="h-5 w-5 mr-2 text-blue-500" />
               Filters
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="flex-1">
-                <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                  <Input
-                    placeholder="Search by name, email, or student ID..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-              </div>
-              <div className="md:w-48">
-                <select
-                  className="w-full px-3 py-2 border border-input rounded-md bg-background"
-                  value={selectedDepartment}
-                  onChange={(e) => setSelectedDepartment(e.target.value)}
-                >
-                  <option value="">All Departments</option>
-                  {departments.map(dept => (
-                    <option key={dept} value={dept}>{dept}</option>
-                  ))}
-                </select>
+            </h2>
+          </div>
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Search by name, email, or student ID..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400"
+                />
               </div>
             </div>
-          </CardContent>
-        </Card>
+            <div className="md:w-48">
+              <select
+                className="w-full px-3 py-2 border border-gray-600 rounded-md bg-black/50 text-white"
+                value={selectedDepartment}
+                onChange={(e) => setSelectedDepartment(e.target.value)}
+              >
+                <option value="">All Departments</option>
+                {departments.map(dept => (
+                  <option key={dept} value={dept}>{dept}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </div>
 
         {/* Students Table */}
-        <Card>
-          <CardHeader>
+        <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+          <div className="mb-6">
             <div className="flex items-center justify-between">
               <div>
-                <CardTitle>Students ({filteredStudents.length})</CardTitle>
-                <CardDescription>
+                <h2 className="text-2xl font-bold text-white">Students ({filteredStudents.length})</h2>
+                <p className="text-gray-300">
                   {searchQuery || selectedDepartment 
                     ? `Showing filtered results` 
                     : `All students in your university`}
-                </CardDescription>
+                </p>
               </div>
             </div>
-          </CardHeader>
-          <CardContent>
+          </div>
+          <div>
             {loading ? (
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="h-6 w-6 animate-spin mr-2" />
@@ -345,8 +345,8 @@ function StudentsPageContent() {
                 </Table>
               </div>
             )}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   )

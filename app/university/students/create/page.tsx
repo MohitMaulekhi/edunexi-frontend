@@ -132,23 +132,23 @@ function CreateStudentContent() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto p-6 max-w-4xl">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
-            <Link href="/university/students">
-              <Button variant="outline" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Students
-              </Button>
-            </Link>
+    <div className="min-h-screen bg-[#000000] font-poppins">
+      <div className="container mx-auto px-6 py-8 max-w-4xl">
+        {/* Page Header - Integrated into content */}
+        <div className="mb-8">
+          <Link href="/university/students" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
+            <ArrowLeft className="h-4 w-4 mr-2" />
+            Back to Students
+          </Link>
+          <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold">Register New Student</h1>
-              <p className="text-muted-foreground">Create a new student account</p>
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent mb-2">
+                Register New Student
+              </h1>
+              <p className="text-gray-300 text-lg">Create a new student account</p>
             </div>
+            <UserPlus className="h-10 w-10 text-blue-500" />
           </div>
-          <UserPlus className="h-8 w-8 text-primary" />
         </div>
 
         {/* Success/Error Messages */}
@@ -159,20 +159,20 @@ function CreateStudentContent() {
         )}
 
         {success && (
-          <Alert className="mb-6 border-green-200 bg-green-50">
-            <AlertDescription className="text-green-800">{success}</AlertDescription>
+          <Alert variant="success" className="mb-6">
+            <AlertDescription>{success}</AlertDescription>
           </Alert>
         )}
 
         {/* Registration Form */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Student Information</CardTitle>
-            <CardDescription>
+        <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-white mb-2">Student Information</h2>
+            <p className="text-gray-300">
               Fill in the student details below. Required fields are marked with an asterisk (*).
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+            </p>
+          </div>
+          <div>
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Basic Information */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -187,11 +187,13 @@ function CreateStudentContent() {
                     value={formData.email}
                     onChange={(e) => handleInputChange("email", e.target.value)}
                     placeholder="student@university.edu"
-                    className={formErrors.email ? "border-red-500" : ""}
                     disabled={isSubmitting}
+                    aria-invalid={formErrors.email ? true : undefined}
                   />
                   {formErrors.email && (
-                    <p className="text-sm text-red-500">{formErrors.email}</p>
+                    <Alert variant="destructive" className="mt-1">
+                      <AlertDescription>{formErrors.email}</AlertDescription>
+                    </Alert>
                   )}
                 </div>
 
@@ -206,12 +208,13 @@ function CreateStudentContent() {
                     value={formData.password}
                     onChange={(e) => handleInputChange("password", e.target.value)}
                     placeholder="Enter password"
-                    className={formErrors.password ? "border-red-500" : ""}
                     disabled={isSubmitting}
-
+                    aria-invalid={formErrors.password ? true : undefined}
                   />
                   {formErrors.password && (
-                    <p className="text-sm text-red-500">{formErrors.password}</p>
+                    <Alert variant="destructive" className="mt-1">
+                      <AlertDescription>{formErrors.password}</AlertDescription>
+                    </Alert>
                   )}
                 </div>
 
@@ -292,7 +295,9 @@ function CreateStudentContent() {
                       </SelectContent>
                     </Select>
                     {formErrors.semester && (
-                      <p className="text-sm text-red-500">{formErrors.semester}</p>
+                      <Alert variant="destructive" className="mt-1">
+                        <AlertDescription>{formErrors.semester}</AlertDescription>
+                      </Alert>
                     )}
                   </div>
 
@@ -309,11 +314,13 @@ function CreateStudentContent() {
                       value={formData.CGPA || ""}
                       onChange={(e) => handleInputChange("CGPA", e.target.value ? parseFloat(e.target.value) : undefined)}
                       placeholder="3.75"
-                      className={formErrors.CGPA ? "border-red-500" : ""}
                       disabled={isSubmitting}
+                      aria-invalid={formErrors.CGPA ? true : undefined}
                     />
                     {formErrors.CGPA && (
-                      <p className="text-sm text-red-500">{formErrors.CGPA}</p>
+                      <Alert variant="destructive" className="mt-1">
+                        <AlertDescription>{formErrors.CGPA}</AlertDescription>
+                      </Alert>
                     )}
                   </div>
                 </div>
@@ -388,8 +395,8 @@ function CreateStudentContent() {
                 </Button>
               </div>
             </form>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   )

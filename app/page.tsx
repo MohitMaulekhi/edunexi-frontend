@@ -10,8 +10,10 @@ import { Button } from "@/components/ui/button";
 import { CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { GraduationCap, Users, Award, BarChart3 } from "lucide-react";
 
+
 const cardBg = "bg-black/60";
 const cardShadow = "shadow-lg shadow-[#8B5CF6]/20";
+
 
 export default function HomePage() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -37,6 +39,7 @@ export default function HomePage() {
 
         <Navbar />
 
+
         {/* Hero Section */}
         <section className="absolute inset-0 flex flex-col items-center justify-center z-20 px-4">
           
@@ -55,7 +58,6 @@ export default function HomePage() {
               </motion.span>
             </AnimatePresence>
           </motion.h1>
-
           {/* Portal Cards */}
           <motion.div
             className="grid md:grid-cols-2 gap-10 w-full max-w-4xl"
@@ -108,6 +110,7 @@ export default function HomePage() {
                 </Link>
               </CardContent>
             </motion.div>
+
           </motion.div>
         </section>
       </div>

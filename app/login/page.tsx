@@ -100,6 +100,7 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               <div>
                 <Label htmlFor="email" className="font-semibold text-gray-300">Email</Label>
+
                 <div className="relative mt-2">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <Input
@@ -114,6 +115,7 @@ export default function LoginPage() {
                         className="h-14 pl-12 pr-4 text-base rounded-xl border border-white/10 bg-black/20 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8B5CF6] transition-all duration-200"
                     />
                 </div>
+
               </div>
 
               <div>
@@ -129,6 +131,7 @@ export default function LoginPage() {
                     required
                     placeholder="Enter your password"
                     className="h-14 pl-12 pr-12 text-base rounded-xl border border-white/10 bg-black/20 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8B5CF6] transition-all duration-200"
+
                   />
 
                   <button
@@ -155,12 +158,15 @@ export default function LoginPage() {
               {error && (
                 <Alert variant="destructive" className="flex items-start justify-between bg-red-900/50 border-red-500/50 text-white">
                   <AlertDescription>{error}</AlertDescription>
+
                   <button type="button" onClick={() => setError("")}><X className="h-4 w-4" /></button>
+
                 </Alert>
               )}
               
               <Button
                 type="submit"
+
                 className="w-full py-3 h-14 text-base font-semibold text-white rounded-xl bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] hover:shadow-lg hover:shadow-[#8B5CF6]/40 hover:brightness-110 transition-all duration-300 disabled:opacity-50"
                 disabled={isLoading || !email || !password}
               >
@@ -169,6 +175,7 @@ export default function LoginPage() {
                     <Loader2 className="h-5 w-5 mr-2 animate-spin" /> Signing in...
                   </span>
                 ) : ( "Sign In" )}
+
               </Button>
             </form>
           </CardContent>
