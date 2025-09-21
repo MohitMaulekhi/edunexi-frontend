@@ -1,8 +1,8 @@
 import React from 'react'
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Mail, User, GraduationCap, Calendar, Edit, Award, BookOpen } from "lucide-react";
-import Link from "next/link";
+import { ArrowLeft, Mail, User, Calendar, Edit, Award, BookOpen } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const dummyProfile = {
   name: 'Aarav Sharma',
@@ -82,7 +82,13 @@ const page = () => {
             {/* Academic Information */}
             <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
               <h3 className="text-xl font-bold text-white mb-6 flex items-center">
-                <GraduationCap className="h-6 w-6 mr-3 text-blue-500" />
+                <Image 
+                  src="/logo.svg" 
+                  alt="EduNexi Logo" 
+                  width={24} 
+                  height={24} 
+                  className="mr-3"
+                />
                 Academic Information
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

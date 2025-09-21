@@ -24,7 +24,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { 
-  GraduationCap, 
   User, 
   LogOut, 
   Settings,
@@ -39,6 +38,7 @@ import {
   Plus,
   HelpCircle
 } from "lucide-react"
+import Image from "next/image"
 import { getRoleDisplayName } from "@/lib/role-utils"
 
 export function RoleBasedNavigation() {
@@ -169,7 +169,13 @@ export function RoleBasedNavigation() {
           {/* Logo and Brand */}
           <Link href="/" className="flex items-center space-x-3 hover:opacity-80 transition-all duration-300 hover:scale-105 group py-1">
             <div className="relative">
-              <GraduationCap className="h-8 w-8 text-primary transition-all duration-300 group-hover:rotate-12" />
+              <Image 
+                src="/logo.svg" 
+                alt="EduNexi Logo" 
+                width={32} 
+                height={32} 
+                className="transition-all duration-300 group-hover:rotate-12" 
+              />
               <div className="absolute -top-1 -right-1 h-3 w-3 bg-primary rounded-full animate-pulse group-hover:animate-bounce" />
             </div>
             <div className="md:flex flex-col hidden ">
@@ -257,7 +263,13 @@ export function RoleBasedNavigation() {
                 <SheetHeader className="bg-[#000000] border-gray-700/50 px-8 py-8 flex flex-col items-start gap-3">
                   <SheetTitle className="flex items-center space-x-4 text-xl">
                     <div className="relative">
-                      <GraduationCap className="h-7 w-7 text-blue-400" />
+                      <Image 
+                        src="/logo.svg" 
+                        alt="EduNexi Logo" 
+                        width={28} 
+                        height={28} 
+                        className="text-blue-400" 
+                      />
                       <div className="absolute -top-1 -right-1 h-3 w-3 bg-blue-400 rounded-full animate-pulse" />
                     </div>
                     <span className="font-bold tracking-wide">EduNexi</span>
