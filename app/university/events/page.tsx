@@ -11,7 +11,8 @@ const events = [
     title: "Campus Research Expo",
     date: "2025-09-22",
     location: "Exhibition Hall",
-    excerpt: "Showcase of student and faculty research projects with poster sessions and demos.",
+    excerpt:
+      "Showcase of student and faculty research projects with poster sessions and demos.",
     category: "Research",
     attendees: 150,
   },
@@ -20,7 +21,8 @@ const events = [
     title: "Alumni Meet",
     date: "2025-10-05",
     location: "Auditorium",
-    excerpt: "Reconnect with alumni, talks on career growth, and networking sessions.",
+    excerpt:
+      "Reconnect with alumni, talks on career growth, and networking sessions.",
     category: "Networking",
     attendees: 200,
   },
@@ -29,20 +31,23 @@ const events = [
     title: "Green Campus Drive",
     date: "2025-11-12",
     location: "Campus Grounds",
-    excerpt: "Campus-wide tree planting, clean-up drives, and sustainability workshops.",
+    excerpt:
+      "Campus-wide tree planting, clean-up drives, and sustainability workshops.",
     category: "Environment",
     attendees: 300,
   },
 ];
 
 export default function UniversityEventsPage() {
-
   return (
     <div className="min-h-screen bg-[#000000] font-poppins">
-      <div className="max-w-6xl mx-auto px-6 py-8">
+      <div className=" mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-8">
-          <Link href="/university" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
+          <Link
+            href="/university"
+            className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors"
+          >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard
           </Link>
@@ -66,18 +71,20 @@ export default function UniversityEventsPage() {
               {/* Event Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
-                  <h2 className="text-xl font-bold text-white mb-2">{event.title}</h2>
+                  <h2 className="text-xl font-bold text-white mb-2">
+                    {event.title}
+                  </h2>
                   <div className="flex items-center text-gray-400 text-sm mb-1">
                     <MapPin className="h-4 w-4 mr-2" />
                     {event.location}
                   </div>
                   <div className="flex items-center text-gray-400 text-sm">
                     <Calendar className="h-4 w-4 mr-2" />
-                    {new Date(event.date).toLocaleDateString('en-US', {
-                      weekday: 'short',
-                      year: 'numeric',
-                      month: 'short',
-                      day: 'numeric'
+                    {new Date(event.date).toLocaleDateString("en-US", {
+                      weekday: "short",
+                      year: "numeric",
+                      month: "short",
+                      day: "numeric",
                     })}
                   </div>
                 </div>
@@ -106,12 +113,13 @@ export default function UniversityEventsPage() {
                 <Button variant="outline" size="sm" className="flex-1">
                   View Details
                 </Button>
-                <Button size="sm" className="flex-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600">
+                <Button
+                  size="sm"
+                  className="flex-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600"
+                >
                   Manage
                 </Button>
               </div>
-
-
             </article>
           ))}
         </div>
@@ -125,7 +133,10 @@ export default function UniversityEventsPage() {
             <p className="text-gray-300 mb-6">
               Organize campus events and engage with your university community.
             </p>
-            <Button size="lg" className="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600">
+            <Button
+              size="lg"
+              className="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600"
+            >
               Create Event
             </Button>
           </div>

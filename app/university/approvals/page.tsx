@@ -46,7 +46,8 @@ const approvals = [
   {
     id: 5,
     title: "Data Science Bootcamp",
-    description: "Completed a 6-week data science bootcamp covering Python and ML.",
+    description:
+      "Completed a 6-week data science bootcamp covering Python and ML.",
     student: "Aditya Singh",
     dateSubmitted: "2025-09-16",
     category: "certification",
@@ -54,7 +55,8 @@ const approvals = [
   {
     id: 6,
     title: "Hackathon Winner",
-    description: "Won 2nd place in a college-level hackathon for an AI-based app.",
+    description:
+      "Won 2nd place in a college-level hackathon for an AI-based app.",
     student: "Kavya Mehra",
     dateSubmitted: "2025-09-17",
     category: "project",
@@ -62,7 +64,8 @@ const approvals = [
   {
     id: 7,
     title: "Internship at PharmaTech",
-    description: "Worked on drug discovery pipelines during a summer internship.",
+    description:
+      "Worked on drug discovery pipelines during a summer internship.",
     student: "Vikram Chauhan",
     dateSubmitted: "2025-09-18",
     category: "internship",
@@ -86,7 +89,8 @@ const approvals = [
   {
     id: 10,
     title: "Music Club Performance",
-    description: "Performed in the annual college fest as part of the music club.",
+    description:
+      "Performed in the annual college fest as part of the music club.",
     student: "Ananya Rao",
     dateSubmitted: "2025-09-21",
     category: "extracurricular",
@@ -111,29 +115,34 @@ const approvals = [
 ];
 
 export default function ApprovalsPage() {
-  const [loadingStates, setLoadingStates] = useState<{ [key: number]: 'approve' | 'reject' | null }>({});
+  const [loadingStates, setLoadingStates] = useState<{
+    [key: number]: "approve" | "reject" | null;
+  }>({});
 
-  const handleApproval = async (id: number, action: 'approve' | 'reject') => {
-    setLoadingStates(prev => ({ ...prev, [id]: action }));
+  const handleApproval = async (id: number, action: "approve" | "reject") => {
+    setLoadingStates((prev) => ({ ...prev, [id]: action }));
 
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    await new Promise((resolve) => setTimeout(resolve, 2000));
 
-    setLoadingStates(prev => ({ ...prev, [id]: null }));
+    setLoadingStates((prev) => ({ ...prev, [id]: null }));
     // Here you would typically update the approvals list or show success message
   };
 
   return (
     <div className="min-h-screen bg-[#000000] font-poppins">
-      <div className="max-w-5xl mx-auto px-6 py-8">
+      <div className="mx-auto px-6 py-8">
         {/* Page Header - Integrated into content */}
         <div className="mb-8">
-          <Link href="/university" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
+          <Link
+            href="/university"
+            className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors"
+          >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard
           </Link>
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent p-4">
               Pending Approvals
             </h1>
             <p className="text-xl text-gray-300 max-w-2xl mx-auto">
@@ -178,9 +187,9 @@ export default function ApprovalsPage() {
                   className="ml-auto inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold 
                     bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg 
                     hover:from-blue-800 hover:to-blue-700 transition-all duration-300"
-                  loading={loadingStates[a.id] === 'approve'}
+                  loading={loadingStates[a.id] === "approve"}
                   loadingText="Approving..."
-                  onClick={() => handleApproval(a.id, 'approve')}
+                  onClick={() => handleApproval(a.id, "approve")}
                 >
                   Approve
                 </LoadingButton>
@@ -188,9 +197,9 @@ export default function ApprovalsPage() {
                   className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold 
                     bg-gradient-to-r from-red-900 to-red-800 text-white shadow-lg 
                     hover:from-red-800 hover:to-red-700 transition-all duration-300"
-                  loading={loadingStates[a.id] === 'reject'}
+                  loading={loadingStates[a.id] === "reject"}
                   loadingText="Rejecting..."
-                  onClick={() => handleApproval(a.id, 'reject')}
+                  onClick={() => handleApproval(a.id, "reject")}
                 >
                   Reject
                 </LoadingButton>
