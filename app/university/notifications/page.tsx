@@ -1,9 +1,20 @@
 "use client";
 import React from "react";
-import { Bell, CheckCircle, AlertTriangle, BookOpen, ArrowLeft } from "lucide-react";
+import {
+  Bell,
+  CheckCircle,
+  AlertTriangle,
+  BookOpen,
+  ArrowLeft,
+} from "lucide-react";
 import Link from "next/link";
 
-type NotificationType = "exam" | "attendance" | "lecture" | "assignment" | "general";
+type NotificationType =
+  | "exam"
+  | "attendance"
+  | "lecture"
+  | "assignment"
+  | "general";
 
 interface Notification {
   id: number;
@@ -15,54 +26,61 @@ interface Notification {
 
 const UniversityNotifications: React.FC = () => {
   const notifications: Notification[] = [
-    { 
-      id: 1, 
-      title: "Exam Schedule Released", 
-      message: "The final exam schedule for Semester 5 has been published. Check the university portal for details.",
-      date: "2025-09-20", 
-      type: "exam" 
+    {
+      id: 1,
+      title: "Exam Schedule Released",
+      message:
+        "The final exam schedule for Semester 5 has been published. Check the university portal for details.",
+      date: "2025-09-20",
+      type: "exam",
     },
-    { 
-      id: 2, 
-      title: "Library Closed on Saturday", 
-      message: "The central library will be closed for maintenance on 20th September.",
-      date: "2025-09-21", 
-      type: "general" 
+    {
+      id: 2,
+      title: "Library Closed on Saturday",
+      message:
+        "The central library will be closed for maintenance on 20th September.",
+      date: "2025-09-21",
+      type: "general",
     },
-    { 
-      id: 3, 
-      title: "Guest Lecture: AI in Biotechnology", 
-      message: "Join us for an exciting guest lecture on AI applications in biotechnology.",
-      date: "2025-09-25", 
-      type: "lecture" 
+    {
+      id: 3,
+      title: "Guest Lecture: AI in Biotechnology",
+      message:
+        "Join us for an exciting guest lecture on AI applications in biotechnology.",
+      date: "2025-09-25",
+      type: "lecture",
     },
-    { 
-      id: 4, 
-      title: "Student Attendance Alert", 
-      message: "Multiple students have attendance below the required 75%. Please review and take necessary action.",
-      date: "2025-09-26", 
-      type: "attendance" 
+    {
+      id: 4,
+      title: "Student Attendance Alert",
+      message:
+        "Multiple students have attendance below the required 75%. Please review and take necessary action.",
+      date: "2025-09-26",
+      type: "attendance",
     },
-    { 
-      id: 5, 
-      title: "New Assignment Deadline Reminder", 
-      message: "Reminder: Assignment submissions for Biotech 101 are due next week. Please notify students.",
-      date: "2025-09-27", 
-      type: "assignment" 
+    {
+      id: 5,
+      title: "New Assignment Deadline Reminder",
+      message:
+        "Reminder: Assignment submissions for Biotech 101 are due next week. Please notify students.",
+      date: "2025-09-27",
+      type: "assignment",
     },
-    { 
-      id: 6, 
-      title: "Faculty Meeting Scheduled", 
-      message: "Monthly faculty meeting scheduled for next Friday. Please confirm your attendance.",
-      date: "2025-09-28", 
-      type: "general" 
+    {
+      id: 6,
+      title: "Faculty Meeting Scheduled",
+      message:
+        "Monthly faculty meeting scheduled for next Friday. Please confirm your attendance.",
+      date: "2025-09-28",
+      type: "general",
     },
-    { 
-      id: 7, 
-      title: "Midterm Results Review", 
-      message: "Midterm examination results are ready for review. Please verify and approve grades.",
-      date: "2025-09-29", 
-      type: "exam" 
+    {
+      id: 7,
+      title: "Midterm Results Review",
+      message:
+        "Midterm examination results are ready for review. Please verify and approve grades.",
+      date: "2025-09-29",
+      type: "exam",
     },
   ];
 
@@ -119,10 +137,13 @@ const UniversityNotifications: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#000000] font-poppins">
-      <div className="max-w-5xl mx-auto px-6 py-8">
+      <div className="mx-auto px-6 py-8">
         {/* Header */}
         <div className="mb-8">
-          <Link href="/university" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
+          <Link
+            href="/university"
+            className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors"
+          >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Dashboard
           </Link>
@@ -145,28 +166,40 @@ const UniversityNotifications: React.FC = () => {
             >
               <div className="flex items-start gap-6">
                 {/* Icon */}
-                <div className={`p-4 ${getTypeColor(note.type)} rounded-2xl flex-shrink-0 border`}>
+                <div
+                  className={`p-4 ${getTypeColor(
+                    note.type
+                  )} rounded-2xl flex-shrink-0 border`}
+                >
                   {getIcon(note.type)}
                 </div>
-                
+
                 {/* Content */}
                 <div className="flex-1">
                   <div className="flex items-start justify-between mb-3">
-                    <h2 className="text-xl font-bold text-white">{note.title}</h2>
+                    <h2 className="text-xl font-bold text-white">
+                      {note.title}
+                    </h2>
                     <div className="flex items-center gap-3">
-                      <span className={`text-sm font-medium ${getTypeBadgeColor(note.type)} capitalize`}>
+                      <span
+                        className={`text-sm font-medium ${getTypeBadgeColor(
+                          note.type
+                        )} capitalize`}
+                      >
                         {note.type}
                       </span>
                       <time className="text-sm text-gray-400">
-                        {new Date(note.date).toLocaleDateString('en-US', {
-                          month: 'short',
-                          day: 'numeric',
-                          year: 'numeric'
+                        {new Date(note.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
                         })}
                       </time>
                     </div>
                   </div>
-                  <p className="text-gray-300 leading-relaxed">{note.message}</p>
+                  <p className="text-gray-300 leading-relaxed">
+                    {note.message}
+                  </p>
                 </div>
               </div>
             </div>
@@ -177,7 +210,9 @@ const UniversityNotifications: React.FC = () => {
         {notifications.length === 0 && (
           <div className="text-center py-16">
             <Bell className="h-16 w-16 text-gray-600 mx-auto mb-4" />
-            <h3 className="text-xl font-semibold text-gray-400 mb-2">No notifications</h3>
+            <h3 className="text-xl font-semibold text-gray-400 mb-2">
+              No notifications
+            </h3>
             <p className="text-gray-500">
               All caught up! Check back later for new updates.
             </p>

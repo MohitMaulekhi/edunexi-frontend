@@ -16,14 +16,14 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(false); // Close mobile menu first
 
     // If we are already on the homepage, scroll smoothly
-    if (pathname === '/') {
+    if (pathname === "/") {
       const element = document.getElementById(id);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        element.scrollIntoView({ behavior: "smooth" });
       }
     } else {
       // If on another page, navigate to the homepage with the section ID
-      router.push('/#' + id);
+      router.push("/#" + id);
     }
   };
 
@@ -38,20 +38,32 @@ const Navbar: React.FC = () => {
 
         <div className="relative px-4 sm:px-8 py-4">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <Link href="/" className="text-2xl font-bold text-[#8B5CF6]">
+            <Link
+              href="/"
+              className="ml-4 text-4xl font-bold tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent"
+            >
               Edunexi
             </Link>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center grow justify-center">
               <div className="flex items-center space-x-8">
-                <Link href="/" className="text-gray-300 text-xl hover:text-[#8B5CF6] transition-colors">
+                <Link
+                  href="/"
+                  className="text-gray-300 text-xl hover:text-[#8B5CF6] transition-colors"
+                >
                   Home
                 </Link>
-                <button onClick={() => handleScroll('features')} className="text-gray-300 text-xl hover:text-[#8B5CF6] transition-colors">
+                <button
+                  onClick={() => handleScroll("features")}
+                  className="text-gray-300 text-xl hover:text-[#8B5CF6] transition-colors"
+                >
                   Features
                 </button>
-                <Link href="/about" className="text-gray-300 text-xl hover:text-[#8B5CF6] transition-colors">
+                <Link
+                  href="/about"
+                  className="text-gray-300 text-xl hover:text-[#8B5CF6] transition-colors"
+                >
                   About Us
                 </Link>
               </div>
@@ -68,7 +80,6 @@ const Navbar: React.FC = () => {
                   Login
                 </motion.button>
               </Link>
-              
             </div>
 
             {/* Hamburger Menu Icon */}
@@ -78,9 +89,21 @@ const Navbar: React.FC = () => {
                 className="text-gray-300 hover:text-[#8B5CF6] transition-colors relative w-6 h-6 z-10"
                 aria-label="Toggle menu"
               >
-                <span className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'rotate-45' : '-translate-y-1.5'}`}></span>
-                <span className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
-                <span className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${isMenuOpen ? '-rotate-45' : 'translate-y-1.5'}`}></span>
+                <span
+                  className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
+                    isMenuOpen ? "rotate-45" : "-translate-y-1.5"
+                  }`}
+                ></span>
+                <span
+                  className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
+                    isMenuOpen ? "opacity-0" : "opacity-100"
+                  }`}
+                ></span>
+                <span
+                  className={`absolute block h-0.5 w-6 bg-current transform transition-all duration-300 ease-in-out ${
+                    isMenuOpen ? "-rotate-45" : "translate-y-1.5"
+                  }`}
+                ></span>
               </button>
             </div>
           </div>
@@ -98,10 +121,27 @@ const Navbar: React.FC = () => {
             className="md:hidden fixed top-20 right-4 w-64 bg-black/50 backdrop-blur-xl rounded-2xl border border-[#8B5CF6]/20 z-50"
           >
             <div className="p-4 flex flex-col space-y-4">
-              <Link href="/" className="block text-gray-300 hover:text-[#8B5CF6] transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Home</Link>
-              <button onClick={() => handleScroll('features')} className="block w-full text-left text-gray-300 hover:text-[#8B5CF6] transition-colors py-2">Features</button>
-              <Link href="/about" className="block text-gray-300 hover:text-[#8B5CF6] transition-colors py-2" onClick={() => setIsMenuOpen(false)}>About Us</Link>
-              
+              <Link
+                href="/"
+                className="block text-gray-300 hover:text-[#8B5CF6] transition-colors py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Home
+              </Link>
+              <button
+                onClick={() => handleScroll("features")}
+                className="block w-full text-left text-gray-300 hover:text-[#8B5CF6] transition-colors py-2"
+              >
+                Features
+              </button>
+              <Link
+                href="/about"
+                className="block text-gray-300 hover:text-[#8B5CF6] transition-colors py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                About Us
+              </Link>
+
               <div className="pt-4 mt-4 border-t border-[#8B5CF6]/20 flex flex-col space-y-3">
                 <Link href="/login">
                   <button className="w-full text-center border border-[#8B5CF6]/50 text-gray-200 hover:bg-[#8B5CF6]/10 px-6 py-2 rounded-full transition-colors">
