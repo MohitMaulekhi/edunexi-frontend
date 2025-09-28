@@ -1,60 +1,18 @@
-import React from "react";
+"use client";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin, BookmarkPlus, ArrowLeft, Users } from "lucide-react";
 import Link from "next/link";
-
-interface Event {
-  id: number;
-  title: string;
-  date: string;
-  location: string;
-  description: string;
-  category: string;
-  attendees: number;
-}
-
-const events: Event[] = [
-  {
-    id: 1,
-    title: "Orientation Day",
-    date: "2025-09-01",
-    location: "Main Auditorium",
-    description:
-      "Welcome event for new students with campus tour, department introductions, and clubs fair.",
-    category: "Academic",
-    attendees: 250,
-  },
-  {
-    id: 2,
-    title: "Tech Fest 2025",
-    date: "2025-10-15",
-    location: "Innovation Block",
-    description:
-      "Annual technology festival with workshops, hackathons, guest speakers and demo booths.",
-    category: "Technology",
-    attendees: 500,
-  },
-  {
-    id: 3,
-    title: "Sports Meet",
-    date: "2025-11-20",
-    location: "Sports Ground",
-    description:
-      "Inter-department sports competition with athletics, team games and prize distribution.",
-    category: "Sports",
-    attendees: 300,
-  },
-  {
-    id: 4,
-    title: "Cultural Festival",
-    date: "2025-12-05",
-    location: "Cultural Center",
-    description:
-      "Annual cultural celebration featuring music, dance, drama performances and art exhibitions.",
-    category: "Cultural",
-    attendees: 400,
-  },
-];
+import { registerForEvent, AttendaceForEvent, fetchEvents } from "@/lib/event";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { toast } from "sonner";
+import { QrReader } from "react-qr-reader";
 
 const formatDate = (dateString: string) => {
   const date = new Date(dateString);
@@ -81,7 +39,66 @@ const getCategoryColor = (category: string) => {
   }
 };
 
-const StudentEventsPage: React.FC = () => {
+const StudentEventsPage = () => {
+  const [events, setEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { user, token } = useAuth();
+  const [registering, setRegistering] = useState<string | null>(null);
+  const [attendanceLoading, setAttendanceLoading] = useState(false);
+  const [showQrModal, setShowQrModal] = useState(false);
+  const [qrError, setQrError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!token) return;
+    setLoading(true);
+    setError(null);
+    fetchEvents(token)
+      .then((data) => setEvents(data))
+      .catch(() => setError("Failed to load events"))
+      .finally(() => setLoading(false));
+  }, [token]);
+
+  const handleRegister = async (eventId: string) => {
+    if (!token) return;
+    const event = events.find((e) => e.id === eventId);
+    if (isRegistered(event)) {
+      toast.warning("You are already registered for this event.");
+      return;
+    }
+    setRegistering(eventId);
+    const success = await registerForEvent(token, eventId);
+    setRegistering(null);
+    if (success) {
+      toast.success("Registered for event successfully!");
+    } else {
+      toast.error("Failed to register for event");
+    }
+  };
+
+  const handleAttendance = () => {
+    setShowQrModal(true);
+    setQrError(null);
+  };
+
+  const handleScan = async (scannedId: string | null) => {
+    if (!scannedId) return;
+    setAttendanceLoading(true);
+    setQrError(null);
+    const success = await AttendaceForEvent(token!, scannedId);
+    setAttendanceLoading(false);
+    setShowQrModal(false);
+    if (success) {
+      toast.success("Attendance marked successfully!");
+    } else {
+      toast.error("Failed to mark attendance");
+    }
+  };
+
+  const isRegistered = (event: any) => {
+    return event.Registered?.some((u: any) => u.id === user?.id);
+  };
+
   return (
     <div className="min-h-screen bg-[#000000] font-poppins">
       <div className="mx-auto px-6 py-8">
@@ -107,86 +124,143 @@ const StudentEventsPage: React.FC = () => {
 
         {/* Events Grid */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
-          {events.map((event) => (
-            <article
-              key={event.id}
-              className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
-            >
-              {/* Event Header */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex-1">
-                  <h2 className="text-xl font-bold text-white mb-2">
-                    {event.title}
-                  </h2>
-                  <div className="flex items-center text-gray-400 text-sm mb-1">
-                    <MapPin className="h-4 w-4 mr-2" />
-                    {event.location}
+          {loading ? (
+            <div className="col-span-full text-center py-16">
+              <span className="text-gray-400">Loading events...</span>
+            </div>
+          ) : error ? (
+            <div className="col-span-full text-center py-16">
+              <span className="text-red-400">{error}</span>
+            </div>
+          ) : events.length === 0 ? (
+            <div className="col-span-full text-center py-16">
+              <span className="text-gray-400">No events found.</span>
+            </div>
+          ) : (
+            events.map((event) => (
+              <article
+                key={event.id}
+                className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+              >
+                {/* Event Header */}
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex-1">
+                    <h2 className="text-xl font-bold text-white mb-2">
+                      {event.Title}
+                    </h2>
+                    <div className="flex items-center text-gray-400 text-sm mb-1">
+                      <MapPin className="h-4 w-4 mr-2" />
+                      {event.Venue}
+                    </div>
+                    <div className="flex items-center text-gray-400 text-sm">
+                      <Calendar className="h-4 w-4 mr-2" />
+                      {event.DateTime}
+                    </div>
                   </div>
+                  <div className="text-right">
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(
+                        event.Type
+                      )}`}
+                    >
+                      {event.Type}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Event Description */}
+                <p className="text-gray-300 text-sm leading-relaxed mb-6">
+                  {event.Description}
+                </p>
+
+                {/* Event Stats */}
+                <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center text-gray-400 text-sm">
-                    <Calendar className="h-4 w-4 mr-2" />
-                    {formatDate(event.date)}
+                    <Users className="h-4 w-4 mr-2" />
+                    {event.Registered?.length ?? 0} registered
                   </div>
                 </div>
-                <div className="text-right">
-                  <span
-                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${getCategoryColor(
-                      event.category
-                    )}`}
+
+                {/* Action Buttons */}
+                <div className="flex items-center gap-3">
+                  <Button variant="outline" size="sm" className="flex-1">
+                    View Details
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="flex-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600"
+                    onClick={() => handleRegister(event.id)}
+                    disabled={registering === event.id || isRegistered(event)}
                   >
-                    {event.category}
-                  </span>
+                    {registering === event.id ? (
+                      <span className="flex items-center justify-center">
+                        <span className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                        Registering...
+                      </span>
+                    ) : isRegistered(event) ? (
+                      <span className="flex items-center justify-center text-red-400">
+                        Already Registered
+                      </span>
+                    ) : (
+                      <>
+                        <BookmarkPlus className="w-4 h-4 mr-2" />
+                        Register
+                      </>
+                    )}
+                  </Button>
+                  <Button
+                    size="sm"
+                    className="flex-1 bg-gradient-to-r from-green-600 via-teal-500 to-blue-500 hover:from-green-700 hover:via-teal-600 hover:to-blue-600"
+                    onClick={handleAttendance}
+                  >
+                    Mark Attendance
+                  </Button>
                 </div>
-              </div>
-
-              {/* Event Description */}
-              <p className="text-gray-300 text-sm leading-relaxed mb-6">
-                {event.description}
-              </p>
-
-              {/* Event Stats */}
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center text-gray-400 text-sm">
-                  <Users className="h-4 w-4 mr-2" />
-                  {event.attendees} expected
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex items-center gap-3">
-                <Button variant="outline" size="sm" className="flex-1">
-                  View Details
-                </Button>
-                <Button
-                  size="sm"
-                  className="flex-1 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600"
-                >
-                  <BookmarkPlus className="w-4 h-4 mr-2" />
-                  Register
-                </Button>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))
+          )}
         </div>
 
         {/* Call to Action */}
-        <div className="mt-16 text-center">
-          <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
-              Don't Miss Out!
-            </h3>
-            <p className="text-gray-300 mb-6">
-              Stay updated with campus events and never miss an opportunity to
-              engage with your community.
-            </p>
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-500 hover:from-blue-700 hover:via-indigo-600 hover:to-purple-600"
-            >
-              View All Events
-            </Button>
-          </div>
-        </div>
       </div>
+
+      {/* QR Scanner Modal */}
+      <Dialog open={showQrModal} onOpenChange={setShowQrModal}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Scan Event QR Code</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col items-center gap-4">
+            {attendanceLoading ? (
+              <span className="flex items-center justify-center">
+                <span className="h-6 w-6 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                Marking attendance...
+              </span>
+            ) : (
+              <>
+                <div style={{ width: "100%" }}>
+                  <QrReader
+                    constraints={{ facingMode: "environment" }}
+                    onResult={(result: any, error: any) => {
+                      if (!!result) {
+                        handleScan(result.getText());
+                      } else if (error) {
+                        setQrError("QR scan failed. Try again.");
+                      }
+                    }}
+                  />
+                </div>
+                {qrError && (
+                  <span className="text-red-400 text-sm">{qrError}</span>
+                )}
+                <span className="text-xs text-gray-400">
+                  Align the QR code within the frame
+                </span>
+              </>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
