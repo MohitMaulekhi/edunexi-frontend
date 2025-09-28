@@ -28,13 +28,22 @@ export async function loginUser(credentials: { email: string; password: string }
 
 export async function getUserProfile(token: string): Promise<User | null> {
   try {
-    const response = await axios.get(`${API_URL}/api/users/me?populate[role]=*&populate[university]=*&populate[student]=*`, {
+    const response = await axios.get(`${API_URL}/api/users/me?populate[role]=*&populate[university]=*&populate[student][populate][university]=*`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
 
-    return response.data
+    const userData = response.data
+
+    // For students, ensure university is available from student profile if not directly assigned
+    if (userData.role?.type === 'student' || userData.role?.name === 'Student') {
+      if (!userData.university && userData.student?.university) {
+        userData.university = userData.student.university
+      }
+    }
+
+    return userData
   } catch (error) {
     console.error('Failed to get user profile:', error)
     return null

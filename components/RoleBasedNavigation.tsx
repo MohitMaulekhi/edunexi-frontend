@@ -98,6 +98,12 @@ export function RoleBasedNavigation() {
       description: "Upcoming events & workshops",
     },
     {
+      href: "/student/notifications",
+      label: "Notifications",
+      icon: Bell,
+      description: "University announcements",
+    },
+    {
       href: "/student/profile",
       label: "Profile",
       icon: User,

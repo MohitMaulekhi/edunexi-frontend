@@ -1,5 +1,7 @@
 // Student-related types and interfaces
 
+import { UniversityProfile } from "./university"
+
 export interface Achievement {
   id: string
   title: string
@@ -22,7 +24,7 @@ export interface StudentProfile {
   studentId: string
   CGPA?: number
   semester?: number
-  year?: 'Freshman' | 'Sophomore' | 'Junior' | 'Senior'
+  university?:UniversityProfile,
   department?: string
   major?: string
   phoneNumber?: string
