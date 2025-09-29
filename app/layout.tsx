@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
 import { GeistMono } from 'geist/font/mono'
 import { Analytics } from '@vercel/analytics/next'
+import Footer from '@/components/ui/footer'
 import { AuthProvider } from '@/contexts/AuthContext'
 import RoleBasedNavigation from '@/components/RoleBasedNavigation'
 import PageTransitions from '@/components/ui/page-transitions'
@@ -27,6 +28,7 @@ export default function RootLayout({
             {children}
           </PageTransitions>
         </AuthProvider>
+        <Footer />
         <Analytics />
       </body>
     </html>

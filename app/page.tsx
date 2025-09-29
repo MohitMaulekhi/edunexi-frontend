@@ -1,153 +1,126 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { useRouter } from "next/navigation"
-import { useAuth } from "@/contexts/AuthContext"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { GraduationCap, Users, Award, BarChart3, Loader2 } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
-import DotGrid from "../components/DotGrid"
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import BubbleBackground from "@/components/ui/BubbleBg";
+import StarRing from "@/components/ui/starRing";
+import Navbar from "@/components/ui/navbar";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
+import { GraduationCap, Users, Award, BarChart3 } from "lucide-react";
 
-// Words for dynamic hero heading
-const headingWords = ["Edunexi", "शिक्षा संगम"]
 
-// Color palette
-const cardBg = "bg-black/70 backdrop-blur-md border border-gray-700"
-const cardShadow = "shadow-xl"
+const cardBg = "bg-black/60";
+const cardShadow = "shadow-lg shadow-[#8B5CF6]/20";
+
 
 export default function HomePage() {
-  const { user, loading, getDefaultRoute } = useAuth()
-  const router = useRouter()
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
-
-  useEffect(() => {
-    if (!loading && user) router.push(getDefaultRoute())
-  }, [user, loading, router, getDefaultRoute])
+  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+  const headingWords = ["Edunexi", "शिक्षा संगम"];
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentWordIndex((prev) => (prev + 1) % headingWords.length)
-    }, 2500)
-    return () => clearInterval(interval)
-  }, [])
+      setCurrentWordIndex((prevIndex) => (prevIndex + 1) % headingWords.length);
+    }, 3000); // Change word every 3 seconds
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-900">
-        <Loader2 className="h-12 w-12 animate-spin text-indigo-500" />
-      </div>
-    )
-  }
+    return () => clearInterval(interval);
+  }, [headingWords.length]);
 
   return (
-    <div className="w-full bg-[#000000] overflow-hidden relative">
-      {/* Dot Background */}
-      <div className="absolute inset-0 h-[200vh]">
-        <DotGrid
-          dotSize={5}
-          gap={15}
-          baseColor="#000000"
-          activeColor="#60A5FA"
-          proximity={150}
-          shockRadius={250}
-          shockStrength={5}
-          resistance={750}
-          returnDuration={1.5}
-        />
-      </div>
+    <div className="overflow-x-hidden bg-black min-h-screen relative text-white">
+      {/* Background layers */}
+      <div className="relative w-full h-screen overflow-hidden">
+        <BubbleBackground />
 
-      {/* Hero Section */}
-      <div className="h-screen flex flex-col justify-center items-center z-10 px-4">
-        <motion.h1 className="text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg font-poppins text-center leading-[1.4]">
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={headingWords[currentWordIndex]}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.6 }}
-              className="bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent inline-block"
+        <div className="absolute inset-0 flex items-center justify-center">
+          <StarRing />
+        </div>
+
+        <Navbar />
+
+        {/* Hero Section */}
+        <section className="absolute inset-0 flex flex-col items-center justify-center z-20 px-2 pt-24 md:pt-0">
+          {/* Animated Heading */}
+          <motion.h1
+            className="text-3xl xs:text-4xl sm:text-5xl md:text-7xl font-extrabold tracking-tight drop-shadow-lg font-poppins text-center leading-[1.2] mb-8 md:mb-12 px-2"
+            style={{ wordBreak: 'break-word', zIndex: 2 }}
+          >
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={headingWords[currentWordIndex]}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent inline-block py-4"
+              >
+                {headingWords[currentWordIndex]}
+              </motion.span>
+            </AnimatePresence>
+          </motion.h1>
+          {/* Portal Cards */}
+          <motion.div
+            className="grid md:grid-cols-2 gap-6 md:gap-10 w-full max-w-4xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            {/* Student Portal */}
+            <motion.div
+              className={`${cardBg} rounded-3xl p-4 md:p-6 border border-[#8B5CF6] ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
+              whileHover={{ scale: 1.04 }}
             >
-              {headingWords[currentWordIndex]}
-            </motion.span>
-          </AnimatePresence>
-        </motion.h1>
+              <CardHeader className="text-center">
+                <GraduationCap className="h-10 w-10 md:h-12 md:w-12 text-[#8B5CF6] mx-auto mb-2 md:mb-3" />
+                <CardTitle className="text-lg xs:text-xl md:text-2xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
+                  Student Portal
+                </CardTitle>
+                <CardDescription className="text-sm md:text-base text-gray-300 font-poppins">
+                  Access dashboard & manage profile
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-center mt-2 md:mt-4">
+                <Link href="/login?role=student">
+                  <Button size="lg" className="w-full bg-[#8B5CF6] text-white hover:bg-[#8B5CF6]/80">
+                    Student Login
+                  </Button>
+                </Link>
+              </CardContent>
+            </motion.div>
 
-        <motion.p
-          className="mt-6 text-xl md:text-2xl text-gray-300 max-w-3xl text-center font-medium z-1"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-        >
-          Centralized platform for tracking student achievements, managing academic records, and generating verified portfolios.
-        </motion.p>
+            {/* University Portal */}
+            <motion.div
+              className={`${cardBg} rounded-3xl p-4 md:p-6 border border-[#8B5CF6] ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
+              whileHover={{ scale: 1.04 }}
+            >
+              <CardHeader className="text-center">
+                <Users className="h-10 w-10 md:h-12 md:w-12 text-[#8B5CF6] mx-auto mb-2 md:mb-3" />
+                <CardTitle className="text-lg xs:text-xl md:text-2xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
+                  University Portal
+                </CardTitle>
+                <CardDescription className="text-sm md:text-base text-gray-300 font-poppins">
+                  Manage records & generate reports
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="text-center mt-2 md:mt-4">
+                <Link href="/login?role=university">
+                  <Button variant="outline" size="lg" className="w-full border-[#8B5CF6] text-[#8B5CF6] hover:bg-[#8B5CF6]/10">
+                    University Login
+                  </Button>
+                </Link>
+              </CardContent>
+            </motion.div>
 
-        {/* Portal Section */}
-        <motion.div
-          className="mt-16 md:mt-20 grid md:grid-cols-2 gap-10 w-full max-w-5xl"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-        >
-          {/* Student Portal */}
-          <motion.div
-            className={`${cardBg} rounded-3xl p-8 ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
-            whileHover={{ scale: 1.04 }}
-          >
-            <CardHeader className="text-center">
-              <GraduationCap className="h-14 w-14 text-indigo-500 mx-auto mb-4" />
-              <CardTitle className="text-2xl md:text-3xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
-                Student Portal
-              </CardTitle>
-              <CardDescription className="text-gray-300 text-lg md:text-xl font-poppins leading-relaxed">
-                Access dashboard, track achievements, manage profile
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center mt-6">
-              <Link href="/login?role=student">
-                <Button size="lg" className="w-full">
-                  Student Login
-                </Button>
-              </Link>
-              <p className="text-sm text-gray-400 mt-3 font-poppins">
-                Demo: john.doe@student.edu / student123
-              </p>
-            </CardContent>
           </motion.div>
-
-          {/* University Portal */}
-          <motion.div
-            className={`${cardBg} rounded-3xl p-8 ${cardShadow} hover:shadow-2xl transition-shadow duration-300`}
-            whileHover={{ scale: 1.04 }}
-          >
-            <CardHeader className="text-center">
-              <Users className="h-14 w-14 text-indigo-500 mx-auto mb-4" />
-              <CardTitle className="text-2xl md:text-3xl font-extrabold mb-2 text-gray-50 font-poppins tracking-wide">
-                University Portal
-              </CardTitle>
-              <CardDescription className="text-gray-300 text-lg md:text-xl font-poppins leading-relaxed">
-                Manage records, approve achievements, generate reports
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-center mt-6">
-              <Link href="/login?role=university">
-                <Button variant="outline" size="lg" className="w-full">
-                  University Login
-                </Button>
-              </Link>
-              <p className="text-sm text-gray-400 mt-3 font-poppins">
-                Demo: admin@university.edu / admin123
-              </p>
-            </CardContent>
-          </motion.div>
-        </motion.div>
+        </section>
       </div>
 
       {/* Features Section */}
-      <div className="h-screen flex flex-col justify-center items-center z-1 px-4">
+      <section
+        id="features"
+        className="min-h-screen flex flex-col justify-center items-center px-4 bg-gradient-to-b from-[] to-[#1f023d] relative z-30"
+      >
         <div className="max-w-6xl mx-auto text-center mb-16 z-1">
           <motion.h2
             className="text-4xl md:text-5xl font-extrabold text-gray-50 mb-4 font-poppins z-1"
@@ -169,7 +142,7 @@ export default function HomePage() {
           </motion.p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-48">
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-14">
           {[
             { icon: Award, title: "Achievement Tracking", desc: "Document and validate participation in conferences, certifications, and activities" },
             { icon: BarChart3, title: "Performance Analytics", desc: "Real-time updates on academic performance, attendance, and credit-based activities" },
@@ -177,19 +150,19 @@ export default function HomePage() {
           ].map((feature, i) => (
             <motion.div
               key={i}
-              className={`${cardBg} rounded-3xl p-8 text-center shadow-lg hover:shadow-2xl transition-shadow duration-300`}
+              className="bg-gray-900 border border-[#8B5CF6] rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition-shadow duration-300"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2, duration: 0.6 }}
             >
-              <feature.icon className="h-12 w-12 text-indigo-500 mx-auto mb-4" />
+              <feature.icon className="h-12 w-12 text-[#8B5CF6] mx-auto mb-4" />
               <h3 className="text-2xl md:text-3xl font-semibold mb-2 text-gray-50 font-poppins">{feature.title}</h3>
               <p className="text-gray-300 text-lg font-poppins">{feature.desc}</p>
             </motion.div>
           ))}
         </div>
-      </div>
+      </section>
     </div>
-  )
+  );
 }

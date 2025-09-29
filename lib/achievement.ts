@@ -1,94 +1,77 @@
-// Student data functions using axios
-import axios from 'axios'
-import { createIPFS } from './ipfs'
+import axios from 'axios';
+import { createIPFS } from './ipfs'; // Assuming this function exists and works
+import type { AchievementMetadata } from '@/types/certificate';
 
-const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337'
+const API_URL = process.env.NEXT_PUBLIC_STRAPI_URL || 'http://localhost:1337';
 
-/// events functions
 export async function saveAchievement(
-  token: string, 
-  achievementData: AchievementMetadata, 
+  token: string,
+  achievementData: AchievementMetadata,
   files?: File[]
 ): Promise<boolean> {
   try {
-    // Step 1: Upload all supporting documents to IPFS if files are provided
-    const attachmentResults = []
-    
+    // Step 1: Upload files to IPFS (your existing logic)
+    const attachmentResults = [];
     if (files && files.length > 0) {
       for (const file of files) {
-        const result = await createIPFS(
-          file, 
-          `${achievementData.title} - ${file.name}`
-        )
-
+        const result = await createIPFS(file, `${achievementData.title} - ${file.name}`);
         if (result.success && result.hash) {
           attachmentResults.push({
             fileName: file.name,
             fileSize: file.size,
             fileType: file.type,
             ipfsHash: result.hash,
-            ipfsUrl: result.url!
-          })
+            ipfsUrl: result.url!,
+          });
         } else {
-          throw new Error(`Failed to upload ${file.name}: ${result.error}`)
+          throw new Error(`Failed to upload ${file.name}: ${result.error}`);
         }
       }
     }
 
-    // Step 2: Update achievement metadata with actual attachment data
-    const updatedAchievementData = {
-      ...achievementData,
-      attachments: attachmentResults
+    // Step 2: Combine metadata with IPFS results
+    const finalMetadata = { ...achievementData, attachments: attachmentResults };
+
+    // Step 3: Upload final metadata to IPFS (your existing logic)
+    const metadataResult = await createIPFS(finalMetadata, `Achievement Record - ${achievementData.title}`);
+    if (!metadataResult.success || !metadataResult.hash) {
+      throw new Error(`Failed to store metadata on IPFS: ${metadataResult.error}`);
     }
 
-    // Step 3: Upload the complete achievement record to IPFS
-    const achievementResult = await createIPFS(
-      updatedAchievementData, 
-      `Achievement Record - ${achievementData.title}`
-    )
-
-    if (!achievementResult.success || !achievementResult.hash) {
-      throw new Error(`Failed to store achievement metadata on IPFS: ${achievementResult.error}`)
-    }
-
-    // Update blockchain data with the submission hash
-    updatedAchievementData.blockchain.submissionHash = achievementResult.hash
-
-    // Step 4: Save to Strapi
+    // Step 4: Prepare and save data to Strapi, using the AI scores
     const strapiData = {
       data: {
-        
-        
-        category: updatedAchievementData.category || 'Other',
-        
-        score: updatedAchievementData.score || 0,
-        authenticScore: updatedAchievementData.authentic_score || 0,
-        studentId: updatedAchievementData.studentId,
-        ipfsUrl: achievementResult?.url,
-        ipfsHash: achievementResult?.hash,
+        title: finalMetadata.title,
+        description: finalMetadata.description,
+        category: finalMetadata.category,
+        date: finalMetadata.date,
+        studentId: finalMetadata.studentId,
+        // Use the AI-generated scores from the nested object
+        score: finalMetadata.aiEvaluation.achievementScore,
+        authenticScore: finalMetadata.aiEvaluation.authenticityScore,
+        ipfsHash: metadataResult.hash,
+        ipfsUrl: metadataResult.url!,
       }
-    }
+    };
 
     await axios.post(`${API_URL}/api/achievements`, strapiData, {
       headers: { Authorization: `Bearer ${token}` },
-    })
+    });
     
-    return true
+    return true;
   } catch (error) {
-    console.error('Failed to save achievement:', error)
-    return false
+    console.error('Failed to save achievement:', error);
+    return false;
   }
 }
 
-
-
-
+// FIXED: Added the missing and correctly exported function
 export const fetchMyAchievements = async (studentId: string) => {
   try {
-    const response = await axios.get(`${API_URL}/api/achievements?populate=*&sort=createdAt:desc&filters[studentId][$eq]=${studentId}`)
-    return response.data.data
+    const response = await axios.get(`${API_URL}/api/achievements?populate=*&sort=createdAt:desc&filters[studentId][$eq]=${studentId}`);
+    return response.data.data;
   } catch (error) {
-    console.error('Failed to fetch achievements:', error)
-    return []
+    console.error('Failed to fetch achievements:', error);
+    return [];
   }
-}
+};

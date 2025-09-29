@@ -47,6 +47,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setUser(userData)
             // Update localStorage with fresh data
             localStorage.setItem('auth_user', JSON.stringify(userData))
+
+            router.push('/' + (getUserRole() || 'login'))
           } else {
             clearAuthData()
           }

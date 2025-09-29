@@ -1,356 +1,176 @@
 "use client"
 
-import type React from "react"
-
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { LogoutButton } from "@/components/logout-button"
-import { Award, Upload, Calendar, Save, X, Hash, File, ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { useAuth } from "@/contexts/AuthContext"
-import { saveAchievement } from "@/lib/achievement"
-
-
-
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Award, Upload, Save, X, File, ArrowLeft, Sparkles, ShieldCheck, Calendar } from "lucide-react";
+import Link from "next/link";
+import { useAuth } from "@/contexts/AuthContext";
+import { saveAchievement } from "@/lib/achievement";
+import type { EvaluationResult, AchievementMetadata } from "@/types/certificate";
 
 export default function NewAchievementPage() {
-  const { user,token } = useAuth()
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    category: "",
-    date: "",
-    score: "",
-    attachments: [] as AttachmentWithHash[],
-  })
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState("")
-  const [success, setSuccess] = useState("")
-  const router = useRouter()
+  const { user, token } = useAuth();
+  const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setError("")
-    setSuccess("")
+  const [formData, setFormData] = useState({ title: "", description: "", category: "", date: "" });
+  const [certificateFile, setCertificateFile] = useState<File | null>(null);
+  const [evaluation, setEvaluation] = useState<EvaluationResult | null>(null);
+  const [isEvaluating, setIsEvaluating] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setCertificateFile(file);
+    setIsEvaluating(true);
+    setEvaluation(null);
+    setError("");
+
+    const uploadFormData = new FormData();
+    uploadFormData.append('certificateFile', file);
+    uploadFormData.append('isVerifiedByFaculty', 'false'); // You can add a checkbox for this
 
     try {
-      // Create achievement metadata
-      const achievementMetadata: AchievementMetadata = {
-        title: formData.title,
-        description: formData.description,
-        category: formData.category,
-        date: formData.date,
-        score: parseInt(formData.score) || 0,
-        authentic_score: parseInt(formData.score) || 0,
-        studentId: user?.student?.studentId || user?.id?.toString() || 'unknown',
-        studentName: user?.username || 'Unknown Student',
-        studentEmail: user?.email || '',
-        submissionTimestamp: new Date().toISOString(),
-        attachments: formData.attachments.map(att => ({
-          fileName: att.file.name,
-          fileSize: att.file.size,
-          fileType: att.file.type,
-          ipfsHash: '', 
-          ipfsUrl: ''   
-        })),
-        blockchain: {
-          network: "IPFS",
-          timestamp: new Date().toISOString(),
-          submissionHash: ""
-        }
-      }
-
-      // Extract files from attachments
-      const files = formData.attachments.map(att => att.file)
-
-      // Submit to backend (achievement.ts will handle all IPFS operations)
-      const success = await saveAchievement(token || "", achievementMetadata, files)
-      
-      if (success) {
-        setSuccess("Achievement and files uploaded successfully to IPFS! It will be reviewed by faculty.")
-        // Redirect after success
-        setTimeout(() => {
-          router.push('/student/achievements')
-        }, 2000)
-      } else {
-        setError("Failed to save achievement data.")
-      }
-
+      const response = await fetch('/api/evaluate', { method: 'POST', body: uploadFormData });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Failed to evaluate file.");
+      setEvaluation(result as EvaluationResult);
     } catch (err: any) {
-      console.error('Achievement submission error:', err)
-      setError(err.message || "Failed to submit achievement. Please try again.")
+      setError(err.message);
+      setCertificateFile(null);
     } finally {
-      setLoading(false)
+      setIsEvaluating(false);
     }
-  }
+  };
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || [])
-    const newAttachments = files.map(file => ({ file }))
-    setFormData((prev) => ({
-      ...prev,
-      attachments: [...prev.attachments, ...newAttachments],
-    }))
-  }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!evaluation || !certificateFile || !user) {
+      setError("Please upload and evaluate a certificate before submitting.");
+      return;
+    }
 
-  const removeFile = (index: number) => {
-    setFormData((prev) => ({
-      ...prev,
-      attachments: prev.attachments.filter((_, i) => i !== index),
-    }))
-  }
+    setLoading(true);
+    setError("");
+    setSuccess("");
+
+    const achievementMetadata: AchievementMetadata = {
+      title: formData.title,
+      description: formData.description,
+      category: formData.category,
+      date: formData.date,
+      studentId: user.id?.toString() || 'unknown',
+      aiEvaluation: evaluation,
+    };
+
+    try {
+      const success = await saveAchievement(token || "", achievementMetadata, [certificateFile]);
+      if (success) {
+        setSuccess("Achievement submitted successfully! It will now be reviewed.");
+        setTimeout(() => router.push('/student/dashboard'), 2000); // Or another relevant page
+      } else {
+        throw new Error("Failed to save achievement data to the backend.");
+      }
+    } catch (err: any) {
+      setError(err.message || "Failed to submit achievement.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-[#000000] font-poppins">
-      <div className="container mx-auto px-6 py-8 max-w-4xl">
-        {/* Page Header - Integrated into content */}
-        <div className="mb-8">
-          <Link href="/student/achievements" className="inline-flex items-center text-sm text-gray-400 hover:text-blue-400 mb-4 transition-colors">
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            Back to Achievements
-          </Link>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div>
-                <h1 className="text-3xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent flex items-center">
-                  <Award className="h-8 w-8 mr-3 text-yellow-500" />
-                  Add New Achievement
-                  <Hash className="h-6 w-6 ml-3 text-blue-500" />
-                </h1>
-                <p className="text-gray-300 text-lg">Document your accomplishments with blockchain verification</p>
-              </div>
+    <div className="min-h-screen bg-gray-900 text-white p-8">
+      <div className="container mx-auto max-w-3xl">
+        <Link href="/student/dashboard" className="inline-flex items-center text-sm text-gray-400 hover:text-white mb-4">
+          <ArrowLeft className="h-4 w-4 mr-2" />
+          Back to Dashboard
+        </Link>
+        <h1 className="text-4xl font-bold mb-8">Add New Achievement</h1>
+        
+        <form onSubmit={handleSubmit} className="space-y-6 bg-gray-800 p-8 rounded-lg">
+          {/* Title */}
+          <div className="space-y-2">
+            <Label htmlFor="title">Achievement Title *</Label>
+            <Input id="title" value={formData.title} onChange={(e) => setFormData(f => ({...f, title: e.target.value}))} required placeholder="e.g., Best Paper Award" />
+          </div>
+
+          {/* Category */}
+          <div className="space-y-2">
+            <Label htmlFor="category">Category *</Label>
+            <Select value={formData.category} onValueChange={(value) => setFormData(f => ({...f, category: value}))} required>
+              <SelectTrigger><SelectValue placeholder="Select a category" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="competition">Competition</SelectItem>
+                <SelectItem value="certification">Certification</SelectItem>
+                <SelectItem value="internship">Internship</SelectItem>
+                {/* Add other categories */}
+              </SelectContent>
+            </Select>
+          </div>
+
+          {/* Description */}
+          <div className="space-y-2">
+            <Label htmlFor="description">Description *</Label>
+            <Textarea id="description" value={formData.description} onChange={(e) => setFormData(f => ({...f, description: e.target.value}))} required placeholder="Describe your achievement..." />
+          </div>
+
+          {/* Date */}
+          <div className="space-y-2">
+            <Label htmlFor="date">Achievement Date *</Label>
+            <Input id="date" type="date" value={formData.date} onChange={(e) => setFormData(f => ({...f, date: e.target.value}))} required />
+          </div>
+
+          {/* File Upload Section */}
+          <div className="space-y-2">
+            <Label htmlFor="attachments">Supporting Document *</Label>
+            <div className="border-2 border-dashed border-gray-700 rounded-lg p-6 text-center">
+              <Input id="attachments" type="file" accept=".pdf,.jpg,.jpeg,.png" onChange={handleFileUpload} className="hidden" disabled={isEvaluating} />
+              <Button type="button" variant="outline" onClick={() => document.getElementById("attachments")?.click()} disabled={isEvaluating}>
+                <Upload className="h-4 w-4 mr-2" />
+                {certificateFile ? certificateFile.name : "Choose File"}
+              </Button>
             </div>
           </div>
-        </div>
-        <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-          <div className="mb-8">
-            <h2 className="text-2xl font-bold text-white mb-2">Achievement Details</h2>
-            <p className="text-gray-300">
-              Provide detailed information about your achievement. All submissions will be reviewed by faculty before
-              approval.
-            </p>
-          </div>
-          <div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Title */}
-              <div className="space-y-2">
-                <Label htmlFor="title">Achievement Title *</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
-                  placeholder="e.g., Best Paper Award - IEEE Conference 2024"
-                  required
-                />
-              </div>
-
-              {/* Category */}
-              <div className="space-y-2">
-                <Label htmlFor="category">Category *</Label>
-                <Select
-                  value={formData.category}
-                  onValueChange={(value) => setFormData((prev) => ({ ...prev, category: value }))}
-                  required
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select achievement category" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="academic">Academic Excellence</SelectItem>
-                    <SelectItem value="competition">Competition/Contest</SelectItem>
-                    <SelectItem value="certification">Certification</SelectItem>
-                    <SelectItem value="internship">Internship/Work Experience</SelectItem>
-                    <SelectItem value="extracurricular">Extracurricular Activity</SelectItem>
-                    <SelectItem value="research">Research Publication</SelectItem>
-                    <SelectItem value="leadership">Leadership Role</SelectItem>
-                    <SelectItem value="community">Community Service</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Description */}
-              <div className="space-y-2">
-                <Label htmlFor="description">Description *</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
-                  onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
-                  placeholder="Provide a detailed description of your achievement, including context, your role, and impact..."
-                  className="min-h-[120px]"
-                  required
-                />
-              </div>
-
-              {/* Date and Points */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="date">Achievement Date *</Label>
-                  <div className="relative">
-                    <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                    <Input
-                      id="date"
-                      type="date"
-                      value={formData.date}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, date: e.target.value }))}
-                      className="pl-10"
-                      required
-                    />
-                  </div>
+          
+          {isEvaluating && <p className="text-blue-400 text-center">🧠 Evaluating with AI, please wait...</p>}
+          
+          {/* AI Evaluation Result */}
+          {evaluation && (
+            <div className="bg-gray-700 border border-green-500/30 rounded-lg p-4 space-y-3">
+                <p className="font-bold text-lg text-green-400">✅ AI Evaluation Complete</p>
+                <div className="grid grid-cols-2 gap-4 pt-2">
+                    <div className="text-center">
+                        <p className="text-2xl font-bold">{evaluation.achievementScore.toFixed(1)} <span className="text-base font-normal">/ 10</span></p>
+                        <p className="text-xs text-gray-400 flex items-center justify-center"><Sparkles className="h-3 w-3 mr-1"/> Achievement Score</p>
+                    </div>
+                    <div className="text-center">
+                        <p className="text-2xl font-bold">{evaluation.authenticityScore.toFixed(1)} <span className="text-base font-normal">/ 10</span></p>
+                        <p className="text-xs text-gray-400 flex items-center justify-center"><ShieldCheck className="h-3 w-3 mr-1"/> Authenticity Score</p>
+                    </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="score">Suggested Score</Label>
-                  <Input
-                    id="score"
-                    type="number"
-                    value={formData.score}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, score: e.target.value }))}
-                    placeholder="e.g., 100"
-                    min="0"
-                    max="500"
-                  />
-                  <p className="text-xs text-muted-foreground">
-                    Score will be assigned by faculty based on achievement significance
-                  </p>
-                </div>
-              </div>
-
-              {/* File Upload */}
-              <div className="space-y-2">
-                <Label htmlFor="attachments">Supporting Documents</Label>
-                <div className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6">
-                  <div className="text-center">
-                    <Upload className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                    <p className="text-sm text-muted-foreground mb-2">
-                      Upload certificates, photos, or other supporting documents
-                    </p>
-                    <Input
-                      id="attachments"
-                      type="file"
-                      multiple
-                      accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
-                      onChange={handleFileUpload}
-                      className="hidden"
-                    />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => document.getElementById("attachments")?.click()}
-                    >
-                      Choose Files
-                    </Button>
-                  </div>
-                </div>
-
-                {/* File List */}
-                {formData.attachments.length > 0 && (
-                  <div className="space-y-2">
-                    <Label>Selected Files:</Label>
-                    {formData.attachments.map((file, index) => (
-                      <div key={index} className="flex items-center justify-between p-2 border rounded">
-                        <div className="flex items-center space-x-2">
-                          <File className="h-4 w-4 text-muted-foreground" />
-                          <span className="text-sm">{file.file.name}</span>
-                          <span className="text-xs text-muted-foreground">
-                            ({(file.file.size / 1024).toFixed(1)} KB)
-                          </span>
-                        </div>
-                        <Button type="button" variant="ghost" size="sm" onClick={() => removeFile(index)}>
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Guidelines */}
-              <Alert>
-                <AlertDescription>
-                  <strong>Submission Guidelines:</strong>
-                  <ul className="list-disc list-inside mt-2 space-y-1 text-sm">
-                    <li>Provide accurate and verifiable information</li>
-                    <li>Include supporting documents when possible</li>
-                    <li>Achievements will be reviewed within 3-5 business days</li>
-                    <li>You may be contacted for additional information</li>
-                  </ul>
-                </AlertDescription>
-              </Alert>
-
-              {/* Error/Success Messages */}
-              {error && (
-                <Alert variant="destructive">
-                  <AlertDescription>{error}</AlertDescription>
-                </Alert>
-              )}
-
-              {success && (
-                <Alert variant="success">
-                  <AlertDescription>{success}</AlertDescription>
-                </Alert>
-              )}
-
-              {/* Submit Buttons */}
-              <div className="flex gap-4 pt-4">
-                <Button 
-                  type="submit" 
-                  className="flex-1"
-                  loading={loading}
-                  loadingText="Submitting..."
-                >
-                  <Save className="h-4 w-4 mr-2" />
-                  Submit for Review
-                </Button>
-                <Link href="/student/achievements">
-                  <Button type="button" variant="outline" disabled={loading}>
-                    Cancel
-                  </Button>
-                </Link>
-              </div>
-            </form>
-          </div>
-        </div>
-
-        {/* Help Section */}
-        <div className="mt-8 bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
-          <div className="mb-6">
-            <h2 className="text-2xl font-bold text-white">Need Help?</h2>
-          </div>
-          <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-              <div>
-                <h4 className="font-semibold mb-2">What qualifies as an achievement?</h4>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                  <li>Academic awards and recognitions</li>
-                  <li>Competition wins or notable placements</li>
-                  <li>Professional certifications</li>
-                  <li>Internships and work experiences</li>
-                  <li>Leadership roles in organizations</li>
-                  <li>Research publications or presentations</li>
-                </ul>
-              </div>
-              <div>
-                <h4 className="font-semibold mb-2">Tips for better approval chances:</h4>
-                <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-                  <li>Provide clear, detailed descriptions</li>
-                  <li>Include official documentation</li>
-                  <li>Mention your specific role and contribution</li>
-                  <li>Add context about the achievement's significance</li>
-                  <li>Ensure all information is accurate</li>
-                </ul>
-              </div>
             </div>
+          )}
+
+          {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
+          {success && <Alert><AlertDescription>{success}</AlertDescription></Alert>}
+          
+          <div className="flex justify-end pt-4">
+            <Button type="submit" disabled={loading || isEvaluating || !evaluation}>
+              <Save className="h-4 w-4 mr-2" />
+              {loading ? "Submitting..." : "Submit for Review"}
+            </Button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
-  )
+  );
 }
