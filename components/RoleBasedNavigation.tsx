@@ -39,6 +39,7 @@ import {
   HelpCircle,
   ChevronLeft,
   Home,
+  Heart,
 } from "lucide-react";
 import Image from "next/image";
 import { getRoleDisplayName } from "@/lib/role-utils";
