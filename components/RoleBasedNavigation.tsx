@@ -39,6 +39,7 @@ import {
   HelpCircle,
   ChevronLeft,
   Home,
+  Heart,
 } from "lucide-react";
 import Image from "next/image";
 import { getRoleDisplayName } from "@/lib/role-utils";
@@ -84,6 +85,12 @@ export function RoleBasedNavigation() {
       icon: Award,
       description: "Manage your accomplishments",
       badge: "3 pending",
+    },
+    {
+      href: "/student/community-service",
+      label: "Community Service",
+      icon: Heart,
+      description: "Log your volunteer work",
     },
     {
       href: "/student/portfolio",
