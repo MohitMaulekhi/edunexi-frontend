@@ -90,14 +90,21 @@ const StudentEventsPage = () => {
     const id = scannedId.split("/").pop();
     setAttendanceLoading(true);
     setQrError(null);
-    const success = await AttendaceForEvent(token!, id!);
+    
     setAttendanceLoading(false);
     setShowQrModal(false);
-    if (success) {
+    try{
+      const success = await AttendaceForEvent(token!, id!);
       toast.success("Attendance marked successfully!");
-    } else {
-      toast.error("Failed to mark attendance");
     }
+    catch(e:any){
+      toast.error(e.message ??"Failed to mark attendance");
+    }
+    finally{
+      setAttendanceLoading(false);
+      setShowQrModal(false);
+    }
+     
   };
 
   const isRegistered = (event: any) => {
