@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { QRCodeSVG } from "qrcode.react";
+import { QRCodeCanvas, QRCodeSVG } from "qrcode.react";
 
 interface QRCodeProps {
   uid: string;
@@ -81,8 +81,9 @@ export const EventDetailsModal: React.FC<EventDetailsModalProps> = ({
           <div className="flex flex-col items-center justify-center gap-2 w-full md:w-auto">
             <span className="text-xs text-gray-400 mb-2">Event QR Code</span>
             <div className="bg-white p-2 md:p-4 rounded-lg shadow w-full flex justify-center">
-              <QRCodeSVG
-                value={event.id}
+              
+              <QRCodeCanvas
+                value={"https://edunexi-frontend.vercel.app/university/events/" + event.id}
                 size={Math.min(
                   window.innerWidth > 768 ? 200 : 120,
                   200

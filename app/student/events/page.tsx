@@ -67,13 +67,16 @@ const StudentEventsPage = () => {
       return;
     }
     setRegistering(eventId);
-    const success = await registerForEvent(token, eventId);
-    setRegistering(null);
-    if (success) {
-      toast.success("Registered for event successfully!");
-    } else {
-      toast.error("Failed to register for event");
+    try{
+      const success = await registerForEvent(token, eventId);
+      toast.success("You have successfully registered for the event!");
     }
+    catch(e:any){
+      toast.error(e.message ??"Registration failed. Please try again.");
+    }finally{
+      setRegistering(null);
+    }
+    
   };
 
   const handleAttendance = () => {
@@ -83,9 +86,11 @@ const StudentEventsPage = () => {
 
   const handleScan = async (scannedId: string | null) => {
     if (!scannedId) return;
+    /// scanned id is         value={"https://edunexi-frontend.vercel.app/university/events/" + event.id}
+    const id = scannedId.split("/").pop();
     setAttendanceLoading(true);
     setQrError(null);
-    const success = await AttendaceForEvent(token!, scannedId);
+    const success = await AttendaceForEvent(token!, id!);
     setAttendanceLoading(false);
     setShowQrModal(false);
     if (success) {
@@ -101,7 +106,7 @@ const StudentEventsPage = () => {
 
   return (
     <div className="min-h-screen bg-[#000000] font-poppins">
-      <div className="mx-auto px-6 py-8">
+      <div className="mx-auto px-4 sm:px-6 py-6 sm:py-8 w-full max-w-7xl">
         {/* Header */}
         <div className="mb-8">
           <Link
@@ -112,10 +117,10 @@ const StudentEventsPage = () => {
             Back to Dashboard
           </Link>
           <div className="text-center">
-            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-[#E5E5E5] to-[#60A5FA] bg-clip-text text-transparent mb-4">
               Student Events
             </h1>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
               Discover upcoming events, festivals, and activities happening on
               campus
             </p>
@@ -123,7 +128,7 @@ const StudentEventsPage = () => {
         </div>
 
         {/* Events Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+        <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
           {loading ? (
             <div className="col-span-full text-center py-16">
               <span className="text-gray-400">Loading events...</span>
@@ -140,7 +145,7 @@ const StudentEventsPage = () => {
             events.map((event) => (
               <article
                 key={event.id}
-                className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105"
+                className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-2xl sm:rounded-3xl p-4 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 flex flex-col"
               >
                 {/* Event Header */}
                 <div className="flex items-start justify-between mb-4">

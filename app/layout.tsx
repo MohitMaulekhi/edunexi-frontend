@@ -8,6 +8,7 @@ import ConditionalNavigation from "@/components/ConditionalNavigation";
 import RoleBasedNavigation from "@/components/RoleBasedNavigation";
 import PageTransitions from "@/components/ui/page-transitions";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
   title: "Student Achievement Platform",
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
+        <Toaster richColors position="top-right" />
         <AuthProvider>
           <ConditionalNavigation />
           <div className="main-content">
