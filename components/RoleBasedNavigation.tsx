@@ -86,6 +86,12 @@ export function RoleBasedNavigation() {
       badge: "3 pending",
     },
     {
+      href: "/student/community-service",
+      label: "Community Service",
+      icon: Heart,
+      description: "Log your volunteer work",
+    },
+    {
       href: "/student/portfolio",
       label: "Portfolio",
       icon: FileText,
