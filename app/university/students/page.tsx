@@ -1,5 +1,7 @@
 "use client"
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, CartesianGrid } from "recharts"
 
+import studentsData from "./generate.json"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { useAuth } from "@/contexts/AuthContext"
@@ -9,27 +11,27 @@ import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
 } from "@/components/ui/table"
-import { 
-  DropdownMenu, 
-  DropdownMenuContent, 
-  DropdownMenuItem, 
-  DropdownMenuTrigger 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu"
-import { 
-  Users, 
-  Plus, 
-  Search, 
-  MoreVertical, 
-  Edit, 
-  Trash2, 
+import {
+  Users,
+  Plus,
+  Search,
+  MoreVertical,
+  Edit,
+  Trash2,
   Eye,
   Filter,
   ArrowLeft,
@@ -43,12 +45,18 @@ interface StudentWithUser extends StudentProfile {
     firstName: string
     lastName: string
   }
+  department: string
+  major?: string
+  year?: string
+  semester?: number
+  CGPA?: number
+  phoneNumber?: string
 }
 
 function StudentsPageContent() {
   const { user, token } = useAuth()
   const router = useRouter()
-  
+
   // Redirect if not university admin
   if (!user || user.role?.name !== "University Admin") {
     router.push("/login")
@@ -57,68 +65,7 @@ function StudentsPageContent() {
 
 
   // Dummy student data for demo
-  const [students] = useState<StudentWithUser[]>([
-    {
-      id: 1,
-      documentId: 'doc-1',
-      studentId: '2025CS101',
-      department: 'Computer Science',
-      major: 'Artificial Intelligence',
-      year: 'Junior',
-      semester: 5,
-      CGPA: 3.82,
-      phoneNumber: '9876543210',
-      createdAt: '2025-01-01T10:00:00Z',
-      updatedAt: '2025-09-01T10:00:00Z',
-      user: {
-        id: 1,
-        username: 'aarav.sharma',
-        email: 'aarav.sharma@student.edu',
-        firstName: 'Aarav',
-        lastName: 'Sharma',
-      },
-    },
-    {
-      id: 2,
-      documentId: 'doc-2',
-      studentId: '2025EC202',
-      department: 'Electronics',
-      major: 'Embedded Systems',
-      year: 'Sophomore',
-      semester: 3,
-      CGPA: 3.45,
-      phoneNumber: '9123456780',
-      createdAt: '2024-08-15T10:00:00Z',
-      updatedAt: '2025-09-01T10:00:00Z',
-      user: {
-        id: 2,
-        username: 'meera.patel',
-        email: 'meera.patel@student.edu',
-        firstName: 'Meera',
-        lastName: 'Patel',
-      },
-    },
-    {
-      id: 3,
-      documentId: 'doc-3',
-      studentId: '2025ME303',
-      department: 'Mechanical',
-      major: 'Robotics',
-      year: 'Senior',
-      semester: 7,
-      CGPA: 2.98,
-      phoneNumber: '',
-      createdAt: '2023-07-10T10:00:00Z',
-      updatedAt: '2025-09-01T10:00:00Z',
-      user: {
-        id: 3,
-        username: 'rohan.verma',
-        email: 'rohan.verma@student.edu',
-        firstName: 'Rohan',
-        lastName: 'Verma',
-      },
-    },
-  ])
+  const [students] = useState<StudentWithUser[]>(studentsData as StudentWithUser[])
   const [loading] = useState(false)
   const [error] = useState("")
   const [searchQuery, setSearchQuery] = useState("")
@@ -132,12 +79,12 @@ function StudentsPageContent() {
 
   // Filter students based on search and department
   const filteredStudents = students.filter(student => {
-    const matchesSearch = 
+    const matchesSearch =
       student.user.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       student.user.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       student.user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       student.studentId.toLowerCase().includes(searchQuery.toLowerCase())
-    
+
     const matchesDepartment = !selectedDepartment || student.department === selectedDepartment
 
     return matchesSearch && matchesDepartment
@@ -145,6 +92,52 @@ function StudentsPageContent() {
 
   // Get unique departments for filter
   const departments = Array.from(new Set(students.map(s => s.department))).filter(Boolean)
+
+  // Prepare chart data
+  const departmentStats = students.reduce((acc, s) => {
+    if (!s.department || typeof s.CGPA !== "number") return acc
+    if (!acc[s.department]) acc[s.department] = { department: s.department, total: 0, count: 0 }
+    acc[s.department].total += s.CGPA
+    acc[s.department].count += 1
+    return acc
+  }, {} as Record<string, { department: string; total: number; count: number }>)
+
+  const chartData = Object.values(departmentStats).map(d => ({
+    department: d.department,
+    avgCGPA: d.count > 0 ? parseFloat((d.total / d.count).toFixed(2)) : 0
+  }))
+  // Dynamic Y-axis for better bar heights
+  // 1️⃣ Dynamic Y-axis range for department average CGPA chart
+  const cgpaValues = chartData.map(d => d.avgCGPA)
+  const minCGPA = Math.floor(Math.min(...cgpaValues) - 0.5)
+  const maxCGPA = Math.ceil(Math.max(...cgpaValues) + 0.5)
+
+  // 2️⃣ Grade distribution
+  const gradeBuckets = { 'A+': 0, 'A': 0, 'B+': 0, 'B': 0, 'C': 0 }
+  students.forEach(s => {
+    if (typeof s.CGPA !== 'number') return
+    if (s.CGPA >= 9) gradeBuckets['A+']++
+    else if (s.CGPA >= 8) gradeBuckets['A']++
+    else if (s.CGPA >= 7) gradeBuckets['B+']++
+    else if (s.CGPA >= 6) gradeBuckets['B']++
+    else gradeBuckets['C']++
+  })
+  const gradeData = Object.entries(gradeBuckets).map(([grade, count]) => ({ grade, count }))
+
+  // 3️⃣ Branch-wise insight (average and highest CGPA)
+  const branchStats = students.reduce((acc, s) => {
+    if (!s.department || typeof s.CGPA !== 'number') return acc
+    if (!acc[s.department]) acc[s.department] = { department: s.department, total: 0, count: 0, maxCGPA: 0 }
+    acc[s.department].total += s.CGPA
+    acc[s.department].count += 1
+    acc[s.department].maxCGPA = Math.max(acc[s.department].maxCGPA, s.CGPA)
+    return acc
+  }, {} as Record<string, { department: string; total: number; count: number; maxCGPA: number }>)
+  const branchInsightData = Object.values(branchStats).map(b => ({
+    department: b.department,
+    avgCGPA: parseFloat((b.total / b.count).toFixed(2)),
+    maxCGPA: b.maxCGPA
+  }))
 
 
 
@@ -211,6 +204,8 @@ function StudentsPageContent() {
           </div>
         </div>
 
+
+
         {/* Students Table */}
         <div className="bg-black/70 backdrop-blur-md border border-gray-700 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-shadow duration-300">
           <div className="mb-6">
@@ -218,8 +213,8 @@ function StudentsPageContent() {
               <div>
                 <h2 className="text-2xl font-bold text-white">Students ({filteredStudents.length})</h2>
                 <p className="text-gray-300">
-                  {searchQuery || selectedDepartment 
-                    ? `Showing filtered results` 
+                  {searchQuery || selectedDepartment
+                    ? `Showing filtered results`
                     : `All students in your university`}
                 </p>
               </div>
@@ -240,8 +235,8 @@ function StudentsPageContent() {
                 <Users className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
                 <h3 className="text-lg font-semibold mb-2">No students found</h3>
                 <p className="text-muted-foreground mb-4">
-                  {searchQuery || selectedDepartment 
-                    ? "Try adjusting your filters" 
+                  {searchQuery || selectedDepartment
+                    ? "Try adjusting your filters"
                     : "Get started by adding your first student"}
                 </p>
                 <Link href="/university/students/create">
@@ -344,11 +339,97 @@ function StudentsPageContent() {
                   </TableBody>
                 </Table>
               </div>
+
+
             )}
+            {/* 1️⃣ Department-wise Average CGPA */}
+            <div className="mt-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Average CGPA by Department</CardTitle>
+                  <CardDescription>Department-wise average CGPA</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={chartData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis
+                          dataKey="department"
+                          interval={0}
+                          angle={-30}
+                          textAnchor="end"
+                          tick={{ fontSize: 12, fill: '#fff' }}
+                        />
+                        <YAxis domain={[minCGPA, maxCGPA]} />
+                        <Tooltip />
+                        <Bar dataKey="avgCGPA" fill="#4f46e5" radius={[6, 6, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* 2️⃣ Grade distribution */}
+            <div className="mt-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Grade Distribution</CardTitle>
+                  <CardDescription>Number of students per grade</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-64">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={gradeData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="grade" tick={{ fontSize: 12, fill: '#fff' }} />
+                        <YAxis />
+                        <Tooltip />
+                        <Bar dataKey="count" fill="#10b981" radius={[6, 6, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* 3️⃣ Branch-wise insight (Average + Highest CGPA) */}
+            <div className="mt-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Branch-wise CGPA Insights</CardTitle>
+                  <CardDescription>Average and Highest CGPA per branch</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={branchInsightData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis
+                          dataKey="department"
+                          interval={0}
+                          angle={-30}
+                          textAnchor="end"
+                          tick={{ fontSize: 12, fill: '#fff' }}
+                        />
+                        <YAxis domain={[0, 10]} />
+                        <Tooltip />
+                        <Bar dataKey="avgCGPA" fill="#3b82f6" name="Average CGPA" radius={[6, 6, 0, 0]} />
+                        <Bar dataKey="maxCGPA" fill="#f97316" name="Highest CGPA" radius={[6, 6, 0, 0]} />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
           </div>
         </div>
       </div>
     </div>
+
+
   )
 }
 
