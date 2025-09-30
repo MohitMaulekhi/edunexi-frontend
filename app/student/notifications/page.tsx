@@ -1,22 +1,21 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   Bell,
   ArrowLeft,
-  Plus,
 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { CreateNotificationForm } from "@/components/CreateNotificationForm";
 import { NotificationList } from "@/components/NotificationList";
 import { useAuth } from "@/contexts/AuthContext";
 
-const UniversityNotifications: React.FC = () => {
-  const { user } = useAuth();
-  const [showCreateForm, setShowCreateForm] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
+const StudentNotifications: React.FC = () => {
+  const { user, refreshUser } = useAuth();
 
-  if (!user?.university) {
+  // Get university from either direct assignment or student profile
+  const userUniversity = user?.university || user?.student?.university;
+
+  if (!userUniversity) {
     return (
       <div className="min-h-screen bg-black text-white p-6">
         <div className="text-center py-12">
@@ -28,11 +27,6 @@ const UniversityNotifications: React.FC = () => {
     );
   }
 
-  const handleNotificationCreated = (hash: string) => {
-    setShowCreateForm(false);
-    setRefreshKey(prev => prev + 1);
-  };
-
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Header */}
@@ -40,7 +34,7 @@ const UniversityNotifications: React.FC = () => {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <Link href="/university">
+              <Link href="/student">
                 <Button variant="ghost" size="sm" className="text-gray-400 hover:text-white">
                   <ArrowLeft className="h-4 w-4 mr-2" />
                   Back to Dashboard
@@ -51,44 +45,26 @@ const UniversityNotifications: React.FC = () => {
                   Notifications
                 </h1>
                 <p className="text-gray-400 text-sm">
-                  Manage university announcements and communications
+                  Stay updated with university announcements
                 </p>
               </div>
             </div>
-            
-            <Button
-              onClick={() => setShowCreateForm(!showCreateForm)}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              {showCreateForm ? 'Cancel' : 'Create Notification'}
-            </Button>
           </div>
         </div>
       </div>
 
       <div className="container mx-auto px-4 py-8 space-y-8">
-        {/* Create Notification Form */}
-        {showCreateForm && (
-          <CreateNotificationForm
-            universityId={user.university.id.toString()}
-            onNotificationCreated={handleNotificationCreated}
-            onCancel={() => setShowCreateForm(false)}
-          />
-        )}
-
         {/* Notifications List */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-white flex items-center">
               <Bell className="h-5 w-5 mr-2 text-blue-400" />
-              All Notifications
+              University Notifications
             </h2>
           </div>
           
           <NotificationList 
-            key={refreshKey}
-            universityId={user.university.id.toString()}
+            universityId={userUniversity.id.toString()}
           />
         </div>
       </div>
@@ -96,4 +72,4 @@ const UniversityNotifications: React.FC = () => {
   );
 };
 
-export default UniversityNotifications;
+export default StudentNotifications;

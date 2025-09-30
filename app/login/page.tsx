@@ -48,8 +48,17 @@ export default function LoginPage() {
     }
   }
 
+  const fillDemoLogin = (type: "student" | "university") => {
+    if (type === "student") {
+      setEmail("lakshay@nsut.edu")
+      setPassword("123456")
+    } else {
+      setEmail("nsut@gmail.com")
+      setPassword("123456")
+    }
+  }
+
   return (
-    // FIX: Added top padding (pt-28) to the main container to prevent overlap
     <div className="min-h-screen w-full flex items-center justify-center bg-gradient-to-b from-[#170b2c] to-[#220046] text-white px-4 pb-4 pt-24 font-sans">
       <Navbar />
       <CircuitLine />
@@ -61,7 +70,6 @@ export default function LoginPage() {
       >
         {/* Left: Branding */}
         <div className="hidden md:flex flex-col justify-center py-4 px-12 bg-black/20 backdrop-blur-xs">
-          {/* Centered logo and heading in one line at the top */}
           <div className="flex justify-center items-center mb-10 mt-4">
             <Image src="/logo.png" alt="Edunexi Logo" width={50} height={50} className="rounded-md" />
             <h1 className="ml-4 text-4xl font-bold tracking-tight bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
@@ -72,11 +80,6 @@ export default function LoginPage() {
             Empowering Students, Unlocking Achievements — One Platform, Infinite Possibilities
           </p>
           <ul className="mt-8 space-y-4 text-white/80">
-            {/*
-              "Role-based dashboards",
-              "Achievement & portfolio tracking",
-              "University-wide notifications"
-            */}
             {["Role-based dashboards", "Achievement & portfolio tracking", "University-wide notifications"].map(
               (item, i) => (
                 <li key={i} className="flex items-center gap-3 transition-colors">
@@ -100,7 +103,6 @@ export default function LoginPage() {
             <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               <div>
                 <Label htmlFor="email" className="font-semibold text-gray-300">Email</Label>
-
                 <div className="relative mt-2">
                     <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <Input
@@ -115,7 +117,6 @@ export default function LoginPage() {
                         className="h-14 pl-12 pr-4 text-base rounded-xl border border-white/10 bg-black/20 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8B5CF6] transition-all duration-200"
                     />
                 </div>
-
               </div>
 
               <div>
@@ -131,9 +132,7 @@ export default function LoginPage() {
                     required
                     placeholder="Enter your password"
                     className="h-14 pl-12 pr-12 text-base rounded-xl border border-white/10 bg-black/20 text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#8B5CF6] transition-all duration-200"
-
                   />
-
                   <button
                     type="button"
                     aria-label="Toggle password visibility"
@@ -145,28 +144,45 @@ export default function LoginPage() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-sm">
-                <label className="flex items-center gap-2 text-gray-400 cursor-pointer">
-                  <Checkbox id="remember-me" checked={remember} onCheckedChange={(v) => setRemember(Boolean(v))} />
-                  <Label htmlFor="remember-me" className="cursor-pointer">Remember me</Label>
-                </label>
-                <Link href="/forgot-password" className="text-[#8B5CF6] hover:brightness-125 transition">
-                  Forgot password?
-                </Link>
+              {/* Remember me + Demo login info */}
+              <div className="flex flex-col space-y-1">
+                <div className="flex items-center justify-between text-sm">
+                  <label className="flex items-center gap-2 text-gray-400 cursor-pointer">
+                    <Checkbox id="remember-me" checked={remember} onCheckedChange={(v) => setRemember(Boolean(v))} />
+                    <Label htmlFor="remember-me" className="cursor-pointer">Remember me</Label>
+                  </label>
+                  <Link href="/forgot-password" className="text-[#8B5CF6] hover:brightness-125 transition">
+                    Forgot password?
+                  </Link>
+                </div>
+
+                {/* Two Demo Logins */}
+                <p
+                  onClick={() => fillDemoLogin("student")}
+                  className="text-gray-400 text-base mt-1 cursor-pointer hover:text-white transition-colors"
+                  title="Click to auto-fill demo login for Student Portal"
+                >
+                  Student Portal demo: <span className="font-semibold">lakshay@nsut.edu</span> / <span className="font-semibold">123456</span>
+                </p>
+                <p
+                  onClick={() => fillDemoLogin("university")}
+                  className="text-gray-400 text-base mt-1 cursor-pointer hover:text-white transition-colors"
+                  title="Click to auto-fill demo login for University Portal"
+                >
+                  University Portal demo: <span className="font-semibold">nsut@gmail.com</span> / <span className="font-semibold">123456</span>
+                </p>
+
               </div>
 
               {error && (
                 <Alert variant="destructive" className="flex items-start justify-between bg-red-900/50 border-red-500/50 text-white">
                   <AlertDescription>{error}</AlertDescription>
-
                   <button type="button" onClick={() => setError("")}><X className="h-4 w-4" /></button>
-
                 </Alert>
               )}
               
               <Button
                 type="submit"
-
                 className="w-full py-3 h-14 text-base font-semibold text-white rounded-xl bg-gradient-to-r from-[#8B5CF6] to-[#7C3AED] hover:shadow-lg hover:shadow-[#8B5CF6]/40 hover:brightness-110 transition-all duration-300 disabled:opacity-50"
                 disabled={isLoading || !email || !password}
               >
@@ -174,8 +190,7 @@ export default function LoginPage() {
                   <span className="inline-flex items-center justify-center">
                     <Loader2 className="h-5 w-5 mr-2 animate-spin" /> Signing in...
                   </span>
-                ) : ( "Sign In" )}
-
+                ) : "Sign In"}
               </Button>
             </form>
           </CardContent>

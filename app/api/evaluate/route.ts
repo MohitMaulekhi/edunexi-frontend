@@ -1,10 +1,6 @@
-// File: app/api/evaluate/route.ts
-
 import { NextResponse } from 'next/server';
 import { evaluateCertificateFile } from '@/lib/evaluation';
-import type { EvaluationResult } from '@/types/certificate';
-
-type ErrorResponse = { error: string };
+import type { EvaluationResult } from '@/types/shared';
 
 export async function POST(request: Request) {
   try {
@@ -16,7 +12,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Certificate file is required.' }, { status: 400 });
     }
 
-    // Convert the file to a Buffer
     const fileBuffer = Buffer.from(await certificateFile.arrayBuffer());
 
     const result = await evaluateCertificateFile({
@@ -28,8 +23,8 @@ export async function POST(request: Request) {
     
     return NextResponse.json(result as EvaluationResult, { status: 200 });
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Error in /api/evaluate route:", error);
-    return NextResponse.json({ error: "Failed to evaluate the certificate." } as ErrorResponse, { status: 500 });
+    return NextResponse.json({ error: error.message || "Failed to evaluate the certificate." }, { status: 500 });
   }
 }

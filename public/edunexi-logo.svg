@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#60a5fa;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#93c5fd;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#bfdbfe;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Top layer (dark blue) -->
+  <path d="M50 120 L256 40 L462 120 L256 200 L50 120 Z" fill="url(#grad1)" />
+  <path d="M50 120 L50 200 L256 280 L256 200 L50 120 Z" fill="#1e40af" opacity="0.8" />
+  <path d="M256 200 L256 280 L462 200 L462 120 L256 200 Z" fill="#1e40af" opacity="0.6" />
+  
+  <!-- Graduate cap tassel -->
+  <path d="M120 180 L120 260 Q120 280 140 280 Q160 280 160 260 L160 240 L140 220 L120 240 L120 180 Z" fill="#1e40af" />
+  
+  <!-- Middle layer (medium blue) -->
+  <path d="M50 200 L256 120 L462 200 L256 280 L50 200 Z" fill="url(#grad2)" />
+  <path d="M50 200 L50 280 L256 360 L256 280 L50 200 Z" fill="#3b82f6" opacity="0.8" />
+  <path d="M256 280 L256 360 L462 280 L462 200 L256 280 Z" fill="#3b82f6" opacity="0.6" />
+  
+  <!-- Bottom layer (light blue) -->
+  <path d="M50 280 L256 200 L462 280 L256 360 L50 280 Z" fill="url(#grad3)" />
+  <path d="M50 280 L50 360 L256 440 L256 360 L50 280 Z" fill="#60a5fa" opacity="0.8" />
+  <path d="M256 360 L256 440 L462 360 L462 280 L256 360 Z" fill="#60a5fa" opacity="0.6" />
+</svg>
