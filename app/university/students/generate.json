@@ -1,0 +1,3002 @@
+[
+  {
+    "id": 1,
+    "documentId": "doc-1",
+    "studentId": "2023UEE4507",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.698,
+    "phoneNumber": "9000000001",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 1,
+      "username": "tarun.sharma",
+      "email": "tarun.sharma@student.edu",
+      "firstName": "TARUN",
+      "lastName": "SHARMA"
+    }
+  },
+  {
+    "id": 2,
+    "documentId": "doc-2",
+    "studentId": "2023UBT1044",
+    "department": "Biotechnology",
+    "major": "BT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.652,
+    "phoneNumber": "9000000002",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 2,
+      "username": "shivakshi.",
+      "email": "shivakshi.@student.edu",
+      "firstName": "SHIVAKSHI",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 3,
+    "documentId": "doc-3",
+    "studentId": "2023UEE4657",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.65,
+    "phoneNumber": "9000000003",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 3,
+      "username": "vansh.garg",
+      "email": "vansh.garg@student.edu",
+      "firstName": "VANSH",
+      "lastName": "GARG"
+    }
+  },
+  {
+    "id": 4,
+    "documentId": "doc-4",
+    "studentId": "2023UEA4129",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.63,
+    "phoneNumber": "9000000004",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 4,
+      "username": "harshit.sharma",
+      "email": "harshit.sharma@student.edu",
+      "firstName": "HARSHIT",
+      "lastName": "SHARMA"
+    }
+  },
+  {
+    "id": 5,
+    "documentId": "doc-5",
+    "studentId": "2023UCI8033",
+    "department": "Computer Science (IoT)",
+    "major": "CIOT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.581,
+    "phoneNumber": "9000000005",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 5,
+      "username": "abdullah.ansari",
+      "email": "abdullah.ansari@student.edu",
+      "firstName": "ABDULLAH",
+      "lastName": "ANSARI"
+    }
+  },
+  {
+    "id": 6,
+    "documentId": "doc-6",
+    "studentId": "2023UEE4564",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.558,
+    "phoneNumber": "9000000006",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 6,
+      "username": "vishal.aggarwal",
+      "email": "vishal.aggarwal@student.edu",
+      "firstName": "VISHAL",
+      "lastName": "AGGARWAL"
+    }
+  },
+  {
+    "id": 7,
+    "documentId": "doc-7",
+    "studentId": "2023UCM2362",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.489,
+    "phoneNumber": "9000000007",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 7,
+      "username": "arusha.habib",
+      "email": "arusha.habib@student.edu",
+      "firstName": "ARUSHA",
+      "lastName": "HABIB"
+    }
+  },
+  {
+    "id": 8,
+    "documentId": "doc-8",
+    "studentId": "2023UCS1591",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.449,
+    "phoneNumber": "9000000008",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 8,
+      "username": "nipun.yadav",
+      "email": "nipun.yadav@student.edu",
+      "firstName": "NIPUN",
+      "lastName": "YADAV"
+    }
+  },
+  {
+    "id": 9,
+    "documentId": "doc-9",
+    "studentId": "2023UEC2569",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.327,
+    "phoneNumber": "9000000009",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 9,
+      "username": "mahib.",
+      "email": "mahib.@student.edu",
+      "firstName": "MAHIB",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 10,
+    "documentId": "doc-10",
+    "studentId": "2023UMV7672",
+    "department": "Mechanical Engineering (MEEV)",
+    "major": "MEEV",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.326,
+    "phoneNumber": "9000000010",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 10,
+      "username": "shreeya.singh",
+      "email": "shreeya.singh@student.edu",
+      "firstName": "SHREEYA",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 11,
+    "documentId": "doc-11",
+    "studentId": "2023UEC2567",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.324,
+    "phoneNumber": "9000000011",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 11,
+      "username": "advay.makhija",
+      "email": "advay.makhija@student.edu",
+      "firstName": "ADVAY",
+      "lastName": "MAKHIJA"
+    }
+  },
+  {
+    "id": 12,
+    "documentId": "doc-12",
+    "studentId": "2023UIT3070",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.255,
+    "phoneNumber": "9000000012",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 12,
+      "username": "swaanshi.jain",
+      "email": "swaanshi.jain@student.edu",
+      "firstName": "SWAANSHI",
+      "lastName": "JAIN"
+    }
+  },
+  {
+    "id": 13,
+    "documentId": "doc-13",
+    "studentId": "2023UCA1814",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.254,
+    "phoneNumber": "9000000013",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 13,
+      "username": "shubham.",
+      "email": "shubham.@student.edu",
+      "firstName": "SHUBHAM",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 14,
+    "documentId": "doc-14",
+    "studentId": "2023UCA1821",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.209,
+    "phoneNumber": "9000000014",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 14,
+      "username": "ravi.kumar",
+      "email": "ravi.kumar@student.edu",
+      "firstName": "RAVI",
+      "lastName": "KUMAR"
+    }
+  },
+  {
+    "id": 15,
+    "documentId": "doc-15",
+    "studentId": "2023UME4199",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.163,
+    "phoneNumber": "9000000015",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 15,
+      "username": "raghav.agrawal",
+      "email": "raghav.agrawal@student.edu",
+      "firstName": "RAGHAV",
+      "lastName": "AGRAWAL"
+    }
+  },
+  {
+    "id": 16,
+    "documentId": "doc-16",
+    "studentId": "2023UME4158",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.14,
+    "phoneNumber": "9000000016",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 16,
+      "username": "rudra.pratap jha",
+      "email": "rudra.pratap jha@student.edu",
+      "firstName": "RUDRA PRATAP",
+      "lastName": "JHA"
+    }
+  },
+  {
+    "id": 17,
+    "documentId": "doc-17",
+    "studentId": "2023UIN3331",
+    "department": "Information Technology (ITNS)",
+    "major": "ITNS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.14,
+    "phoneNumber": "9000000017",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 17,
+      "username": "satvik.gupta",
+      "email": "satvik.gupta@student.edu",
+      "firstName": "SATVIK",
+      "lastName": "GUPTA"
+    }
+  },
+  {
+    "id": 18,
+    "documentId": "doc-18",
+    "studentId": "2023UCS1551",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.139,
+    "phoneNumber": "9000000018",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 18,
+      "username": "piyush.sharma",
+      "email": "piyush.sharma@student.edu",
+      "firstName": "PIYUSH",
+      "lastName": "SHARMA"
+    }
+  },
+  {
+    "id": 19,
+    "documentId": "doc-19",
+    "studentId": "2023UIT3153",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.138,
+    "phoneNumber": "9000000019",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 19,
+      "username": "samyak.jain",
+      "email": "samyak.jain@student.edu",
+      "firstName": "SAMYAK",
+      "lastName": "JAIN"
+    }
+  },
+  {
+    "id": 20,
+    "documentId": "doc-20",
+    "studentId": "2023UCA1811",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.115,
+    "phoneNumber": "9000000020",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 20,
+      "username": "hriday.patney",
+      "email": "hriday.patney@student.edu",
+      "firstName": "HRIDAY",
+      "lastName": "PATNEY"
+    }
+  },
+  {
+    "id": 21,
+    "documentId": "doc-21",
+    "studentId": "2023UEI2580",
+    "department": "Electronics and Instrumentation (ECIOT)",
+    "major": "ECIOT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.07,
+    "phoneNumber": "9000000021",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 21,
+      "username": "chandni.gupta",
+      "email": "chandni.gupta@student.edu",
+      "firstName": "CHANDNI",
+      "lastName": "GUPTA"
+    }
+  },
+  {
+    "id": 22,
+    "documentId": "doc-22",
+    "studentId": "2023UEE4584",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.07,
+    "phoneNumber": "9000000022",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 22,
+      "username": "dhruv.gulia",
+      "email": "dhruv.gulia@student.edu",
+      "firstName": "DHRUV",
+      "lastName": "GULIA"
+    }
+  },
+  {
+    "id": 23,
+    "documentId": "doc-23",
+    "studentId": "2023UBT1091",
+    "department": "Biotechnology",
+    "major": "BT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.069,
+    "phoneNumber": "9000000023",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 23,
+      "username": "reya.kakkar",
+      "email": "reya.kakkar@student.edu",
+      "firstName": "REYA",
+      "lastName": "KAKKAR"
+    }
+  },
+  {
+    "id": 24,
+    "documentId": "doc-24",
+    "studentId": "2023UIC3602",
+    "department": "Instrumentation and Control Engineering",
+    "major": "ICE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.068,
+    "phoneNumber": "9000000024",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 24,
+      "username": "ritveek.kumar",
+      "email": "ritveek.kumar@student.edu",
+      "firstName": "RITVEEK",
+      "lastName": "KUMAR"
+    }
+  },
+  {
+    "id": 25,
+    "documentId": "doc-25",
+    "studentId": "2023UEC2531",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.068,
+    "phoneNumber": "9000000025",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 25,
+      "username": "jayavardhan.singh",
+      "email": "jayavardhan.singh@student.edu",
+      "firstName": "JAYAVARDHAN",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 26,
+    "documentId": "doc-26",
+    "studentId": "2023UEI2846",
+    "department": "Electronics and Instrumentation (ECIOT)",
+    "major": "ECIOT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.068,
+    "phoneNumber": "9000000026",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 26,
+      "username": "harshit.mangla",
+      "email": "harshit.mangla@student.edu",
+      "firstName": "HARSHIT",
+      "lastName": "MANGLA"
+    }
+  },
+  {
+    "id": 27,
+    "documentId": "doc-27",
+    "studentId": "2023UCD2160",
+    "department": "Computer Science (CSDS)",
+    "major": "CSDS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.047,
+    "phoneNumber": "9000000027",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 27,
+      "username": "anuj.agrawal",
+      "email": "anuj.agrawal@student.edu",
+      "firstName": "ANUJ",
+      "lastName": "AGRAWAL"
+    }
+  },
+  {
+    "id": 28,
+    "documentId": "doc-28",
+    "studentId": "2023UEE4552",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.047,
+    "phoneNumber": "9000000028",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 28,
+      "username": "aryan.sethi",
+      "email": "aryan.sethi@student.edu",
+      "firstName": "ARYAN",
+      "lastName": "SETHI"
+    }
+  },
+  {
+    "id": 29,
+    "documentId": "doc-29",
+    "studentId": "2023UCM2379",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.047,
+    "phoneNumber": "9000000029",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 29,
+      "username": "tanish.",
+      "email": "tanish.@student.edu",
+      "firstName": "TANISH",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 30,
+    "documentId": "doc-30",
+    "studentId": "2023UMV7655",
+    "department": "Mechanical Engineering (MEEV)",
+    "major": "MEEV",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.046,
+    "phoneNumber": "9000000030",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 30,
+      "username": "raju.kumar mehta",
+      "email": "raju.kumar mehta@student.edu",
+      "firstName": "RAJU KUMAR",
+      "lastName": "MEHTA"
+    }
+  },
+  {
+    "id": 31,
+    "documentId": "doc-31",
+    "studentId": "2023UCS2111",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.022,
+    "phoneNumber": "9000000031",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 31,
+      "username": "arush.vij",
+      "email": "arush.vij@student.edu",
+      "firstName": "ARUSH",
+      "lastName": "VIJ"
+    }
+  },
+  {
+    "id": 32,
+    "documentId": "doc-32",
+    "studentId": "2023UCA1867",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.022,
+    "phoneNumber": "9000000032",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 32,
+      "username": "dhruv.gupta",
+      "email": "dhruv.gupta@student.edu",
+      "firstName": "DHRUV",
+      "lastName": "GUPTA"
+    }
+  },
+  {
+    "id": 33,
+    "documentId": "doc-33",
+    "studentId": "2023UCS1511",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.0,
+    "phoneNumber": "9000000033",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 33,
+      "username": "abhishek.kumar roy",
+      "email": "abhishek.kumar roy@student.edu",
+      "firstName": "ABHISHEK KUMAR",
+      "lastName": "ROY"
+    }
+  },
+  {
+    "id": 34,
+    "documentId": "doc-34",
+    "studentId": "2023UEA6510",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 9.0,
+    "phoneNumber": "9000000034",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 34,
+      "username": "arnav.",
+      "email": "arnav.@student.edu",
+      "firstName": "ARNAV",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 35,
+    "documentId": "doc-35",
+    "studentId": "2023UME4133",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.999,
+    "phoneNumber": "9000000035",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 35,
+      "username": "anandini.kashyap",
+      "email": "anandini.kashyap@student.edu",
+      "firstName": "ANANDINI",
+      "lastName": "KASHYAP"
+    }
+  },
+  {
+    "id": 36,
+    "documentId": "doc-36",
+    "studentId": "2023UME4022",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.999,
+    "phoneNumber": "9000000036",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 36,
+      "username": "anirban.datta baruah",
+      "email": "anirban.datta baruah@student.edu",
+      "firstName": "ANIRBAN DATTA",
+      "lastName": "BARUAH"
+    }
+  },
+  {
+    "id": 37,
+    "documentId": "doc-37",
+    "studentId": "2023UIN3332",
+    "department": "Information Technology (ITNS)",
+    "major": "ITNS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.999,
+    "phoneNumber": "9000000037",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 37,
+      "username": "dhruv.tuteja",
+      "email": "dhruv.tuteja@student.edu",
+      "firstName": "DHRUV",
+      "lastName": "TUTEJA"
+    }
+  },
+  {
+    "id": 38,
+    "documentId": "doc-38",
+    "studentId": "2023UCM2336",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.979,
+    "phoneNumber": "9000000038",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 38,
+      "username": "gourav.singh",
+      "email": "gourav.singh@student.edu",
+      "firstName": "GOURAV",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 39,
+    "documentId": "doc-39",
+    "studentId": "2023UEA6606",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.978,
+    "phoneNumber": "9000000039",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 39,
+      "username": "vineet.singh chilwal",
+      "email": "vineet.singh chilwal@student.edu",
+      "firstName": "VINEET SINGH",
+      "lastName": "CHILWAL"
+    }
+  },
+  {
+    "id": 40,
+    "documentId": "doc-40",
+    "studentId": "2023UCG7203",
+    "department": "Computer Graphics and Gaming",
+    "major": "GI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.977,
+    "phoneNumber": "9000000040",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 40,
+      "username": "vishal.",
+      "email": "vishal.@student.edu",
+      "firstName": "VISHAL",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 41,
+    "documentId": "doc-41",
+    "studentId": "2023UCD2170",
+    "department": "Computer Science (CSDS)",
+    "major": "CSDS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.976,
+    "phoneNumber": "9000000041",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 41,
+      "username": "aditya.kumar",
+      "email": "aditya.kumar@student.edu",
+      "firstName": "ADITYA",
+      "lastName": "KUMAR"
+    }
+  },
+  {
+    "id": 42,
+    "documentId": "doc-42",
+    "studentId": "2023UCD2112",
+    "department": "Computer Science (CSDS)",
+    "major": "CSDS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.976,
+    "phoneNumber": "9000000042",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 42,
+      "username": "sarang.agrawal",
+      "email": "sarang.agrawal@student.edu",
+      "firstName": "SARANG",
+      "lastName": "AGRAWAL"
+    }
+  },
+  {
+    "id": 43,
+    "documentId": "doc-43",
+    "studentId": "2023UIT3079",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.955,
+    "phoneNumber": "9000000043",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 43,
+      "username": "daivik.awasthi",
+      "email": "daivik.awasthi@student.edu",
+      "firstName": "DAIVIK",
+      "lastName": "AWASTHI"
+    }
+  },
+  {
+    "id": 44,
+    "documentId": "doc-44",
+    "studentId": "2023UME4202",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.954,
+    "phoneNumber": "9000000044",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 44,
+      "username": "akshit.bhalla",
+      "email": "akshit.bhalla@student.edu",
+      "firstName": "AKSHIT",
+      "lastName": "BHALLA"
+    }
+  },
+  {
+    "id": 45,
+    "documentId": "doc-45",
+    "studentId": "2023UEE4526",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.952,
+    "phoneNumber": "9000000045",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 45,
+      "username": "kavya.agarwal",
+      "email": "kavya.agarwal@student.edu",
+      "firstName": "KAVYA",
+      "lastName": "AGARWAL"
+    }
+  },
+  {
+    "id": 46,
+    "documentId": "doc-46",
+    "studentId": "2023UCB6035",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.952,
+    "phoneNumber": "9000000046",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 46,
+      "username": "tanisha.",
+      "email": "tanisha.@student.edu",
+      "firstName": "TANISHA",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 47,
+    "documentId": "doc-47",
+    "studentId": "2023UCA1810",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.931,
+    "phoneNumber": "9000000047",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 47,
+      "username": "anshika.verma",
+      "email": "anshika.verma@student.edu",
+      "firstName": "ANSHIKA",
+      "lastName": "VERMA"
+    }
+  },
+  {
+    "id": 48,
+    "documentId": "doc-48",
+    "studentId": "2023UEA6537",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.931,
+    "phoneNumber": "9000000048",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 48,
+      "username": "utkarsh.shovasaria",
+      "email": "utkarsh.shovasaria@student.edu",
+      "firstName": "UTKARSH",
+      "lastName": "SHOVASARIA"
+    }
+  },
+  {
+    "id": 49,
+    "documentId": "doc-49",
+    "studentId": "2023UIT3086",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.931,
+    "phoneNumber": "9000000049",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 49,
+      "username": "pawni.yadav",
+      "email": "pawni.yadav@student.edu",
+      "firstName": "PAWNI",
+      "lastName": "YADAV"
+    }
+  },
+  {
+    "id": 50,
+    "documentId": "doc-50",
+    "studentId": "2023UEE4075",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.931,
+    "phoneNumber": "9000000050",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 50,
+      "username": "ashi.jain",
+      "email": "ashi.jain@student.edu",
+      "firstName": "ASHI",
+      "lastName": "JAIN"
+    }
+  },
+  {
+    "id": 51,
+    "documentId": "doc-51",
+    "studentId": "2023UIT3114",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.93,
+    "phoneNumber": "9000000051",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 51,
+      "username": "vansh.bhatia",
+      "email": "vansh.bhatia@student.edu",
+      "firstName": "VANSH",
+      "lastName": "BHATIA"
+    }
+  },
+  {
+    "id": 52,
+    "documentId": "doc-52",
+    "studentId": "2023UIN3320",
+    "department": "Information Technology (ITNS)",
+    "major": "ITNS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.93,
+    "phoneNumber": "9000000052",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 52,
+      "username": "pravish.pandey",
+      "email": "pravish.pandey@student.edu",
+      "firstName": "PRAVISH",
+      "lastName": "PANDEY"
+    }
+  },
+  {
+    "id": 53,
+    "documentId": "doc-53",
+    "studentId": "2023UCS1717",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.908,
+    "phoneNumber": "9000000053",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 53,
+      "username": "peeyush.gupta",
+      "email": "peeyush.gupta@student.edu",
+      "firstName": "PEEYUSH",
+      "lastName": "GUPTA"
+    }
+  },
+  {
+    "id": 54,
+    "documentId": "doc-54",
+    "studentId": "2023UCB6067",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.907,
+    "phoneNumber": "9000000054",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 54,
+      "username": "daksh.tyagi",
+      "email": "daksh.tyagi@student.edu",
+      "firstName": "DAKSH",
+      "lastName": "TYAGI"
+    }
+  },
+  {
+    "id": 55,
+    "documentId": "doc-55",
+    "studentId": "2023UEA6504",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.885,
+    "phoneNumber": "9000000055",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 55,
+      "username": "arnav.saxena",
+      "email": "arnav.saxena@student.edu",
+      "firstName": "ARNAV",
+      "lastName": "SAXENA"
+    }
+  },
+  {
+    "id": 56,
+    "documentId": "doc-56",
+    "studentId": "2023UCM2303",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.883,
+    "phoneNumber": "9000000056",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 56,
+      "username": "kanik.chawla",
+      "email": "kanik.chawla@student.edu",
+      "firstName": "KANIK",
+      "lastName": "CHAWLA"
+    }
+  },
+  {
+    "id": 57,
+    "documentId": "doc-57",
+    "studentId": "2023UIT3150",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.862,
+    "phoneNumber": "9000000057",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 57,
+      "username": "angel.gupta",
+      "email": "angel.gupta@student.edu",
+      "firstName": "ANGEL",
+      "lastName": "GUPTA"
+    }
+  },
+  {
+    "id": 58,
+    "documentId": "doc-58",
+    "studentId": "2023UBT1098",
+    "department": "Biotechnology",
+    "major": "BT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.861,
+    "phoneNumber": "9000000058",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 58,
+      "username": "lavanya.mehta",
+      "email": "lavanya.mehta@student.edu",
+      "firstName": "LAVANYA",
+      "lastName": "MEHTA"
+    }
+  },
+  {
+    "id": 59,
+    "documentId": "doc-59",
+    "studentId": "2023UCS1698",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.86,
+    "phoneNumber": "9000000059",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 59,
+      "username": "yash.aggarwal",
+      "email": "yash.aggarwal@student.edu",
+      "firstName": "YASH",
+      "lastName": "AGGARWAL"
+    }
+  },
+  {
+    "id": 60,
+    "documentId": "doc-60",
+    "studentId": "2023UIC3553",
+    "department": "Instrumentation and Control Engineering",
+    "major": "ICE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.86,
+    "phoneNumber": "9000000060",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 60,
+      "username": "naina.",
+      "email": "naina.@student.edu",
+      "firstName": "NAINA",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 61,
+    "documentId": "doc-61",
+    "studentId": "2023UIC3589",
+    "department": "Instrumentation and Control Engineering",
+    "major": "ICE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.86,
+    "phoneNumber": "9000000061",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 61,
+      "username": "ravi.raj",
+      "email": "ravi.raj@student.edu",
+      "firstName": "RAVI",
+      "lastName": "RAJ"
+    }
+  },
+  {
+    "id": 62,
+    "documentId": "doc-62",
+    "studentId": "2023UME4009",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.86,
+    "phoneNumber": "9000000062",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 62,
+      "username": "abhinav.kumar",
+      "email": "abhinav.kumar@student.edu",
+      "firstName": "ABHINAV",
+      "lastName": "KUMAR"
+    }
+  },
+  {
+    "id": 63,
+    "documentId": "doc-63",
+    "studentId": "2023UEC2557",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.859,
+    "phoneNumber": "9000000063",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 63,
+      "username": "shreya.singh",
+      "email": "shreya.singh@student.edu",
+      "firstName": "SHREYA",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 64,
+    "documentId": "doc-64",
+    "studentId": "2023UCA1948",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.859,
+    "phoneNumber": "9000000064",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 64,
+      "username": "harry.bharti",
+      "email": "harry.bharti@student.edu",
+      "firstName": "HARRY",
+      "lastName": "BHARTI"
+    }
+  },
+  {
+    "id": 65,
+    "documentId": "doc-65",
+    "studentId": "2023UME4026",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.839,
+    "phoneNumber": "9000000065",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 65,
+      "username": "adrishikhar.deka",
+      "email": "adrishikhar.deka@student.edu",
+      "firstName": "ADRISHIKHAR",
+      "lastName": "DEKA"
+    }
+  },
+  {
+    "id": 66,
+    "documentId": "doc-66",
+    "studentId": "2023UCS1655",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.838,
+    "phoneNumber": "9000000066",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 66,
+      "username": "satvik.bhat",
+      "email": "satvik.bhat@student.edu",
+      "firstName": "SATVIK",
+      "lastName": "BHAT"
+    }
+  },
+  {
+    "id": 67,
+    "documentId": "doc-67",
+    "studentId": "2023UCG7242",
+    "department": "Computer Graphics and Gaming",
+    "major": "GI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.838,
+    "phoneNumber": "9000000067",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 67,
+      "username": "yogesh.gola",
+      "email": "yogesh.gola@student.edu",
+      "firstName": "YOGESH",
+      "lastName": "GOLA"
+    }
+  },
+  {
+    "id": 68,
+    "documentId": "doc-68",
+    "studentId": "2023UIT3076",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.837,
+    "phoneNumber": "9000000068",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 68,
+      "username": "pranjul.mangla",
+      "email": "pranjul.mangla@student.edu",
+      "firstName": "PRANJUL",
+      "lastName": "MANGLA"
+    }
+  },
+  {
+    "id": 69,
+    "documentId": "doc-69",
+    "studentId": "2023UCI8015",
+    "department": "Computer Science (IoT)",
+    "major": "CIOT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.837,
+    "phoneNumber": "9000000069",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 69,
+      "username": "eklavya.sharma",
+      "email": "eklavya.sharma@student.edu",
+      "firstName": "EKLAVYA",
+      "lastName": "SHARMA"
+    }
+  },
+  {
+    "id": 70,
+    "documentId": "doc-70",
+    "studentId": "2023UCS1548",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.815,
+    "phoneNumber": "9000000070",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 70,
+      "username": "nayan.jindal",
+      "email": "nayan.jindal@student.edu",
+      "firstName": "NAYAN",
+      "lastName": "JINDAL"
+    }
+  },
+  {
+    "id": 71,
+    "documentId": "doc-71",
+    "studentId": "2023UIT3032",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.815,
+    "phoneNumber": "9000000071",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 71,
+      "username": "aahana.awasthi",
+      "email": "aahana.awasthi@student.edu",
+      "firstName": "AAHANA",
+      "lastName": "AWASTHI"
+    }
+  },
+  {
+    "id": 72,
+    "documentId": "doc-72",
+    "studentId": "2023UCB6056",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.815,
+    "phoneNumber": "9000000072",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 72,
+      "username": "vanshita.suryavanshi",
+      "email": "vanshita.suryavanshi@student.edu",
+      "firstName": "VANSHITA",
+      "lastName": "SURYAVANSHI"
+    }
+  },
+  {
+    "id": 73,
+    "documentId": "doc-73",
+    "studentId": "2023UCS1727",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.815,
+    "phoneNumber": "9000000073",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 73,
+      "username": "diya.",
+      "email": "diya.@student.edu",
+      "firstName": "DIYA",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 74,
+    "documentId": "doc-74",
+    "studentId": "2023UCS1685",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.814,
+    "phoneNumber": "9000000074",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 74,
+      "username": "krish.garg",
+      "email": "krish.garg@student.edu",
+      "firstName": "KRISH",
+      "lastName": "GARG"
+    }
+  },
+  {
+    "id": 75,
+    "documentId": "doc-75",
+    "studentId": "2023UIT3007",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.814,
+    "phoneNumber": "9000000075",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 75,
+      "username": "arul.jain",
+      "email": "arul.jain@student.edu",
+      "firstName": "ARUL",
+      "lastName": "JAIN"
+    }
+  },
+  {
+    "id": 76,
+    "documentId": "doc-76",
+    "studentId": "2023UCS1595",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.814,
+    "phoneNumber": "9000000076",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 76,
+      "username": "aman.pandey",
+      "email": "aman.pandey@student.edu",
+      "firstName": "AMAN",
+      "lastName": "PANDEY"
+    }
+  },
+  {
+    "id": 77,
+    "documentId": "doc-77",
+    "studentId": "2023UIC4153",
+    "department": "Instrumentation and Control Engineering",
+    "major": "ICE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.813,
+    "phoneNumber": "9000000077",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 77,
+      "username": "naman.chugh",
+      "email": "naman.chugh@student.edu",
+      "firstName": "NAMAN",
+      "lastName": "CHUGH"
+    }
+  },
+  {
+    "id": 78,
+    "documentId": "doc-78",
+    "studentId": "2023UBT1079",
+    "department": "Biotechnology",
+    "major": "BT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.813,
+    "phoneNumber": "9000000078",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 78,
+      "username": "s.dhanushya",
+      "email": "s.dhanushya@student.edu",
+      "firstName": "S",
+      "lastName": "DHANUSHYA"
+    }
+  },
+  {
+    "id": 79,
+    "documentId": "doc-79",
+    "studentId": "2023UCB6066",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.813,
+    "phoneNumber": "9000000079",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 79,
+      "username": "ayush.gangwar",
+      "email": "ayush.gangwar@student.edu",
+      "firstName": "AYUSH",
+      "lastName": "GANGWAR"
+    }
+  },
+  {
+    "id": 80,
+    "documentId": "doc-80",
+    "studentId": "2023UCS1693",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.812,
+    "phoneNumber": "9000000080",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 80,
+      "username": "umesh.kashyap",
+      "email": "umesh.kashyap@student.edu",
+      "firstName": "UMESH",
+      "lastName": "KASHYAP"
+    }
+  },
+  {
+    "id": 81,
+    "documentId": "doc-81",
+    "studentId": "2023UCB6051",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.80,
+    "phoneNumber": "9000000081",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 81,
+      "username": "kunal.jain",
+      "email": "kunal.jain@student.edu",
+      "firstName": "KUNAL",
+      "lastName": "JAIN"
+    }
+  },
+  {
+    "id": 82,
+    "documentId": "doc-82",
+    "studentId": "2023UEE4629",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.793,
+    "phoneNumber": "9000000082",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 82,
+      "username": "kaushiki.chhabra",
+      "email": "kaushiki.chhabra@student.edu",
+      "firstName": "KAUSHIKI",
+      "lastName": "CHHABRA"
+    }
+  },
+  {
+    "id": 83,
+    "documentId": "doc-83",
+    "studentId": "2023UEC2685",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.791,
+    "phoneNumber": "9000000083",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 83,
+      "username": "saksham.pal",
+      "email": "saksham.pal@student.edu",
+      "firstName": "SAKSHAM",
+      "lastName": "PAL"
+    }
+  },
+  {
+    "id": 84,
+    "documentId": "doc-84",
+    "studentId": "2023UEE4648",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.791,
+    "phoneNumber": "9000000084",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 84,
+      "username": "tanya.gupta",
+      "email": "tanya.gupta@student.edu",
+      "firstName": "TANYA",
+      "lastName": "GUPTA"
+    }
+  },
+  {
+    "id": 85,
+    "documentId": "doc-85",
+    "studentId": "2023UIN3358",
+    "department": "Information Technology (ITNS)",
+    "major": "ITNS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.79,
+    "phoneNumber": "9000000085",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 85,
+      "username": "deepesh.",
+      "email": "deepesh.@student.edu",
+      "firstName": "DEEPESH",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 86,
+    "documentId": "doc-86",
+    "studentId": "2023UCD2117",
+    "department": "Computer Science (CSDS)",
+    "major": "CSDS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.768,
+    "phoneNumber": "9000000086",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 86,
+      "username": "manas.dhamija",
+      "email": "manas.dhamija@student.edu",
+      "firstName": "MANAS",
+      "lastName": "DHAMIJA"
+    }
+  },
+  {
+    "id": 87,
+    "documentId": "doc-87",
+    "studentId": "2023UEC2561",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.767,
+    "phoneNumber": "9000000087",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 87,
+      "username": "jai.goyal",
+      "email": "jai.goyal@student.edu",
+      "firstName": "JAI",
+      "lastName": "GOYAL"
+    }
+  },
+  {
+    "id": 88,
+    "documentId": "doc-88",
+    "studentId": "2023UCS1525",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.767,
+    "phoneNumber": "9000000088",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 88,
+      "username": "sanya.gera",
+      "email": "sanya.gera@student.edu",
+      "firstName": "SANYA",
+      "lastName": "GERA"
+    }
+  },
+  {
+    "id": 89,
+    "documentId": "doc-89",
+    "studentId": "2023UEE4667",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.767,
+    "phoneNumber": "9000000089",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 89,
+      "username": "yash.garg",
+      "email": "yash.garg@student.edu",
+      "firstName": "YASH",
+      "lastName": "GARG"
+    }
+  },
+  {
+    "id": 90,
+    "documentId": "doc-90",
+    "studentId": "2023UEE4669",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.767,
+    "phoneNumber": "9000000090",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 90,
+      "username": "pavni.aggarwal",
+      "email": "pavni.aggarwal@student.edu",
+      "firstName": "PAVNI",
+      "lastName": "AGGARWAL"
+    }
+  },
+  {
+    "id": 91,
+    "documentId": "doc-91",
+    "studentId": "2023UIT3310",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.767,
+    "phoneNumber": "9000000091",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 91,
+      "username": "manan.bhateja",
+      "email": "manan.bhateja@student.edu",
+      "firstName": "MANAN",
+      "lastName": "BHATEJA"
+    }
+  },
+  {
+    "id": 92,
+    "documentId": "doc-92",
+    "studentId": "2023UCM2337",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.766,
+    "phoneNumber": "9000000092",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 92,
+      "username": "dhairya.kalra",
+      "email": "dhairya.kalra@student.edu",
+      "firstName": "DHAIRYA",
+      "lastName": "KALRA"
+    }
+  },
+  {
+    "id": 93,
+    "documentId": "doc-93",
+    "studentId": "2023UEI2863",
+    "department": "Electronics and Instrumentation (ECIOT)",
+    "major": "ECIOT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.745,
+    "phoneNumber": "9000000093",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 93,
+      "username": "vaishnavi.kushwaha",
+      "email": "vaishnavi.kushwaha@student.edu",
+      "firstName": "VAISHNAVI",
+      "lastName": "KUSHWAHA"
+    }
+  },
+  {
+    "id": 94,
+    "documentId": "doc-94",
+    "studentId": "2023UCM2354",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.745,
+    "phoneNumber": "9000000094",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 94,
+      "username": "jaynab.",
+      "email": "jaynab.@student.edu",
+      "firstName": "JAYNAB",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 95,
+    "documentId": "doc-95",
+    "studentId": "2023UIT3132",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.745,
+    "phoneNumber": "9000000095",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 95,
+      "username": "paakhi.priya",
+      "email": "paakhi.priya@student.edu",
+      "firstName": "PAAKHI",
+      "lastName": "PRIYA"
+    }
+  },
+  {
+    "id": 96,
+    "documentId": "doc-96",
+    "studentId": "2023UEC2691",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.744,
+    "phoneNumber": "9000000096",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 96,
+      "username": "inderpreet.singh",
+      "email": "inderpreet.singh@student.edu",
+      "firstName": "INDERPREET",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 97,
+    "documentId": "doc-97",
+    "studentId": "2023UCM2330",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.744,
+    "phoneNumber": "9000000097",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 97,
+      "username": "sanya.goyal",
+      "email": "sanya.goyal@student.edu",
+      "firstName": "SANYA",
+      "lastName": "GOYAL"
+    }
+  },
+  {
+    "id": 98,
+    "documentId": "doc-98",
+    "studentId": "2023UME4134",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.744,
+    "phoneNumber": "9000000098",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 98,
+      "username": "rayan.kapoor",
+      "email": "rayan.kapoor@student.edu",
+      "firstName": "RAYAN",
+      "lastName": "KAPOOR"
+    }
+  },
+  {
+    "id": 99,
+    "documentId": "doc-99",
+    "studentId": "2023UIN3372",
+    "department": "Information Technology (ITNS)",
+    "major": "ITNS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.744,
+    "phoneNumber": "9000000099",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 99,
+      "username": "himanshu.rohilla",
+      "email": "himanshu.rohilla@student.edu",
+      "firstName": "HIMANSHU",
+      "lastName": "ROHILLA"
+    }
+  },
+  {
+    "id": 100,
+    "documentId": "doc-100",
+    "studentId": "2023UCM2346",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.743,
+    "phoneNumber": "9000000100",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 100,
+      "username": "swarit.varshney",
+      "email": "swarit.varshney@student.edu",
+      "firstName": "SWARIT",
+      "lastName": "VARSHNEY"
+    }
+  },
+  {
+    "id": 101,
+    "documentId": "doc-101",
+    "studentId": "2023UCS1632",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.742,
+    "phoneNumber": "9000000101",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 101,
+      "username": "kapish.verma",
+      "email": "kapish.verma@student.edu",
+      "firstName": "KAPISH",
+      "lastName": "VERMA"
+    }
+  },
+  {
+    "id": 102,
+    "documentId": "doc-102",
+    "studentId": "2023UCS3100",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.723,
+    "phoneNumber": "9000000102",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 102,
+      "username": "gauri.srivastav",
+      "email": "gauri.srivastav@student.edu",
+      "firstName": "GAURI",
+      "lastName": "SRIVASTAV"
+    }
+  },
+  {
+    "id": 103,
+    "documentId": "doc-103",
+    "studentId": "2023UEA6647",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.722,
+    "phoneNumber": "9000000103",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 103,
+      "username": "anushree.roy",
+      "email": "anushree.roy@student.edu",
+      "firstName": "ANUSHREE",
+      "lastName": "ROY"
+    }
+  },
+  {
+    "id": 104,
+    "documentId": "doc-104",
+    "studentId": "2023UCM2332",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.721,
+    "phoneNumber": "9000000104",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 104,
+      "username": "sparsh.kalia",
+      "email": "sparsh.kalia@student.edu",
+      "firstName": "SPARSH",
+      "lastName": "KALIA"
+    }
+  },
+  {
+    "id": 105,
+    "documentId": "doc-105",
+    "studentId": "2023UCA1958",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.721,
+    "phoneNumber": "9000000105",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 105,
+      "username": "parth.saraswat",
+      "email": "parth.saraswat@student.edu",
+      "firstName": "PARTH",
+      "lastName": "SARASWAT"
+    }
+  },
+  {
+    "id": 106,
+    "documentId": "doc-106",
+    "studentId": "2023UIT3018",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.721,
+    "phoneNumber": "9000000106",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 106,
+      "username": "lisha.angral",
+      "email": "lisha.angral@student.edu",
+      "firstName": "LISHA",
+      "lastName": "ANGRAL"
+    }
+  },
+  {
+    "id": 107,
+    "documentId": "doc-107",
+    "studentId": "2023UEE4661",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.72,
+    "phoneNumber": "9000000107",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 107,
+      "username": "yashmit.gupta",
+      "email": "yashmit.gupta@student.edu",
+      "firstName": "YASHMIT",
+      "lastName": "GUPTA"
+    }
+  },
+  {
+    "id": 108,
+    "documentId": "doc-108",
+    "studentId": "2023UCB6055",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.72,
+    "phoneNumber": "9000000108",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 108,
+      "username": "vatsal.veerwal",
+      "email": "vatsal.veerwal@student.edu",
+      "firstName": "VATSAL",
+      "lastName": "VEERWAL"
+    }
+  },
+  {
+    "id": 109,
+    "documentId": "doc-109",
+    "studentId": "2023UMV7670",
+    "department": "Mechanical Engineering (MEEV)",
+    "major": "MEEV",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.72,
+    "phoneNumber": "9000000109",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 109,
+      "username": "sarthak.srivastava",
+      "email": "sarthak.srivastava@student.edu",
+      "firstName": "SARTHAK",
+      "lastName": "SRIVASTAVA"
+    }
+  },
+  {
+    "id": 110,
+    "documentId": "doc-110",
+    "studentId": "2023UEA6518",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.699,
+    "phoneNumber": "9000000110",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 110,
+      "username": "swayam.",
+      "email": "swayam.@student.edu",
+      "firstName": "SWAYAM",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 111,
+    "documentId": "doc-111",
+    "studentId": "2023UCA1676",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.699,
+    "phoneNumber": "9000000111",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 111,
+      "username": "aditya.nautiyal",
+      "email": "aditya.nautiyal@student.edu",
+      "firstName": "ADITYA",
+      "lastName": "NAUTIYAL"
+    }
+  },
+  {
+    "id": 112,
+    "documentId": "doc-112",
+    "studentId": "2023UCM2342",
+    "department": "Computer Applications (MAC)",
+    "major": "MAC",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.699,
+    "phoneNumber": "9000000112",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 112,
+      "username": "navnita.naresh singh",
+      "email": "navnita.naresh singh@student.edu",
+      "firstName": "NAVNITA NARESH",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 113,
+    "documentId": "doc-113",
+    "studentId": "2023UCD3053",
+    "department": "Computer Science (CSDS)",
+    "major": "CSDS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.699,
+    "phoneNumber": "9000000113",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 113,
+      "username": "anshuman.raj",
+      "email": "anshuman.raj@student.edu",
+      "firstName": "ANSHUMAN",
+      "lastName": "RAJ"
+    }
+  },
+  {
+    "id": 114,
+    "documentId": "doc-114",
+    "studentId": "2023UCB6021",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.699,
+    "phoneNumber": "9000000114",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 114,
+      "username": "aryan.",
+      "email": "aryan.@student.edu",
+      "firstName": "ARYAN",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 115,
+    "documentId": "doc-115",
+    "studentId": "2023UCS1658",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.698,
+    "phoneNumber": "9000000115",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 115,
+      "username": "shrey.singh",
+      "email": "shrey.singh@student.edu",
+      "firstName": "SHREY",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 116,
+    "documentId": "doc-116",
+    "studentId": "2023UME4172",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.698,
+    "phoneNumber": "9000000116",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 116,
+      "username": "arpit.khandelwal",
+      "email": "arpit.khandelwal@student.edu",
+      "firstName": "ARPIT",
+      "lastName": "KHANDELWAL"
+    }
+  },
+  {
+    "id": 117,
+    "documentId": "doc-117",
+    "studentId": "2023UCA1921",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.676,
+    "phoneNumber": "9000000117",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 117,
+      "username": "khushi.yadav",
+      "email": "khushi.yadav@student.edu",
+      "firstName": "KHUSHI",
+      "lastName": "YADAV"
+    }
+  },
+  {
+    "id": 118,
+    "documentId": "doc-118",
+    "studentId": "2023UEA6512",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.676,
+    "phoneNumber": "9000000118",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 118,
+      "username": "sanat.bhatia",
+      "email": "sanat.bhatia@student.edu",
+      "firstName": "SANAT",
+      "lastName": "BHATIA"
+    }
+  },
+  {
+    "id": 119,
+    "documentId": "doc-119",
+    "studentId": "2023UIT3023",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.674,
+    "phoneNumber": "9000000119",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 119,
+      "username": "shubham.mittal",
+      "email": "shubham.mittal@student.edu",
+      "firstName": "SHUBHAM",
+      "lastName": "MITTAL"
+    }
+  },
+  {
+    "id": 120,
+    "documentId": "doc-120",
+    "studentId": "2023UCI8070",
+    "department": "Computer Science (IoT)",
+    "major": "CIOT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.674,
+    "phoneNumber": "9000000120",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 120,
+      "username": "kushagra.mehta",
+      "email": "kushagra.mehta@student.edu",
+      "firstName": "KUSHAGRA",
+      "lastName": "MEHTA"
+    }
+  },
+  {
+    "id": 121,
+    "documentId": "doc-121",
+    "studentId": "2023UCA1897",
+    "department": "Computer Applications (CSAI)",
+    "major": "CSAI",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.653,
+    "phoneNumber": "9000000121",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 121,
+      "username": "harshdip.saha",
+      "email": "harshdip.saha@student.edu",
+      "firstName": "HARSHDIP",
+      "lastName": "SAHA"
+    }
+  },
+  {
+    "id": 122,
+    "documentId": "doc-122",
+    "studentId": "2023UEA6639",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.653,
+    "phoneNumber": "9000000122",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 122,
+      "username": "vibhav.ved singh",
+      "email": "vibhav.ved singh@student.edu",
+      "firstName": "VIBHAV VED",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 123,
+    "documentId": "doc-123",
+    "studentId": "2023UEC2686",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.652,
+    "phoneNumber": "9000000123",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 123,
+      "username": "lakshya.ahlawat",
+      "email": "lakshya.ahlawat@student.edu",
+      "firstName": "LAKSHYA",
+      "lastName": "AHLAWAT"
+    }
+  },
+  {
+    "id": 124,
+    "documentId": "doc-124",
+    "studentId": "2023UCS1714",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.652,
+    "phoneNumber": "9000000124",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 124,
+      "username": "dakshbir.singh kapoor",
+      "email": "dakshbir.singh kapoor@student.edu",
+      "firstName": "DAKSHBIR SINGH",
+      "lastName": "KAPOOR"
+    }
+  },
+  {
+    "id": 125,
+    "documentId": "doc-125",
+    "studentId": "2023UEE3578",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.652,
+    "phoneNumber": "9000000125",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 125,
+      "username": "rishabh.jain",
+      "email": "rishabh.jain@student.edu",
+      "firstName": "RISHABH",
+      "lastName": "JAIN"
+    }
+  },
+  {
+    "id": 126,
+    "documentId": "doc-126",
+    "studentId": "2023UME4111",
+    "department": "Mechanical Engineering",
+    "major": "ME",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.651,
+    "phoneNumber": "9000000126",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 126,
+      "username": "aash.sharma",
+      "email": "aash.sharma@student.edu",
+      "firstName": "AASH",
+      "lastName": "SHARMA"
+    }
+  },
+  {
+    "id": 127,
+    "documentId": "doc-127",
+    "studentId": "2023UCD2165",
+    "department": "Computer Science (CSDS)",
+    "major": "CSDS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.651,
+    "phoneNumber": "9000000127",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 127,
+      "username": "nikunj.garg",
+      "email": "nikunj.garg@student.edu",
+      "firstName": "NIKUNJ",
+      "lastName": "GARG"
+    }
+  },
+  {
+    "id": 128,
+    "documentId": "doc-128",
+    "studentId": "2023UCI6534",
+    "department": "Computer Science (IoT)",
+    "major": "CIOT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.651,
+    "phoneNumber": "9000000128",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 128,
+      "username": "arpita.",
+      "email": "arpita.@student.edu",
+      "firstName": "ARPITA",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 129,
+    "documentId": "doc-129",
+    "studentId": "2023UEE4666",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.63,
+    "phoneNumber": "9000000129",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 129,
+      "username": "sukrit.jha",
+      "email": "sukrit.jha@student.edu",
+      "firstName": "SUKRIT",
+      "lastName": "JHA"
+    }
+  },
+  {
+    "id": 130,
+    "documentId": "doc-130",
+    "studentId": "2023UIN2824",
+    "department": "Information Technology (ITNS)",
+    "major": "ITNS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.629,
+    "phoneNumber": "9000000130",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 130,
+      "username": "suhani.garg",
+      "email": "suhani.garg@student.edu",
+      "firstName": "SUHANI",
+      "lastName": "GARG"
+    }
+  },
+  {
+    "id": 131,
+    "documentId": "doc-131",
+    "studentId": "2023UCB6025",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.629,
+    "phoneNumber": "9000000131",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 131,
+      "username": "madhup.sharma",
+      "email": "madhup.sharma@student.edu",
+      "firstName": "MADHUP",
+      "lastName": "SHARMA"
+    }
+  },
+  {
+    "id": 132,
+    "documentId": "doc-132",
+    "studentId": "2023UCS1677",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.628,
+    "phoneNumber": "9000000132",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 132,
+      "username": "divyansh.ahuja",
+      "email": "divyansh.ahuja@student.edu",
+      "firstName": "DIVYANSH",
+      "lastName": "AHUJA"
+    }
+  },
+  {
+    "id": 133,
+    "documentId": "doc-133",
+    "studentId": "2023UCS1566",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.628,
+    "phoneNumber": "9000000133",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 133,
+      "username": "rudrakshi.bansal",
+      "email": "rudrakshi.bansal@student.edu",
+      "firstName": "RUDRAKSHI",
+      "lastName": "BANSAL"
+    }
+  },
+  {
+    "id": 134,
+    "documentId": "doc-134",
+    "studentId": "2023UCB4524",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.628,
+    "phoneNumber": "9000000134",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 134,
+      "username": "anshivya.nagpal",
+      "email": "anshivya.nagpal@student.edu",
+      "firstName": "ANSHIVYA",
+      "lastName": "NAGPAL"
+    }
+  },
+  {
+    "id": 135,
+    "documentId": "doc-135",
+    "studentId": "2023UIT3026",
+    "department": "Information Technology",
+    "major": "IT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.628,
+    "phoneNumber": "9000000135",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 135,
+      "username": "praneel.majumdar",
+      "email": "praneel.majumdar@student.edu",
+      "firstName": "PRANEEL",
+      "lastName": "MAJUMDAR"
+    }
+  },
+  {
+    "id": 136,
+    "documentId": "doc-136",
+    "studentId": "2023UIN2527",
+    "department": "Information Technology (ITNS)",
+    "major": "ITNS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.628,
+    "phoneNumber": "9000000136",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 136,
+      "username": "avani.agnihotri",
+      "email": "avani.agnihotri@student.edu",
+      "firstName": "AVANI",
+      "lastName": "AGNIHOTRI"
+    }
+  },
+  {
+    "id": 137,
+    "documentId": "doc-137",
+    "studentId": "2023UIN3330",
+    "department": "Information Technology (ITNS)",
+    "major": "ITNS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.627,
+    "phoneNumber": "9000000137",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 137,
+      "username": "shantanu.agarwal",
+      "email": "shantanu.agarwal@student.edu",
+      "firstName": "SHANTANU",
+      "lastName": "AGARWAL"
+    }
+  },
+  {
+    "id": 138,
+    "documentId": "doc-138",
+    "studentId": "2023UCB6019",
+    "department": "Computer Science (CSDA)",
+    "major": "CSDA",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.627,
+    "phoneNumber": "9000000138",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 138,
+      "username": "rohit.singh",
+      "email": "rohit.singh@student.edu",
+      "firstName": "ROHIT",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 139,
+    "documentId": "doc-139",
+    "studentId": "2023UCS1671",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.627,
+    "phoneNumber": "9000000139",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 139,
+      "username": "deepak.goel",
+      "email": "deepak.goel@student.edu",
+      "firstName": "DEEPAK",
+      "lastName": "GOEL"
+    }
+  },
+  {
+    "id": 140,
+    "documentId": "doc-140",
+    "studentId": "2023UIC3510",
+    "department": "Instrumentation and Control Engineering",
+    "major": "ICE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.627,
+    "phoneNumber": "9000000140",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 140,
+      "username": "mishika.agarwal",
+      "email": "mishika.agarwal@student.edu",
+      "firstName": "MISHIKA",
+      "lastName": "AGARWAL"
+    }
+  },
+  {
+    "id": 141,
+    "documentId": "doc-141",
+    "studentId": "2023UEE4658",
+    "department": "Electrical Engineering",
+    "major": "EE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.626,
+    "phoneNumber": "9000000141",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 141,
+      "username": "krishna.gupta",
+      "email": "krishna.gupta@student.edu",
+      "firstName": "KRISHNA",
+      "lastName": "GUPTA"
+    }
+  },
+  {
+    "id": 142,
+    "documentId": "doc-142",
+    "studentId": "2023UEC2592",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.605,
+    "phoneNumber": "9000000142",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 142,
+      "username": "animesh.bhardwaj",
+      "email": "animesh.bhardwaj@student.edu",
+      "firstName": "ANIMESH",
+      "lastName": "BHARDWAJ"
+    }
+  },
+  {
+    "id": 143,
+    "documentId": "doc-143",
+    "studentId": "2023UEA6564",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.605,
+    "phoneNumber": "9000000143",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 143,
+      "username": "mohd.faiz khan",
+      "email": "mohd.faiz khan@student.edu",
+      "firstName": "MOHD FAIZ",
+      "lastName": "KHAN"
+    }
+  },
+  {
+    "id": 144,
+    "documentId": "doc-144",
+    "studentId": "2023UCD2171",
+    "department": "Computer Science (CSDS)",
+    "major": "CSDS",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.605,
+    "phoneNumber": "9000000144",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 144,
+      "username": "priyanshu.",
+      "email": "priyanshu.@student.edu",
+      "firstName": "PRIYANSHU",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 145,
+    "documentId": "doc-145",
+    "studentId": "2023UCS1534",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.604,
+    "phoneNumber": "9000000145",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 145,
+      "username": "tripti.",
+      "email": "tripti.@student.edu",
+      "firstName": "TRIPTI",
+      "lastName": ""
+    }
+  },
+  {
+    "id": 146,
+    "documentId": "doc-146",
+    "studentId": "2023UCI6597",
+    "department": "Computer Science (IoT)",
+    "major": "CIOT",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.604,
+    "phoneNumber": "9000000146",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 146,
+      "username": "raghav.chugh",
+      "email": "raghav.chugh@student.edu",
+      "firstName": "RAGHAV",
+      "lastName": "CHUGH"
+    }
+  },
+  {
+    "id": 147,
+    "documentId": "doc-147",
+    "studentId": "2023UEA7602",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECAM",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.603,
+    "phoneNumber": "9000000147",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 147,
+      "username": "chirag.goyal",
+      "email": "chirag.goyal@student.edu",
+      "firstName": "CHIRAG",
+      "lastName": "GOYAL"
+    }
+  },
+  {
+    "id": 148,
+    "documentId": "doc-148",
+    "studentId": "2023UCS1692",
+    "department": "Computer Science and Engineering",
+    "major": "CSE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.583,
+    "phoneNumber": "9000000148",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 148,
+      "username": "lakshay.tewtiya",
+      "email": "lakshay.tewtiya@student.edu",
+      "firstName": "LAKSHAY",
+      "lastName": "TEWTIYA"
+    }
+  },
+  {
+    "id": 149,
+    "documentId": "doc-149",
+    "studentId": "2023UEC2590",
+    "department": "Electronics and Communication Engineering",
+    "major": "ECE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.583,
+    "phoneNumber": "9000000149",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 149,
+      "username": "harshvardhan.singh",
+      "email": "harshvardhan.singh@student.edu",
+      "firstName": "HARSHVARDHAN",
+      "lastName": "SINGH"
+    }
+  },
+  {
+    "id": 150,
+    "documentId": "doc-150",
+    "studentId": "2023UIC3547",
+    "department": "Instrumentation and Control Engineering",
+    "major": "ICE",
+    "year": "First Year",
+    "semester": 1,
+    "CGPA": 8.583,
+    "phoneNumber": "9000000150",
+    "createdAt": "2023-08-15T09:00:00Z",
+    "updatedAt": "2024-01-10T11:00:00Z",
+    "user": {
+      "id": 150,
+      "username": "rajit.gupta",
+      "email": "rajit.gupta@student.edu",
+      "firstName": "RAJIT",
+      "lastName": "GUPTA"
+    }
+  }
+]
