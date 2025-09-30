@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Notification } from '@/types/notification';
 import { NotificationCard } from './NotificationCard';
 import { Button } from '@/components/ui/button';
@@ -18,38 +18,45 @@ interface NotificationListProps {
 }
 
 export function NotificationList({ universityId, className = "" }: NotificationListProps) {
-  const { user, token } = useAuth();
-  const [notifications, setNotifications] = useState<Notification[]>([]);
-  const [loading, setLoading] = useState(true);
+  // Static notification data
+  const staticNotifications: Notification[] = [
+    {
+      id: "1",
+      title: "Welcome to Edunexi!",
+      description: "Your account has been created successfully.",
+      createdAt: "2025-09-30T09:00:00Z",
+      category: "info",
+      priority: "normal",
+      universityId,
+    },
+    {
+      id: "2",
+      title: "Event Reminder",
+      description: "Don't forget to attend the Science Symposium tomorrow.",
+      createdAt: "2025-10-01T10:00:00Z",
+      category: "event",
+      priority: "high",
+      universityId,
+    },
+    {
+      id: "3",
+      title: "Profile Update Needed",
+      description: "Please update your profile to access new features.",
+      createdAt: "2025-09-29T08:30:00Z",
+      category: "alert",
+      priority: "low",
+      universityId,
+    },
+  ];
+
+  const [notifications, setNotifications] = useState<Notification[]>(staticNotifications);
+  const [loading, setLoading] = useState(false); // No loading for static data
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const fetchNotifications = async () => {
-    try {
-      setLoading(true);
-      setNotifications([]);
-
-      const result = await NotificationService.getNotificationsForUniversity(
-        universityId,
-        token || undefined
-      );
-
-      setNotifications(result);
-      setError(null);
-    } catch (err) {
-      console.error('Error fetching notifications:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load notifications');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchNotifications();
-  }, [universityId]);
-
   const handleRefresh = () => {
-    fetchNotifications();
+    setNotifications(staticNotifications);
+    setError(null);
   };
 
   const filteredNotifications = notifications.filter(notification =>
